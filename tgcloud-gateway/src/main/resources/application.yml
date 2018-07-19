@@ -1,0 +1,34 @@
+server:
+  port: 8070
+spring:
+  profiles:
+    active: @profileActive@
+  application:
+    name: @pom.artifactId@
+info:
+  owner: tigerphz
+  version: @project.version@
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://admin:admin@${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+    instance:
+      # docker 部署开启
+      prefer-ip-address: true
+      status-page-url-path: /actuator/info
+      health-check-url-path: /actuator/health
+      instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+logging:
+  level.root: info
+  path: logs/
+  file: ${spring.application.name}.log
