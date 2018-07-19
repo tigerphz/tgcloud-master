@@ -5,6 +5,25 @@ spring:
     active: @profileActive@
   application:
     name: @pom.artifactId@
+  sleuth:
+    enabled: true
+    http:
+      legacy:
+        enabled: true
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: tgcloud-config
+        uri: lb://tgcloud-config
+        order: 8000
+        predicates:
+        - Path=/test/**
+        filters:
+        - StripPrefix=1
+
 info:
   owner: tigerphz
   version: @project.version@
@@ -32,3 +51,4 @@ logging:
   level.root: info
   path: logs/
   file: ${spring.application.name}.log
+
