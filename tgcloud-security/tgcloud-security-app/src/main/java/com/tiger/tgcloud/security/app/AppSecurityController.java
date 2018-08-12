@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * The class App security controller.
  *
- * @author paascloud.net@gmail.comg
+ * @author
  */
 @RestController
 public class AppSecurityController extends BaseSocialController {

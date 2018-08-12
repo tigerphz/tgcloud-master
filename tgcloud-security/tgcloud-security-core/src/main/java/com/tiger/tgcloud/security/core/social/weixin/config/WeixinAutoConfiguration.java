@@ -19,7 +19,7 @@ import org.springframework.web.servlet.View;
  * @author
  */
 @Configuration
-@ConditionalOnProperty(prefix = "paascloud.security.social.weixin", name = "app-id")
+@ConditionalOnProperty(prefix = "tgcloud.security.social.weixin", name = "app-id")
 public class WeixinAutoConfiguration extends SocialAutoConfigurerAdapter {
 
     @Autowired

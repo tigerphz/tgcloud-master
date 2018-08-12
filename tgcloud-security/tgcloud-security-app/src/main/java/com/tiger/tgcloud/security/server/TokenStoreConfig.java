@@ -23,10 +23,10 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 public class TokenStoreConfig {
 
     /**
-     * 使用redis存储token的配置，只有在paascloud.security.oauth2.tokenStore配置为redis时生效
+     * 使用redis存储token的配置，tgcloud.security.oauth2.tokenStore配置为redis时生效
      */
     @Configuration
-    @ConditionalOnProperty(prefix = "paascloud.security.oauth2", name = "tokenStore", havingValue = "redis")
+    @ConditionalOnProperty(prefix = "tgcloud.security.oauth2", name = "tokenStore", havingValue = "redis")
     public static class RedisConfig {
 
         @Autowired
@@ -50,7 +50,7 @@ public class TokenStoreConfig {
      * @author
      */
     @Configuration
-    @ConditionalOnProperty(prefix = "paascloud.security.oauth2", name = "tokenStore", havingValue = "jwt", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = "tgcloud.security.oauth2", name = "tokenStore", havingValue = "jwt", matchIfMissing = true)
     public static class JwtConfig {
 
         @Autowired
