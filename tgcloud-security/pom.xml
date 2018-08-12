@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>tgcloud-master</artifactId>
+        <groupId>com.tiger.tgcloud</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.tiger.tgcloud.security</groupId>
+    <artifactId>tgcloud-security</artifactId>
+    <packaging>pom</packaging>
+
+    <name>tgcloud-security</name>
+
+    <modules>
+        <module>tgcloud-security-authorizationserver</module>
+        <module>tgcloud-security-core</module>
+        <module>tgcloud-security-app</module>
+    </modules>
+
+</project>

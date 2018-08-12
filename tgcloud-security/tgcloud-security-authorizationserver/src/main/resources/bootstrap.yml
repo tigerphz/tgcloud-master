@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    config:
+          uri: http://${CONFIG_HOST:localhost}:${CONFIG_PORT:8080}/
+          label: master
+          profile: ${spring.profiles.active:dev}
+    inetutils:
+      ignoredInterfaces: #网卡忽略列表
+        - docker0
+        - veth.*
+        - VM.*
+      preferredNetworks:
+        - 192.168

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.tiger.tgcloud.config</groupId>
+    <groupId>com.tiger.tgcloud.security.config</groupId>
     <artifactId>tgcloud-config</artifactId>
     <packaging>jar</packaging>
 

@@ -16,8 +16,8 @@ spring:
         locator:
           enabled: true
       routes:
-      - id: tgcloud-config
-        uri: lb://tgcloud-config
+      - id: tgcloud-properties
+        uri: lb://tgcloud-properties
         order: 8000
         predicates:
         - Path=/test/**

@@ -1,0 +1,83 @@
+server:
+  port: 8999
+spring:
+  profiles:
+    active: @profileActive@
+  application:
+    name: @pom.artifactId@
+  datasource:
+    url: jdbc:mysql://localhost:3306/tgcloud?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    username: tiger
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计   ，'wall'用于防火墙
+    filters: stat,wall,slf4j
+    druid:
+      # 初始化大小，最小，最大
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-milli: 300000
+      web-stat-filter:
+              exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+      # Oracle请使用select 1 from dual
+      validation-query: SELECT 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+  security:
+    user:
+      name: admin
+      password: admin
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://admin:admin@${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+    instance:
+      # docker 部署开启
+      prefer-ip-address: true
+      status-page-url-path: /actuator/info
+      health-check-url-path: /actuator/health
+      instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+logging:
+  level.root: info
+  path: logs/
+  file: ${spring.application.name}.log
+tgcloud:
+  enableSqlLogInterceptor: false
+  token:
+    interceptor:
+      enable: true
+  oauth2:
+    jwtSigningKey: tgcloud
+    client:
+      id: ${security.oauth2.resource.id}
+      accessTokenUrl: ${security.oauth2.client.access-token-uri}
+      clientId: ${security.oauth2.client.clientId}
+      clientSecret: ${security.oauth2.client.clientSecret}
+      clientAuthenticationScheme: header
+  security:
+    oauth2:
+      storeType: jwt # redis jwt
+      clients[0]:
+        clientId: tgcloud-system-admin
+        clientSecret: tgcloudSystemSecret
+        accessTokenValidateSeconds: 7200
+        scope: "*"

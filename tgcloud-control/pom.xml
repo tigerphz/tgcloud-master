@@ -17,5 +17,6 @@
 
     <modules>
         <module>tgcloud-monitor</module>
+        <module>tgcloud-zipkin</module>
     </modules>
 </project>
