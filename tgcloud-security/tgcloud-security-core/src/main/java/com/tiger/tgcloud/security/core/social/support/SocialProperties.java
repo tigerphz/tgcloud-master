@@ -1,5 +1,7 @@
 package com.tiger.tgcloud.security.core.social.support;
 
+import lombok.Data;
+
 /**
  * @description:
  * @author: tiger
@@ -7,6 +9,7 @@ package com.tiger.tgcloud.security.core.social.support;
  * @version: V1.0
  * @modified by:
  */
+@Data
 public abstract class SocialProperties {
 
     /**
@@ -18,21 +21,5 @@ public abstract class SocialProperties {
      * Application secret.
      */
     private String appSecret;
-
-    public String getAppId() {
-        return this.appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public String getAppSecret() {
-        return this.appSecret;
-    }
-
-    public void setAppSecret(String appSecret) {
-        this.appSecret = appSecret;
-    }
 
 }

@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurity
  * @modified by:
  */
 @Configuration
-public class SecurityExpressionHandler extends OAuth2WebSecurityExpressionHandler {
+public class PcSecurityExpressionHandler extends OAuth2WebSecurityExpressionHandler {
     @Bean
     public OAuth2WebSecurityExpressionHandler oAuth2WebSecurityExpressionHandler(ApplicationContext applicationContext) {
         OAuth2WebSecurityExpressionHandler expressionHandler = new OAuth2WebSecurityExpressionHandler();

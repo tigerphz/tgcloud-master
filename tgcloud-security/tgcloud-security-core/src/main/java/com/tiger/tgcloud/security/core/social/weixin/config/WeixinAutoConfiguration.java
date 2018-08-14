@@ -38,7 +38,7 @@ public class WeixinAutoConfiguration extends SocialAutoConfigurerAdapter {
     }
 
     /**
-     * Weixin connected view view.
+     * Weixin connected view view. connect/qqConnect：解绑视图  connect/qqConnected：绑定视图
      *
      * @return the view
      */
