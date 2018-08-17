@@ -47,8 +47,10 @@ public class RestClientDetailsServiceImpl implements ClientDetailsService {
                 builder.withClient(client.getClientId())
                         .secret(client.getClientSecret())
                         .authorizedGrantTypes("refresh_token", "password", "client_credentials")
+                        //发出令牌有效期
                         .accessTokenValiditySeconds(client.getAccessTokenValidateSeconds())
                         .refreshTokenValiditySeconds(client.getRefreshTokenValiditySeconds())
+                        //权限
                         .scopes(client.getScope());
             }
         }
