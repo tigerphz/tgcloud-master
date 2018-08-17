@@ -33,7 +33,7 @@ public class ValidateCodeController {
      * @param type     the type
      * @throws Exception the exception
      */
-    @PostMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{type}")
+    @GetMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{type}")
     public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type) throws Exception {
         validateCodeProcessorHolder.findValidateCodeProcessor(type).create(new ServletWebRequest(request, response));
     }
@@ -46,7 +46,7 @@ public class ValidateCodeController {
      * @param type     the type
      * @return the object
      */
-    @GetMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{type}")
+    @PostMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{type}")
     public Object checkCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type) {
         SecurityResult result = new SecurityResult(SecurityResult.SUCCESS_CODE, "校验成功", true);
         try {

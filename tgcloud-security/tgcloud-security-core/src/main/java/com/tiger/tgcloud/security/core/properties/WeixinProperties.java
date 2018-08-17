@@ -2,7 +2,6 @@ package com.tiger.tgcloud.security.core.properties;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import com.tiger.tgcloud.security.core.social.support.SocialProperties;
 
 /**

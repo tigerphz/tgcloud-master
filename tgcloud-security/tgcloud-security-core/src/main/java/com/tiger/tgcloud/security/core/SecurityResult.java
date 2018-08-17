@@ -1,5 +1,7 @@
 package com.tiger.tgcloud.security.core;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -9,6 +11,8 @@ import org.apache.commons.lang3.StringUtils;
  * @version: V1.0
  * @modified by:
  */
+@Data
+@NoArgsConstructor
 public class SecurityResult {
 
     /**

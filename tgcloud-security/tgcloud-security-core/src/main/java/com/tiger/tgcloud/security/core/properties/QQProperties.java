@@ -1,9 +1,8 @@
 package com.tiger.tgcloud.security.core.properties;
 
-import com.tiger.tgcloud.security.core.social.support.SocialProperties;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import com.tiger.tgcloud.security.core.social.support.SocialProperties;
 
 /**
  * QQ登录配置项

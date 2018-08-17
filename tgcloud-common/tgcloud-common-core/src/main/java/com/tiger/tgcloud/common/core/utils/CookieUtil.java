@@ -1,4 +1,4 @@
-package com.tiger.tgcloud.security.core.validate.code;
+package com.tiger.tgcloud.common.core.utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
