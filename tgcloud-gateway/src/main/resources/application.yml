@@ -16,11 +16,11 @@ spring:
         locator:
           enabled: true
       routes:
-      - id: tgcloud-properties
-        uri: lb://tgcloud-properties
+      - id: tgcloud-security-authorizationserver
+        uri: lb://tgcloud-security-authorizationserver
         order: 8000
         predicates:
-        - Path=/test/**
+        - Path=/aus/**
         filters:
         - StripPrefix=1
 
