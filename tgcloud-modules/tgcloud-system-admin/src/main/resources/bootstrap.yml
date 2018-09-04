@@ -1,24 +1,15 @@
 spring:
   cloud:
     config:
-          uri: http://${CONFIG_HOST:localhost}:${CONFIG_PORT:8080}/
-          label: master
-          profile: ${spring.profiles.active:dev}
+      uri: http://${CONFIG_HOST:localhost}:${CONFIG_PORT:8080}/
+      label: master
+      profile: ${spring.profiles.active:dev}
     inetutils:
-      ignoredInterfaces: #网卡忽略列表
+      ignoredInterfaces:
         - docker0
         - veth.*
         - VM.*
-      preferredNetworks:
-        - 192.168
-  devtools:
-    restart:
-      #热部署生效
-      enabled: true
-      #设置重启的目录
-      #additional-paths: src/main/java
-      #classpath目录下的WEB-INF文件夹内容修改不重启
-      #exclude: WEB-INF/**
+
   security:
     user:
       name: admin
@@ -43,15 +34,15 @@ eureka:
       status-page-url-path: /actuator/info
       health-check-url-path: /actuator/health
       instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
-
 security:
   oauth2:
     client:
-      clientId: tgcloud-security-authorizationserver
+      clientId: tgcloud-system-admin
       clientSecret: tgcloudClientSecret
       access-token-uri: http://${GATEWAY_HOST:localhost}:${GATEWAY_PORT:7979}/aus/oauth/token
       user-authorization-uri: http://${GATEWAY_HOST:localhost}:${GATEWAY_PORT:7979}/aus/oauth/authorize
     resource:
-      id: tgcloud-security-authorizationserver
-      #filter-order: 3
-
+      user-info-uri: http://localhost:8999/user
+      prefer-token-info: false
+      jwt:
+        key-uri: http://localhost:8999/oauth/token_key

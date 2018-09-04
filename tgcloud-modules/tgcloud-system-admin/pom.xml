@@ -12,5 +12,14 @@
     <artifactId>tgcloud-system-admin</artifactId>
 
     <name>tgcloud-system-admin</name>
+    <description>权限管理中心</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.tiger.tgcloud.security</groupId>
+            <artifactId>tgcloud-security-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
