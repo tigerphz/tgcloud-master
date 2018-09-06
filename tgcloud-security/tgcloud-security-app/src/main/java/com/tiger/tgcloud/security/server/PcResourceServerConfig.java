@@ -74,7 +74,8 @@ public class PcResourceServerConfig extends ResourceServerConfigurerAdapter {
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
         tokenRepository.setDataSource(dataSource);
-//		tokenRepository.setCreateTableOnStartup(true); // 第一次启动创建
+        // 第一次启动创建
+        //tokenRepository.setCreateTableOnStartup(true);
         return tokenRepository;
     }
 

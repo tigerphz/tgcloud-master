@@ -34,6 +34,20 @@ eureka:
       status-page-url-path: /actuator/info
       health-check-url-path: /actuator/health
       instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+mybatis:
+  type-aliases-package: com.tgcloud.provider.model.domain
+  mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+mapper:
+  mappers: com.tiger.tgcloud.common.core.mybatis.MyMapper
+  not-empty: false
+  identity: MYSQL
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
 security:
   oauth2:
     client:
@@ -41,8 +55,38 @@ security:
       clientSecret: tgcloudClientSecret
       access-token-uri: http://${GATEWAY_HOST:localhost}:${GATEWAY_PORT:7979}/aus/oauth/token
       user-authorization-uri: http://${GATEWAY_HOST:localhost}:${GATEWAY_PORT:7979}/aus/oauth/authorize
+      clientAuthenticationScheme: header
     resource:
       user-info-uri: http://localhost:8999/user
       prefer-token-info: false
       jwt:
         key-uri: http://localhost:8999/oauth/token_key
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+ribbon:
+  eager-load:
+    enabled: true
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  OkToRetryOnAllOperations: false
+  ConnectTimeout: 60000
+  ReadTimeout: 20000
+hystrix:
+  propagate:
+    request-attribute:
+      enabled: true
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
