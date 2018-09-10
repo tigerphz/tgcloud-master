@@ -40,7 +40,7 @@ public class OAuth2FeignAutoConfiguration {
      *
      * @return the client credentials resource details
      */
-    @Bean("paascloudClientCredentialsResourceDetails")
+    @Bean("tgcloudClientCredentialsResourceDetails")
     public ClientCredentialsResourceDetails resourceDetails() {
         ClientCredentialsResourceDetails details = new ClientCredentialsResourceDetails();
         details.setId(oauth2ClientProperties.getId());
@@ -56,7 +56,7 @@ public class OAuth2FeignAutoConfiguration {
      *
      * @return the o auth 2 rest template
      */
-    @Bean("paascloudOAuth2RestTemplate")
+    @Bean("tgcloudOAuth2RestTemplate")
     public OAuth2RestTemplate oAuth2RestTemplate() {
         final OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(resourceDetails(), new DefaultOAuth2ClientContext());
         oAuth2RestTemplate.setRequestFactory(new Netty4ClientHttpRequestFactory());
@@ -71,7 +71,7 @@ public class OAuth2FeignAutoConfiguration {
      * @return the request interceptor
      */
     @Bean
-    public RequestInterceptor oauth2FeignRequestInterceptor(@Qualifier("paascloudOAuth2RestTemplate") OAuth2RestTemplate oAuth2RestTemplate) {
+    public RequestInterceptor oauth2FeignRequestInterceptor(@Qualifier("tgcloudOAuth2RestTemplate") OAuth2RestTemplate oAuth2RestTemplate) {
         return new OAuth2FeignRequestInterceptor(oAuth2RestTemplate);
     }
 

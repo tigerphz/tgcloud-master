@@ -3,7 +3,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/paascloud/paascloud-config-repo.git
+          uri: https://github.com/tigerphz/tgcloud-config-repo.git
           username:
           password:
           search-paths: /*
@@ -16,8 +16,8 @@ spring:
 
 # 生成证书 keytool -genkeypair -alias tgcloud-alias -keyalg RSA -dname "CN=Web Server,OU=China,O=www.howardliu.cn,L=Beijing,S=Beijing,C=China" -keypass tgcloud-keypass -keystore config-service.jks -storepass tgcloud-storepass
 # 查看加解密服务状态 http://localhost:8888/encrypt/status
-# 加密文字 curl http://localhost:8080/encrypt -d mysercet
-# 解密文字 curl http://localhost:8080/decrypt -d AQBQAjIx9ys6oIuNJDYxob1NBD2G8JUdTE62o8IWF36su/DKhBwtTdA68uPFe84JEGhn9fvjtQEj1D9fl0W5aENYivBvI4ztEsGaW+bQAzystmTqGKYMVFUi8424Yeum6GMdBcqkYpn
+# 加密文字 curl http://localhost:8090/encrypt -d mysercet
+# 解密文字 curl http://localhost:8090/decrypt -d AQBQAjIx9ys6oIuNJDYxob1NBD2G8JUdTE62o8IWF36su/DKhBwtTdA68uPFe84JEGhn9fvjtQEj1D9fl0W5aENYivBvI4ztEsGaW+bQAzystmTqGKYMVFUi8424Yeum6GMdBcqkYpn
                                         #JUFh7V2USX4FI+oNG8p/DduTw1y7Rac6IvIUXpbz7EL1kupU3I5kUyFb7ec+nTIDBC94Mkr5NkwDR04u/tl21+RE7J7qU6UTFc8vH9bABo7zfmI4InEDxRvwJncSz5TiGzI+3jG3hSW
                                         #qPa2gDSaSY6/2QmZHkrzod4J4/kqmJXRxzzpJbDwHwFRKsxl9wKxIVDLhndQIpzcmVZeSpxouqQp3AUXa6ZcgwKE2o8LsM0Ew7t9MZT/KhFFM=%
 

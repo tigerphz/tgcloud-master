@@ -1,10 +1,15 @@
 server:
-  port: 8080
+  port: 8090
 spring:
   profiles:
     active: @profileActive@
   application:
     name: @pom.artifactId@
+  security:
+    user:
+      name: admin
+      password: admin
+
 info:
   owner: tigerphz
   version: @project.version@
