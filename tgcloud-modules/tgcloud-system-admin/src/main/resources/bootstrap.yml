@@ -10,11 +10,6 @@ spring:
         - veth.*
         - VM.*
 
-  security:
-    user:
-      name: admin
-      password: admin
-
 management:
   endpoints:
     web:
@@ -35,7 +30,7 @@ eureka:
       health-check-url-path: /actuator/health
       instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
 mybatis:
-  type-aliases-package: com.tgcloud.provider.model.domain
+  type-aliases-package: com.tgcloud.modules.model.domain
   mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true

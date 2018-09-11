@@ -5,6 +5,10 @@ spring:
     name: @pom.artifactId@
   profiles:
     active: @profileActive@
+  security:
+    user:
+      name: admin
+      password: admin
   redis:
     host: localhost
     port: 6379
