@@ -71,7 +71,7 @@ tgcloud:
       clientAuthenticationScheme: header
   security:
     oauth2:
-      tokenStore: redis # redis jwt
+      tokenStore: jwt # redis jwt
       clients[0]:
         clientId: tgcloud-system-admin
         clientSecret: tgcloudSystemSecret
