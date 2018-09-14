@@ -36,6 +36,7 @@ spring:
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true #可以通过小写的服务名称进行访问了
       routes:
       - id: tgcloud-security-authorizationserver
         uri: lb://tgcloud-security-authorizationserver
@@ -51,10 +52,10 @@ spring:
         - Path=/admin/**
         filters:
         - StripPrefix=1
-  security:
-    user:
-      name: admin
-      password: admin
+#  security:
+#    user:
+#      name: admin
+#      password: admin
 
 info:
   owner: tigerphz
