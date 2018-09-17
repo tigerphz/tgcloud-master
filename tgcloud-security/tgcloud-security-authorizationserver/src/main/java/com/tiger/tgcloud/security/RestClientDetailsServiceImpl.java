@@ -30,6 +30,9 @@ public class RestClientDetailsServiceImpl implements ClientDetailsService {
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     /**
      * Init.
      * Oauth支持的5类 grant_type 及说明
@@ -45,7 +48,8 @@ public class RestClientDetailsServiceImpl implements ClientDetailsService {
         if (ArrayUtils.isNotEmpty(securityProperties.getOauth2().getClients())) {
             for (OAuth2ClientProperties client : securityProperties.getOauth2().getClients()) {
                 builder.withClient(client.getClientId())
-                        .secret(client.getClientSecret())
+                        //必须密码加密
+                        .secret(passwordEncoder.encode(client.getClientSecret()))
                         .authorizedGrantTypes("refresh_token", "password", "client_credentials")
                         //发出令牌有效期
                         .accessTokenValiditySeconds(client.getAccessTokenValidateSeconds())

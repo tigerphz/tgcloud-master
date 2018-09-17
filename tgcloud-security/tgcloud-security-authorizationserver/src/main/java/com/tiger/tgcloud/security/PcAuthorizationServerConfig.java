@@ -71,8 +71,11 @@ public class PcAuthorizationServerConfig extends AuthorizationServerConfigurerAd
         // 你可以注入一个标准的 SpEL 表达式到 AuthorizationServerSecurityConfigurer
         // 这个配置中来将它开启（例如使用"permitAll()"来开启可能比较合适，
         // 因为它是一个公共密钥）。
-        security.tokenKeyAccess("permitAll()");
-        security.allowFormAuthenticationForClients();
+        //url:/oauth/token_key,exposes public key for token verification if using JWT tokens
+        security.tokenKeyAccess("permitAll()")
+                //url:/oauth/check_token allow check token
+                .checkTokenAccess("isAuthenticated()")
+                .allowFormAuthenticationForClients();
     }
 
     /**
