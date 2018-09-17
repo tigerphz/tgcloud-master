@@ -65,14 +65,27 @@ feign:
       default:
         connectTimeout: 5000
         readTimeout: 5000
+#// 这里获取了四个参数，ReadTimeout，ConnectTimeout，MaxAutoRetries， MaxAutoRetriesNextServer
+#        int ribbonReadTimeout = getTimeout(config, commandKey, "ReadTimeout",
+#            IClientConfigKey.Keys.ReadTimeout, RibbonClientConfiguration.DEFAULT_READ_TIMEOUT);
+#        int ribbonConnectTimeout = getTimeout(config, commandKey, "ConnectTimeout",
+#            IClientConfigKey.Keys.ConnectTimeout, RibbonClientConfiguration.DEFAULT_CONNECT_TIMEOUT);
+#        int maxAutoRetries = getTimeout(config, commandKey, "MaxAutoRetries",
+#            IClientConfigKey.Keys.MaxAutoRetries, DefaultClientConfigImpl.DEFAULT_MAX_AUTO_RETRIES);
+#        int maxAutoRetriesNextServer = getTimeout(config, commandKey, "MaxAutoRetriesNextServer",
+#            IClientConfigKey.Keys.MaxAutoRetriesNextServer, DefaultClientConfigImpl.DEFAULT_MAX_AUTO_RETRIES_NEXT_SERVER);
+#        // 原来ribbonTimeout的计算方法在这里，以上文的设置为例
+#        // ribbonTimeout = (50000 + 50000) * (0 + 1) * (1 + 1) = 200000
+#        ribbonTimeout = (ribbonReadTimeout + ribbonConnectTimeout) * (maxAutoRetries + 1) * (maxAutoRetriesNextServer + 1);
+#ribbonTimeout 是最终ribbon的过期时间 这个时间应该比hystrix的过期时间要长
 ribbon:
   eager-load:
     enabled: true
   MaxAutoRetries: 1
   MaxAutoRetriesNextServer: 2
   OkToRetryOnAllOperations: false
-  ConnectTimeout: 60000
-  ReadTimeout: 20000
+  ConnectTimeout: 10000
+  ReadTimeout: 10000
 hystrix:
   propagate:
     request-attribute:
@@ -84,4 +97,4 @@ hystrix:
           enabled: true
         isolation:
           thread:
-            timeoutInMilliseconds: 20000
+            timeoutInMilliseconds: 120000

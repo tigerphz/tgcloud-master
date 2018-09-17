@@ -61,6 +61,10 @@ spring:
           name: @pom.artifactId@
           #客户端是否提供本机真实ip
           prefer-ip: true
+  security:
+    user:
+      name: admin
+      password: admin
 
 #客户端版本号，在监控中心显示
 info:
