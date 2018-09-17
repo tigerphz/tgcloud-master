@@ -7,15 +7,17 @@ spring:
     active:
       - @profileActive@
       - secure
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: ALWAYS
+  boot:
+    admin:
+      client:
+        #如果Admin端设置了用户名密码访问，你也需要在客户端配置它们
+        username: admin
+        password: admin
+        instance:
+          #当前应用程序名字
+          name: @pom.artifactId@
+          #客户端是否提供本机真实ip
+          prefer-ip: true
 
 info:
   owner: tigerphz

@@ -23,6 +23,7 @@
         <module>tgcloud-security</module>
         <module>tgcloud-common</module>
         <module>tgcloud-modules</module>
+        <module>tgcloud-gateway-zuul</module>
     </modules>
 
     <developers>

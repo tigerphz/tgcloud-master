@@ -52,7 +52,7 @@ security:
       user-authorization-uri: http://${GATEWAY_HOST:localhost}:${GATEWAY_PORT:7979}/aus/oauth/authorize
       clientAuthenticationScheme: header
     resource:
-      user-info-uri: http://localhost:8999/user
+      user-info-uri: http://${GATEWAY_HOST:localhost}:${GATEWAY_PORT:7979}/aus/user
       prefer-token-info: false
       jwt:
         key-uri: http://localhost:8999/oauth/token_key

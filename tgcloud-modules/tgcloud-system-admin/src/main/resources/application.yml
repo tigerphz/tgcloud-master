@@ -5,10 +5,6 @@ spring:
     name: @pom.artifactId@
   profiles:
     active: @profileActive@
-  security:
-    user:
-      name: admin
-      password: admin
   redis:
     host: localhost
     port: 6379
@@ -54,6 +50,22 @@ spring:
       # 打开PSCache，并且指定每个连接上PSCache的大小
       pool-prepared-statements: true
       max-pool-prepared-statement-per-connection-size: 20
+  boot:
+    admin:
+      client:
+        #如果Admin端设置了用户名密码访问，你也需要在客户端配置它们
+        username: admin
+        password: admin
+        instance:
+          #当前应用程序名字
+          name: @pom.artifactId@
+          #客户端是否提供本机真实ip
+          prefer-ip: true
+
+#客户端版本号，在监控中心显示
+info:
+  owner: tigerphz
+  version: @project.version@
 
 logging:
   level.root: info
@@ -70,3 +82,4 @@ tgcloud:
       clientSecret: ${security.oauth2.client.clientSecret}
       clientAuthenticationScheme: header
       tokenStore: jwt
+  enableSqlLogInterceptor: false

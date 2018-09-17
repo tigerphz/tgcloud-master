@@ -19,10 +19,6 @@ spring:
       #additional-paths: src/main/java
       #classpath目录下的WEB-INF文件夹内容修改不重启
       #exclude: WEB-INF/**
-  security:
-    user:
-      name: admin
-      password: admin
 
 management:
   endpoints:

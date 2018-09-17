@@ -1,0 +1,33 @@
+package com.tiger.tgcloud.gateway.config;
+
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+/**
+ * @description:
+ * @author: tiger
+ * @date: 2018/9/14 20:30
+ * @version: V1.0
+ * @modified by:
+ */
+@Configuration
+@EnableOAuth2Sso
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    /**
+     * Configure.
+     *
+     * @param http the http
+     * @throws Exception the exception
+     */
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http.csrf().disable();
+
+
+    }
+
+}

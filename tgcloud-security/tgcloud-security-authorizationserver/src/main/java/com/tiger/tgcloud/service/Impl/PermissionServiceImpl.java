@@ -20,6 +20,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public boolean hasPermission(Authentication authentication, HttpServletRequest request) {
+        log.info("调用:PermissionServiceImpl.permissionService");
         return true;
     }
 }
