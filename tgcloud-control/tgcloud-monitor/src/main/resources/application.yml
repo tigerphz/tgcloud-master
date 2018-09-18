@@ -7,17 +7,6 @@ spring:
     active:
       - @profileActive@
       - secure
-  boot:
-    admin:
-      client:
-        #如果Admin端设置了用户名密码访问，你也需要在客户端配置它们
-        username: admin
-        password: admin
-        instance:
-          #当前应用程序名字
-          name: @pom.artifactId@
-          #客户端是否提供本机真实ip
-          prefer-ip: true
 
 info:
   owner: tigerphz
@@ -54,12 +43,23 @@ spring:
   boot:
       admin:
         client:
+          #如果Admin端设置了用户名密码访问，你也需要在客户端配置它们
           username: ${spring.security.user.name}       #These two are needed so that the client
           password: ${spring.security.user.password}   #can register at the protected server api
+        instance:
+          #当前应用程序名字
+          name: @pom.artifactId@
+          #客户端是否提供本机真实ip
+          prefer-ip: true
 # 注册给eureka的时候告诉eureka自己的密码
 eureka:
   instance:
     metadata-map:
       user.name: ${spring.security.user.name}         #These two are needed so that the server
       user.password: ${spring.security.user.password} #can access the protected client endpoints
+
+turbine:
+  app-config: tgcloud-gateway-zuul #收集监控信息的服务名
+  combine-host-port: true
+  cluster-name-expression: new String('default') #集群名称
 
