@@ -17,7 +17,7 @@ import org.springframework.security.oauth2.common.AuthenticationScheme;
 /**
  * The class O auth 2 feign auto configuration.
  *
- * @author paascloud.net @gmail.com
+ * @author tgcloud.net @gmail.com
  */
 @Configuration
 @EnableConfigurationProperties(Oauth2ClientProperties.class)

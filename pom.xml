@@ -20,10 +20,11 @@
         <module>tgcloud-config</module>
         <module>tgcloud-control</module>
         <module>tgcloud-gateway</module>
+        <module>tgcloud-gateway-zuul</module>
         <module>tgcloud-security</module>
         <module>tgcloud-common</module>
         <module>tgcloud-modules</module>
-        <module>tgcloud-gateway-zuul</module>
+        <module>tgcloud-modules-api</module>
     </modules>
 
     <developers>
@@ -65,6 +66,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <kaptcha.version>2.3.2</kaptcha.version>
+        <modelmapper.version>2.2.0</modelmapper.version>
     </properties>
 
     <dependencies>
@@ -142,6 +144,11 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-client</artifactId>
                 <version>${boot.admin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.modelmapper</groupId>
+                <artifactId>modelmapper</artifactId>
+                <version>${modelmapper.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis.generator</groupId>

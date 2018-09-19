@@ -1,4 +1,4 @@
-package com.tiger.tgcloud.common.base.entitys;
+package com.tiger.tgcloud.common.base.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

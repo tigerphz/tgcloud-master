@@ -1,4 +1,4 @@
-package com.tiger.tgcloud.config;
+package com.tiger.tgcloud.admin.config;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;

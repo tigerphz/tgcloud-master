@@ -1,4 +1,4 @@
-package com.tiger.tgcloud.config;
+package com.tiger.tgcloud.admin.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

@@ -77,6 +77,9 @@ logging:
   file: ${spring.application.name}.log
 
 tgcloud:
+  swagger:
+    title: @pom.artifactId@
+    description: @pom.description@
   oauth2:
     jwtSigningKey: tgcloud
     client:
@@ -87,3 +90,8 @@ tgcloud:
       clientAuthenticationScheme: header
       tokenStore: jwt
   enableSqlLogInterceptor: false
+
+# Twitter_Snowflake 配置
+snowflakeid:
+  workerId: 0
+  datacenterId: 0

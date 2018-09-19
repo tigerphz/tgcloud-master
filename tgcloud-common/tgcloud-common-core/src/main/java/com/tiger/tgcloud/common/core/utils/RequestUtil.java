@@ -1,7 +1,7 @@
 package com.tiger.tgcloud.common.core.utils;
 
 import com.tiger.tgcloud.common.base.constant.GlobalConstant;
-import com.tiger.tgcloud.common.base.entitys.LoginAuthDto;
+import com.tiger.tgcloud.common.base.dto.LoginAuthDto;
 import com.tiger.tgcloud.common.base.enums.ErrorCodeEnum;
 import com.tiger.tgcloud.common.base.exception.BusinessException;
 import com.tiger.tgcloud.common.utils.PublicUtil;

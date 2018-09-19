@@ -2,7 +2,7 @@ package com.tiger.tgcloud.common.core.mybatis;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tiger.tgcloud.common.base.entitys.LoginAuthDto;
+import com.tiger.tgcloud.common.base.dto.LoginAuthDto;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 

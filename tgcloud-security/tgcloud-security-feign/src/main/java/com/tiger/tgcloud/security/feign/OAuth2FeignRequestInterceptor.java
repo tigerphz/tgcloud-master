@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
 /**
  * The class O auth 2 feign request interceptor.
  *
- * @author paascloud.net @gmail.com
+ * @author tgcloud.net @gmail.com
  */
 @Slf4j
 public class OAuth2FeignRequestInterceptor implements RequestInterceptor {

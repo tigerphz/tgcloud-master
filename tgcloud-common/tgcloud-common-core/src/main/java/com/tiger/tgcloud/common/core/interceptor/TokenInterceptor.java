@@ -1,8 +1,8 @@
 package com.tiger.tgcloud.common.core.interceptor;
 
 import com.tiger.tgcloud.common.base.constant.GlobalConstant;
-import com.tiger.tgcloud.common.base.entitys.LoginAuthDto;
-import com.tiger.tgcloud.common.base.entitys.UserTokenDto;
+import com.tiger.tgcloud.common.base.dto.LoginAuthDto;
+import com.tiger.tgcloud.common.base.dto.UserTokenDto;
 import com.tiger.tgcloud.common.core.annotation.NoNeedAccessAuthentication;
 import com.tiger.tgcloud.common.utils.RedisKeyUtil;
 import com.tiger.tgcloud.common.utils.ThreadLocalMap;
