@@ -1,7 +1,7 @@
 package com.tiger.tgcloud.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tiger.tgcloud.common.utils.wrapper.WrapMapper;
+import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;

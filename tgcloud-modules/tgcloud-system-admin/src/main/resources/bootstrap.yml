@@ -35,7 +35,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 mapper:
-  mappers: com.tiger.tgcloud.common.core.mybatis.MyMapper
+  mappers: com.tiger.tgcloud.core.mybatis.MyMapper
   not-empty: false
   identity: MYSQL
 pagehelper:

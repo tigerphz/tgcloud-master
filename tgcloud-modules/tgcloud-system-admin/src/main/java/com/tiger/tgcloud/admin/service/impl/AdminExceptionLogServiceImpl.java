@@ -7,14 +7,11 @@ import com.tiger.tgcloud.admin.mapper.AdminExceptionLogMapper;
 import com.tiger.tgcloud.admin.model.domain.AdminExceptionLog;
 import com.tiger.tgcloud.admin.model.dto.AdminExceptionQueryDto;
 import com.tiger.tgcloud.admin.service.AdminExceptionLogService;
-import com.tiger.tgcloud.common.base.constant.GlobalConstant;
-import com.tiger.tgcloud.common.core.support.BaseService;
+import com.tiger.tgcloud.core.support.BaseService;
 import org.modelmapper.ModelMapper;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 

@@ -4,7 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.admin.api.model.dto.GlobalExceptionLogDto;
 import com.tiger.tgcloud.admin.model.domain.AdminExceptionLog;
 import com.tiger.tgcloud.admin.model.dto.AdminExceptionQueryDto;
-import com.tiger.tgcloud.common.core.support.IService;
+import com.tiger.tgcloud.core.support.IService;
 
 /**
  * @description:

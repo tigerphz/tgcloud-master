@@ -2,7 +2,7 @@ package com.tiger.tgcloud.admin.api.service.hystrix;
 
 import com.tiger.tgcloud.admin.api.model.dto.GlobalExceptionLogDto;
 import com.tiger.tgcloud.admin.api.service.AdminExceptionLogFeignApi;
-import com.tiger.tgcloud.common.utils.wrapper.Wrapper;
+import com.tiger.tgcloud.utils.wrapper.Wrapper;
 import org.springframework.stereotype.Component;
 
 /**

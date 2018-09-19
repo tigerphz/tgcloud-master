@@ -2,7 +2,7 @@ package com.tiger.tgcloud.admin.mapper;
 
 import com.tiger.tgcloud.admin.model.domain.AdminExceptionLog;
 import com.tiger.tgcloud.admin.model.dto.AdminExceptionQueryDto;
-import com.tiger.tgcloud.common.core.mybatis.MyMapper;
+import com.tiger.tgcloud.core.mybatis.MyMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

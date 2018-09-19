@@ -1,7 +1,7 @@
 package com.tiger.tgcloud.admin.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.tiger.tgcloud.common.base.dto.BaseQuery;
+import com.tiger.tgcloud.base.dto.BaseQuery;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

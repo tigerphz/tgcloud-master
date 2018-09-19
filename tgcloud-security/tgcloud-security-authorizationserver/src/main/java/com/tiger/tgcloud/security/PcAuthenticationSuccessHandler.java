@@ -1,8 +1,8 @@
 package com.tiger.tgcloud.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tiger.tgcloud.common.core.utils.RequestUtil;
-import com.tiger.tgcloud.common.utils.wrapper.WrapMapper;
+import com.tiger.tgcloud.core.utils.RequestUtil;
+import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import com.tiger.tgcloud.security.core.SecurityUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;

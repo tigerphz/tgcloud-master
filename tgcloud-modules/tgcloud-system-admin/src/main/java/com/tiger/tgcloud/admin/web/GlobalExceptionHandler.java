@@ -2,10 +2,10 @@ package com.tiger.tgcloud.admin.web;
 
 import com.tiger.tgcloud.admin.api.model.dto.GlobalExceptionLogDto;
 import com.tiger.tgcloud.admin.api.service.AdminExceptionLogFeignApi;
-import com.tiger.tgcloud.common.base.enums.ErrorCodeEnum;
-import com.tiger.tgcloud.common.base.exception.BusinessException;
-import com.tiger.tgcloud.common.utils.wrapper.WrapMapper;
-import com.tiger.tgcloud.common.utils.wrapper.Wrapper;
+import com.tiger.tgcloud.base.enums.ErrorCodeEnum;
+import com.tiger.tgcloud.base.exception.BusinessException;
+import com.tiger.tgcloud.utils.wrapper.WrapMapper;
+import com.tiger.tgcloud.utils.wrapper.Wrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.task.TaskExecutor;

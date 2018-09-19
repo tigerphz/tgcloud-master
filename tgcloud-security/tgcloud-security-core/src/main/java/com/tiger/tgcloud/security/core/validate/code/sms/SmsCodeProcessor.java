@@ -1,7 +1,7 @@
 package com.tiger.tgcloud.security.core.validate.code.sms;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tiger.tgcloud.common.utils.RedisKeyUtil;
+import com.tiger.tgcloud.utils.RedisKeyUtil;
 import com.tiger.tgcloud.security.core.SecurityResult;
 import com.tiger.tgcloud.security.core.properties.SecurityConstants;
 import com.tiger.tgcloud.security.core.properties.SecurityProperties;

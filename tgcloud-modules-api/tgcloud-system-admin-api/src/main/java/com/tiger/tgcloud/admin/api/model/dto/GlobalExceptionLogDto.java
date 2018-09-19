@@ -1,9 +1,9 @@
 package com.tiger.tgcloud.admin.api.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.tiger.tgcloud.common.base.constant.GlobalConstant;
-import com.tiger.tgcloud.common.base.dto.LoginAuthDto;
-import com.tiger.tgcloud.common.utils.ThreadLocalMap;
+import com.tiger.tgcloud.base.constant.GlobalConstant;
+import com.tiger.tgcloud.base.dto.LoginAuthDto;
+import com.tiger.tgcloud.utils.ThreadLocalMap;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

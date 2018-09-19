@@ -2,8 +2,8 @@ package com.tiger.tgcloud.security.feign;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.hystrix.exception.HystrixBadRequestException;
-import com.tiger.tgcloud.common.base.enums.ErrorCodeEnum;
-import com.tiger.tgcloud.common.base.exception.BusinessException;
+import com.tiger.tgcloud.base.enums.ErrorCodeEnum;
+import com.tiger.tgcloud.base.exception.BusinessException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.extern.slf4j.Slf4j;

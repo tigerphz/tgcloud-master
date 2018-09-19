@@ -1,8 +1,8 @@
 package com.tiger.tgcloud.security.core.social.view;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tiger.tgcloud.common.utils.wrapper.WrapMapper;
-import com.tiger.tgcloud.common.utils.wrapper.Wrapper;
+import com.tiger.tgcloud.utils.wrapper.WrapMapper;
+import com.tiger.tgcloud.utils.wrapper.Wrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.view.AbstractView;
 

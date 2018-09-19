@@ -2,8 +2,8 @@ package com.tiger.tgcloud.gateway.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.tiger.tgcloud.common.base.enums.ErrorCodeEnum;
-import com.tiger.tgcloud.common.base.exception.BusinessException;
+import com.tiger.tgcloud.base.enums.ErrorCodeEnum;
+import com.tiger.tgcloud.base.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpHeaders;
