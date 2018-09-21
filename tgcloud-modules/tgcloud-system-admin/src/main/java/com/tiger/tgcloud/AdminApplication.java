@@ -10,6 +10,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @description:
+ * @author: tiger
+ * @date: 2018/9/6 21:21
+ * @version: V1.0
+ * @modified by:
+ */
 @EnableCaching
 @EnableHystrix
 @EnableFeignClients

@@ -2,13 +2,14 @@ package com.tiger.tgcloud.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tiger.tgcloud.core.utils.RequestUtil;
-import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import com.tiger.tgcloud.security.core.SecurityUser;
+import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 import org.springframework.security.oauth2.provider.*;
@@ -33,10 +34,15 @@ import java.io.IOException;
 @Slf4j
 public class PcAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Resource
     private ObjectMapper objectMapper;
+
     @Resource
     private ClientDetailsService clientDetailsService;
+
     //    @Resource
 //    private UacUserService uacUserService;
     @Resource
@@ -60,13 +66,14 @@ public class PcAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
         assert tokens.length == 2;
 
         String clientId = tokens[0];
+        //客户端密码加密
         String clientSecret = tokens[1];
 
         ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
 
         if (clientDetails == null) {
             throw new UnapprovedClientAuthenticationException("clientId对应的配置信息不存在:" + clientId);
-        } else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
+        } else if (!passwordEncoder.matches(clientSecret, clientDetails.getClientSecret())) {
             throw new UnapprovedClientAuthenticationException("clientSecret不匹配:" + clientId);
         }
 
