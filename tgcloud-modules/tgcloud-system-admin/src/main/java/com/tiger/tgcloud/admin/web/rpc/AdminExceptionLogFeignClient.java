@@ -32,7 +32,7 @@ public class AdminExceptionLogFeignClient extends BaseController implements Admi
     private AdminExceptionLogService mdcExceptionLogService;
 
     @Override
-    @ApiOperation(httpMethod = "POST", value = "保存日志并发送钉钉消息")
+    @ApiOperation(httpMethod = "POST", value = "保存日志")
     public Wrapper saveAndSendExceptionLog(@RequestBody GlobalExceptionLogDto exceptionLogDto) {
         try {
             mdcExceptionLogService.saveAndSendExceptionLog(exceptionLogDto);

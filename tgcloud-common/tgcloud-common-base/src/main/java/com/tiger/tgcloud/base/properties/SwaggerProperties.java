@@ -22,7 +22,7 @@ public class SwaggerProperties {
 
 	private String contactName = "tiger";
 
-	private String contactUrl = "http://www.xixi621.com";
+	private String contactUrl = "http://www.xixi624.com";
 
 	private String contactEmail = "tgcloud.net@gmail.com";
 }

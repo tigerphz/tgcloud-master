@@ -11,13 +11,13 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  */
 @SpringBootApplication
 @EnableEurekaClient
-public class AuthorizationServerApplication {
+public class TgCloudAuthServerApplication {
     /**
      * The entry point of application.
      *
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        SpringApplication.run(AuthorizationServerApplication.class, args);
+        SpringApplication.run(TgCloudAuthServerApplication.class, args);
     }
 }
