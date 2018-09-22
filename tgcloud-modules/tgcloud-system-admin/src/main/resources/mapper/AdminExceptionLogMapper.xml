@@ -28,7 +28,7 @@
         ,
         <include refid="Blob_Column_List"/>
         FROM
-        pc_mdc_exception_log log
+        exception_log log
         WHERE 1 = 1
         <if test="exceptionCause != null and exceptionCause != ''">
             AND exception_cause LIKE concat(#{exceptionCause}, '%')

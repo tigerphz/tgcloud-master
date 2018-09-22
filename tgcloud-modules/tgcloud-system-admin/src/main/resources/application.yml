@@ -73,6 +73,7 @@ info:
 
 logging:
   level.root: info
+  level.com.tiger.tgcloud: debug
   path: logs/
   file: ${spring.application.name}.log
 

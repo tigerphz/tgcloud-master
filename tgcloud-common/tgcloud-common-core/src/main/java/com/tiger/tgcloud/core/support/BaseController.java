@@ -9,7 +9,8 @@ import com.tiger.tgcloud.utils.PublicUtil;
 import com.tiger.tgcloud.utils.ThreadLocalMap;
 import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -19,8 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @version: V1.0
  * @modified by:
  */
-@Slf4j
 public class BaseController {
+
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
