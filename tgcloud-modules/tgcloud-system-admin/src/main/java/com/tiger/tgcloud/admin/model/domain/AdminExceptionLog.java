@@ -17,7 +17,7 @@ import java.util.Date;
  * @modified by:
  */
 @Alias("adminExceptionLog")
-@Table(name = "pc_admin_exception_log")
+@Table(name = "exception_log")
 @Data
 @NoArgsConstructor
 public class AdminExceptionLog {
