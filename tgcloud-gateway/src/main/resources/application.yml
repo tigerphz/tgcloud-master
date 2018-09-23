@@ -38,8 +38,8 @@ spring:
           enabled: true
           lower-case-service-id: true #可以通过小写的服务名称进行访问了
       routes:
-      - id: tgcloud-security-authorizationserver
-        uri: lb://tgcloud-security-authorizationserver
+      - id: tgcloud-security-authserver
+        uri: lb://tgcloud-security-authserver
         order: 8000
         predicates:
         - Path=/aus/**

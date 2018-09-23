@@ -71,7 +71,7 @@ zuul:
     aus-route:
       path: /aus/**
       sensitiveHeaders:
-      service-id: tgcloud-security-authorizationserver
+      service-id: tgcloud-security-authserver
       ribbon:
         eager-load:
           enabled: true

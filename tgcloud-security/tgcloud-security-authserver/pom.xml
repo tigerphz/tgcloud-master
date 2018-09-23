@@ -9,10 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tgcloud-security-authorizationserver</artifactId>
+    <artifactId>tgcloud-security-authserver</artifactId>
     <packaging>jar</packaging>
 
-    <name>tgcloud-security-authorizationserver</name>
+    <name>tgcloud-security-authserver</name>
     <description>授权服务</description>
 
     <dependencies>

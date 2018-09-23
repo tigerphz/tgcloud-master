@@ -16,7 +16,7 @@
     <name>tgcloud-security</name>
 
     <modules>
-        <module>tgcloud-security-authorizationserver</module>
+        <module>tgcloud-security-authserver</module>
         <module>tgcloud-security-core</module>
         <module>tgcloud-security-app</module>
         <module>tgcloud-security-feign</module>

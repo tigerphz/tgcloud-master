@@ -43,11 +43,11 @@ eureka:
 security:
   oauth2:
     client:
-      clientId: tgcloud-security-authorizationserver
+      clientId: tgcloud-security-authserver
       clientSecret: tgcloudClientSecret
       access-token-uri: http://${GATEWAY_HOST:localhost}:${GATEWAY_PORT:7979}/aus/oauth/token
       user-authorization-uri: http://${GATEWAY_HOST:localhost}:${GATEWAY_PORT:7979}/aus/oauth/authorize
     resource:
-      id: tgcloud-security-authorizationserver
+      id: tgcloud-security-authserver
       #filter-order: 3
 
