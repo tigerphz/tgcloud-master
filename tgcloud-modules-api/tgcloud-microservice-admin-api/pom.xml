@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tgcloud-system-admin-api</artifactId>
+    <artifactId>tgcloud-microservice-admin-api</artifactId>
     <packaging>jar</packaging>
-    <name>tgcloud-system-admin-api</name>
+    <name>tgcloud-microservice-admin-api</name>
 
     <dependencies>
         <dependency>
