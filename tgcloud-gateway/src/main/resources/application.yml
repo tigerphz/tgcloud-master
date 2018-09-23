@@ -45,8 +45,8 @@ spring:
         - Path=/aus/**
         filters:
         - StripPrefix=1
-      - id: tgcloud-system-admin
-        uri: lb://tgcloud-system-admin
+      - id: tgcloud-microservice-admin
+        uri: lb://tgcloud-microservice-admin
         order: 8000
         predicates:
         - Path=/admin/**

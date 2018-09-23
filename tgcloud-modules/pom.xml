@@ -15,7 +15,7 @@
 
     <name>tgcloud-modules</name>
     <modules>
-        <module>tgcloud-system-admin</module>
+        <module>tgcloud-microservice-admin</module>
     </modules>
 
     <dependencies>

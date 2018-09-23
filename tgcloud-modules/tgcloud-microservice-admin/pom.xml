@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tgcloud-system-admin</artifactId>
+    <artifactId>tgcloud-microservice-admin</artifactId>
 
-    <name>tgcloud-system-admin</name>
+    <name>tgcloud-microservice-admin</name>
     <description>权限管理中心</description>
 
     <dependencies>

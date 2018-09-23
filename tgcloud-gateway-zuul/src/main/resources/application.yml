@@ -83,7 +83,7 @@ zuul:
     admin-route:
       path: /admin/**
       sensitiveHeaders:
-      service-id: tgcloud-system-admin
+      service-id: tgcloud-microservice-admin
       ribbon:
         eager-load:
           enabled: true

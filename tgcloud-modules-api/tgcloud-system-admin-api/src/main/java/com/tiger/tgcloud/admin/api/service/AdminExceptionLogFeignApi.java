@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @version: V1.0
  * @modified by:
  */
-@FeignClient(value = "tgcloud-system-admin", configuration = OAuth2FeignAutoConfiguration.class, fallback = AdminExceptionLogFeignHystrix.class)
+@FeignClient(value = "tgcloud-microservice-admin", configuration = OAuth2FeignAutoConfiguration.class, fallback = AdminExceptionLogFeignHystrix.class)
 public interface AdminExceptionLogFeignApi {
 
     /**

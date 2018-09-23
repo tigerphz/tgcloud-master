@@ -46,7 +46,7 @@ pagehelper:
 security:
   oauth2:
     client:
-      clientId: tgcloud-system-admin
+      clientId: tgcloud-microservice-admin
       clientSecret: tgcloudClientSecret
       access-token-uri: http://${GATEWAY_HOST:localhost}:${GATEWAY_PORT:7979}/aus/oauth/token
       user-authorization-uri: http://${GATEWAY_HOST:localhost}:${GATEWAY_PORT:7979}/aus/oauth/authorize

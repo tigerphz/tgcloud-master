@@ -100,7 +100,7 @@ tgcloud:
     oauth2:
       tokenStore: jwt # redis jwt
       clients[0]:
-        clientId: tgcloud-system-admin
+        clientId: tgcloud-microservice-admin
         clientSecret: tgcloudClientSecret
         accessTokenValidateSeconds: 7200
         scope: "*"
