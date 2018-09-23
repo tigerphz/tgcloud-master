@@ -94,6 +94,9 @@ zuul:
         ReadTimeout: 10000
   add-proxy-headers: true
   add-host-header: true
+  ribbon-isolation-strategy: thread #设置Hystrix隔离策略为线程池
+  thread-pool:
+    use-separate-thread-pools: true #每个路由使用独立的线程池
 hystrix:
   propagate:
     request-attribute:
