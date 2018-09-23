@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableTransactionManagement
 @Import(SwaggerConfiguration.class)
-public class TgcloudUacApplication {
+public class TgCloudUacApplication {
 
     /**
      * The entry point of application.
@@ -32,7 +32,7 @@ public class TgcloudUacApplication {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        SpringApplication.run(TgcloudUacApplication.class, args);
+        SpringApplication.run(TgCloudUacApplication.class, args);
     }
 
 }

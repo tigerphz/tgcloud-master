@@ -25,9 +25,9 @@ import org.springframework.web.filter.CorsFilter;
 @EnableOAuth2Sso
 @EnableHystrix
 @EnableSwaggerButler
-public class TgcloudGatewayZuulApplication {
+public class TgCloudGatewayZuulApplication {
     public static void main(String[] args) {
-        SpringApplication.run(TgcloudGatewayZuulApplication.class, args);
+        SpringApplication.run(TgCloudGatewayZuulApplication.class, args);
     }
 
     @Bean
