@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
     @Value("${spring.application.name}")
     String applicationName;
     @Resource
-    private AdminExceptionLogFeignApi mdcExceptionLogFeignApi;
+    private AdminExceptionLogFeignApi adminExceptionLogFeignApi;
 
     /**
      * 参数非法异常.
@@ -78,7 +78,7 @@ public class GlobalExceptionHandler {
         log.info("保存全局异常信息 ex={}", e.getMessage(), e);
         taskExecutor.execute(() -> {
             GlobalExceptionLogDto globalExceptionLogDto = new GlobalExceptionLogDto().getGlobalExceptionLogDto(e, profile, applicationName);
-            mdcExceptionLogFeignApi.saveAndSendExceptionLog(globalExceptionLogDto);
+            adminExceptionLogFeignApi.saveAndSendExceptionLog(globalExceptionLogDto);
         });
         return WrapMapper.error();
     }

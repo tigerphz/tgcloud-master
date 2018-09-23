@@ -1,10 +1,10 @@
 server:
-  port: 8999
+  port: 8881
 spring:
-  profiles:
-    active: @profileActive@
   application:
     name: @pom.artifactId@
+  profiles:
+    active: @profileActive@
   redis:
     host: localhost
     port: 6379
@@ -72,22 +72,15 @@ info:
   version: @project.version@
 
 logging:
-  level:
-    root: INFO
-    org.hibernate: INFO
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
-    org.springframework.cloud.sleuth: DEBUG
-    com.tgcloud.modules: TRACE
-    org.springframework.security: DEBUG
+  level.root: info
+  level.com.tiger.tgcloud: debug
   path: logs/
   file: ${spring.application.name}.log
 
 tgcloud:
-  enableSqlLogInterceptor: false
-  token:
-    interceptor:
-      enable: true
+  swagger:
+    title: @pom.artifactId@
+    description: @pom.description@
   oauth2:
     jwtSigningKey: tgcloud
     client:
@@ -96,21 +89,10 @@ tgcloud:
       clientId: ${security.oauth2.client.clientId}
       clientSecret: ${security.oauth2.client.clientSecret}
       clientAuthenticationScheme: header
-  security:
-    oauth2:
-      tokenStore: jwt # redis jwt
-      clients[0]:
-        clientId: tgcloud-client-gateway
-        clientSecret: tgcloudClientSecret
-        accessTokenValidateSeconds: 7200
-        scope: "*"
-      clients[1]:
-        clientId: tgcloud-microservice-admin
-        clientSecret: tgcloudClientSecret
-        accessTokenValidateSeconds: 7200
-        scope: "*"
-      clients[2]:
-        clientId: tgcloud-microservice-uac
-        clientSecret: tgcloudClientSecret
-        accessTokenValidateSeconds: 7200
-        scope: "*"
+      tokenStore: jwt
+  enableSqlLogInterceptor: false
+
+# Twitter_Snowflake 配置
+snowflakeid:
+  workerId: 0
+  datacenterId: 0
