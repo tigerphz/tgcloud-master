@@ -102,15 +102,15 @@ tgcloud:
       clients[0]:
         clientId: tgcloud-client-gateway
         clientSecret: tgcloudClientSecret
-        accessTokenValidateSeconds: 7200
+        accessTokenValidateSeconds: 43200
         scope: "*"
       clients[1]:
         clientId: tgcloud-microservice-dmc
         clientSecret: tgcloudClientSecret
-        accessTokenValidateSeconds: 7200
+        accessTokenValidateSeconds: 43200
         scope: "*"
       clients[2]:
         clientId: tgcloud-microservice-uac
         clientSecret: tgcloudClientSecret
-        accessTokenValidateSeconds: 7200
+        accessTokenValidateSeconds: 43200
         scope: "*"

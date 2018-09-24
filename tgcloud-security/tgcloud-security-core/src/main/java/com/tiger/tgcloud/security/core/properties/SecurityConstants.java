@@ -8,8 +8,6 @@ package com.tiger.tgcloud.security.core.properties;
  * @modified by:
  */
 public interface SecurityConstants {
-
-
     /**
      * 默认的处理验证码的url前缀
      */
