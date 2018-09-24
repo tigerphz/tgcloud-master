@@ -28,6 +28,7 @@ public class RenewFilter extends ZuulFilter {
 
     @Resource
     private JwtTokenStore jwtTokenStore;
+
     private static final int EXPIRES_IN = 60 * 20;
 
     /**
