@@ -1,4 +1,12 @@
 spring:
+  aop:
+    proxy-target-class: true
+    auto: true
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+  jackson:
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd HH:mm:ss
   cloud:
     config:
       uri: http://${CONFIG_HOST:localhost}:${CONFIG_PORT:8090}/
@@ -9,6 +17,16 @@ spring:
         - docker0
         - veth.*
         - VM.*
+      preferredNetworks:
+        - 192.168
+  devtools:
+    restart:
+      #热部署生效
+      enabled: true
+      #设置重启的目录
+      #additional-paths: src/main/java
+      #classpath目录下的WEB-INF文件夹内容修改不重启
+      #exclude: WEB-INF/**
 
 management:
   endpoints:

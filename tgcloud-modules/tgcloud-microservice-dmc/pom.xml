@@ -12,7 +12,7 @@
     <artifactId>tgcloud-microservice-dmc</artifactId>
 
     <name>tgcloud-microservice-dmc</name>
-    <description>后台管理中心</description>
+    <description>数据管理中心</description>
 
     <dependencies>
         <dependency>

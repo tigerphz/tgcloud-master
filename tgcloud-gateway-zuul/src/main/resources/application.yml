@@ -80,7 +80,7 @@ zuul:
         OkToRetryOnAllOperations: false
         ConnectTimeout: 10000
         ReadTimeout: 10000
-    admin-route:
+    dmc-route:
       path: /dmc/**
       sensitiveHeaders:
       service-id: tgcloud-microservice-dmc
@@ -154,3 +154,9 @@ logging:
   file: ${spring.application.name}.log
 tgcloud:
   enableSqlLogInterceptor: false
+# swagger butler配置
+swagger.butler.api-docs-path: v2/api-docs
+swagger.butler.swagger-version: 1.0
+swagger.butler.auto-generate-from-zuul-routes: true
+# 指定要生成的范围
+swagger.butler.generate-routes: aus-route,dmc-route
