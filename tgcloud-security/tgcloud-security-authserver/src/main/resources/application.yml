@@ -105,7 +105,7 @@ tgcloud:
         accessTokenValidateSeconds: 7200
         scope: "*"
       clients[1]:
-        clientId: tgcloud-microservice-admin
+        clientId: tgcloud-microservice-dmc
         clientSecret: tgcloudClientSecret
         accessTokenValidateSeconds: 7200
         scope: "*"

@@ -45,11 +45,11 @@ spring:
         - Path=/aus/**
         filters:
         - StripPrefix=1
-      - id: tgcloud-microservice-admin
-        uri: lb://tgcloud-microservice-admin
+      - id: tgcloud-microservice-dmc
+        uri: lb://tgcloud-microservice-dmc
         order: 8000
         predicates:
-        - Path=/admin/**
+        - Path=/dmc/**
         filters:
         - StripPrefix=1
 #  security:

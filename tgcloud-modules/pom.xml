@@ -15,7 +15,7 @@
 
     <name>tgcloud-modules</name>
     <modules>
-        <module>tgcloud-microservice-admin</module>
+        <module>tgcloud-microservice-dmc</module>
         <module>tgcloud-microservice-uac</module>
     </modules>
 

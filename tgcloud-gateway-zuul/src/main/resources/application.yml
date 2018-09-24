@@ -81,9 +81,9 @@ zuul:
         ConnectTimeout: 10000
         ReadTimeout: 10000
     admin-route:
-      path: /admin/**
+      path: /dmc/**
       sensitiveHeaders:
-      service-id: tgcloud-microservice-admin
+      service-id: tgcloud-microservice-dmc
       ribbon:
         eager-load:
           enabled: true

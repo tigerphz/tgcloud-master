@@ -1,9 +1,9 @@
-package com.tiger.tgcloud.uac.web;
+package com.tiger.tgcloud.dmc.web;
 
-import com.tiger.tgcloud.base.enums.ErrorCodeEnum;
-import com.tiger.tgcloud.base.exception.BusinessException;
 import com.tiger.tgcloud.dmc.api.model.dto.GlobalExceptionLogDto;
 import com.tiger.tgcloud.dmc.api.service.DmcExceptionLogFeignApi;
+import com.tiger.tgcloud.base.enums.ErrorCodeEnum;
+import com.tiger.tgcloud.base.exception.BusinessException;
 import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
 import lombok.extern.slf4j.Slf4j;
