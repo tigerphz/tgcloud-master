@@ -1,4 +1,4 @@
-package com.tiger.tgcloud.security;
+package com.tiger.tgcloud.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

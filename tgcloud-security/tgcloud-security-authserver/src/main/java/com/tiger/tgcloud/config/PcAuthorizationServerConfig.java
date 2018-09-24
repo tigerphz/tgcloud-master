@@ -1,4 +1,4 @@
-package com.tiger.tgcloud.security;
+package com.tiger.tgcloud.config;
 
 /**
  * @description:
@@ -8,6 +8,8 @@ package com.tiger.tgcloud.security;
  * @modified by:
  */
 
+import com.tiger.tgcloud.security.PcLogoutSuccessHandler;
+import com.tiger.tgcloud.security.RestClientDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
