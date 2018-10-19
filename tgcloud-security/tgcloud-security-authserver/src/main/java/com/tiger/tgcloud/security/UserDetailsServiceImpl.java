@@ -1,18 +1,14 @@
 package com.tiger.tgcloud.security;
 
-import com.google.common.collect.Lists;
+import com.tiger.tgcloud.model.UserInfo;
 import com.tiger.tgcloud.security.core.SecurityUser;
+import com.tiger.tgcloud.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * @description:
@@ -24,8 +20,9 @@ import java.util.List;
 @Component
 @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
+
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserService userService;
 
     /**
      * Load user by username user details.
@@ -37,14 +34,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         log.info("loadUserByUsername username={}", username);
 
-        List<GrantedAuthority> grantedAuthorityList = Lists.newArrayList();
-        GrantedAuthority authority = new SimpleGrantedAuthority("view");
-        grantedAuthorityList.add(authority);
+        UserInfo user = userService.findByLoginName(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("用户名不存在");
+        }
 
-        String password = "admin";
-        String hashedPassword = passwordEncoder.encode(password);
-
-        return new SecurityUser(1L, "admin", hashedPassword,
-                "", 0L, "", "ENABLE", null);
+        return new SecurityUser(user.getId(), user.getUserName(), user.getPassword(),
+                user.getUserName(), user.getDeptid(), user.getDeptName(), user.getStatus(), null);
     }
+
 }

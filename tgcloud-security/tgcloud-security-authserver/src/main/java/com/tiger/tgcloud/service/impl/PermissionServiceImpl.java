@@ -1,4 +1,4 @@
-package com.tiger.tgcloud.service.Impl;
+package com.tiger.tgcloud.service.impl;
 
 import com.tiger.tgcloud.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;

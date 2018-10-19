@@ -97,6 +97,16 @@ tgcloud:
       clientSecret: ${security.oauth2.client.clientSecret}
       clientAuthenticationScheme: header
   security:
+    code:
+      image:
+        expireIn: 180
+        url: /auth/register,/auth/submitResetPwdEmail,/auth/code/sms
+      sms:
+        expireIn: 600
+        url: /auth/submitResetPwdPhone
+        mobileMaxSendCount: 1
+        ipMaxSendCount: 2
+        totalMaxSendCount: 3
     oauth2:
       tokenStore: jwt # redis jwt
       clients[0]:

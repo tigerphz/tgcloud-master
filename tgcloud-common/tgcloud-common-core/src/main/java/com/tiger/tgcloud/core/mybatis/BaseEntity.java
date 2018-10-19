@@ -50,14 +50,14 @@ public class BaseEntity implements Serializable {
     /**
      * 最近操作人
      */
-    @Column(name = "last_operator")
-    private String lastOperator;
+    @Column(name = "update_operator")
+    private String updateOperator;
 
     /**
      * 最后操作人ID
      */
-    @Column(name = "last_operator_id")
-    private Long lastOperatorId;
+    @Column(name = "update_operator_id")
+    private Long updateOperatorId;
 
     /**
      * 更新时间
@@ -97,12 +97,12 @@ public class BaseEntity implements Serializable {
     public void setUpdateInfo(LoginAuthDto user) {
 
         if (isNew()) {
-            this.creatorId = (this.lastOperatorId = user.getUserId());
+            this.creatorId = (this.updateOperatorId = user.getUserId());
             this.creator = user.getUserName();
             this.createdTime = (this.updateTime = new Date());
         }
-        this.lastOperatorId = user.getUserId();
-        this.lastOperator = user.getUserName() == null ? user.getLoginName() : user.getUserName();
+        this.updateOperatorId = user.getUserId();
+        this.updateOperator = user.getUserName() == null ? user.getLoginName() : user.getUserName();
         this.updateTime = new Date();
     }
 }

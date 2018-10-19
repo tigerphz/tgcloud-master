@@ -40,7 +40,7 @@ public class SecurityUser implements UserDetails {
 
     @Getter
     @Setter
-    private String status;
+    private Integer status;
 
     @Getter
     @Setter
@@ -59,7 +59,7 @@ public class SecurityUser implements UserDetails {
         this.setGroupName(groupName);
     }
 
-    public SecurityUser(Long userId, String loginName, String loginPwd, String nickName, Long groupId, String groupName, String status, Collection<GrantedAuthority> grantedAuthorities) {
+    public SecurityUser(Long userId, String loginName, String loginPwd, String nickName, Long groupId, String groupName, Integer status, Collection<GrantedAuthority> grantedAuthorities) {
         this.setUserId(userId);
         this.setLoginName(loginName);
         this.setLoginPwd(loginPwd);
@@ -102,7 +102,7 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return StringUtils.equals(this.status, ENABLE);
+        return !StringUtils.equals(this.status.toString(), "2");
     }
 
 }
