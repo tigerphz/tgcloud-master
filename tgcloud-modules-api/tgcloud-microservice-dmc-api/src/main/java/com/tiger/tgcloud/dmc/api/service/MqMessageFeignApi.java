@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface MqMessageFeignApi {
 
     /**
-     * @param mqMessageDto
+     * @param mqMessageData
      * @return
      */
     @PostMapping(value = "/api/mq/saveAndSendMqMessage")
-    Wrapper saveAndSendMqMessage(@RequestBody MqMessageData mqMessageDto);
+    Wrapper saveAndSendMqMessage(@RequestBody MqMessageData mqMessageData);
 
 }

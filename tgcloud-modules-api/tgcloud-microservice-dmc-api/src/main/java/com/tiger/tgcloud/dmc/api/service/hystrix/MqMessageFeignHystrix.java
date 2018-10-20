@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class MqMessageFeignHystrix implements MqMessageFeignApi {
     /**
-     * @param mqMessageDto
+     * @param mqMessageData
      * @return
      */
     @Override
-    public Wrapper saveAndSendMqMessage(MqMessageData mqMessageDto) {
+    public Wrapper saveAndSendMqMessage(MqMessageData mqMessageData) {
         return null;
     }
 }
