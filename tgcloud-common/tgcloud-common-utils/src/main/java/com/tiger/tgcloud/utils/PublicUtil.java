@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @description:
@@ -61,5 +62,9 @@ public class PublicUtil {
             return ((Map) pObj).size() != 0;
         }
         return true;
+    }
+
+    public synchronized static String uuid() {
+        return UUID.randomUUID().toString().replace("-", "");
     }
 }

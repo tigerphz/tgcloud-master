@@ -106,6 +106,12 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
         </dependency>
+        <!-- http://www.hutool.cn/ -->
+        <dependency>
+            <groupId>com.xiaoleilu</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>3.3.2</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

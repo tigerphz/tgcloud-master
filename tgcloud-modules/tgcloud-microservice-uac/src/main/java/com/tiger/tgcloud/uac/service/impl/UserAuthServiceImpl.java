@@ -1,22 +1,39 @@
 package com.tiger.tgcloud.uac.service.impl;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+import com.tiger.tgcloud.base.constant.MqTopicConstants;
 import com.tiger.tgcloud.base.enums.ErrorCodeEnum;
 import com.tiger.tgcloud.core.support.BaseService;
+import com.tiger.tgcloud.dmc.api.model.domain.MqMessageData;
+import com.tiger.tgcloud.dmc.api.service.MqMessageFeignApi;
 import com.tiger.tgcloud.uac.api.exceptions.UacBizException;
 import com.tiger.tgcloud.uac.api.model.dto.UserRegisterDto;
 import com.tiger.tgcloud.uac.mapper.UserMapper;
 import com.tiger.tgcloud.uac.model.domain.UserInfo;
+import com.tiger.tgcloud.uac.model.enums.EmailTemplateEnum;
 import com.tiger.tgcloud.uac.model.enums.UserSourceEnum;
 import com.tiger.tgcloud.uac.model.enums.UserStatusEnum;
+import com.tiger.tgcloud.uac.mq.EmailProducer;
+import com.tiger.tgcloud.uac.service.RedisService;
 import com.tiger.tgcloud.uac.service.UserAuthService;
 import com.tiger.tgcloud.uac.utils.Md5Util;
+import com.tiger.tgcloud.utils.PublicUtil;
+import com.tiger.tgcloud.utils.RedisKeyUtil;
+import com.xiaoleilu.hutool.date.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @description:
@@ -29,6 +46,21 @@ import java.util.Date;
 @Transactional(rollbackFor = Exception.class)
 public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAuthService {
 
+    @Resource
+    private RedisService redisService;
+
+    @Autowired
+    private EmailProducer emailProducer;
+
+    @Value("${tgcloud.auth.active-user-url}")
+    private String activeUserUrl;
+
+    @Autowired
+    private MqMessageFeignApi mqMessageFeignApi;
+
+    @Resource
+    private TaskExecutor taskExecutor;
+
     @Autowired
     private UserMapper userMapper;
 
@@ -39,6 +71,7 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
      */
     @Override
     public void register(UserRegisterDto registerDto) {
+        // 校验注册信息
         validateRegisterInfo(registerDto);
 
         String mobileNo = registerDto.getMobileNo();
@@ -64,6 +97,25 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
         userInfo.setUpdateOperator(registerDto.getUserName());
 
         userMapper.insertSelective(userInfo);
+
+        // 发送激活邮件
+        taskExecutor.execute(() -> {
+            String activeToken = PublicUtil.uuid() + super.generateId();
+            redisService.setKey(RedisKeyUtil.getActiveUserKey(activeToken), email, 1, TimeUnit.DAYS);
+
+            Map<String, Object> param = Maps.newHashMap();
+            param.put("loginName", registerDto.getUserName());
+            param.put("email", registerDto.getEmail());
+            param.put("activeUserUrl", activeUserUrl + activeToken);
+            param.put("dateTime", DateUtil.formatDateTime(new Date()));
+
+            Set<String> to = Sets.newHashSet();
+            to.add(registerDto.getEmail());
+
+            MqMessageData mqMessageData = emailProducer.sendEmailMq(to, EmailTemplateEnum.ACTIVE_USER, MqTopicConstants.MqTagEnum.ACTIVE_USER, param);
+
+            mqMessageFeignApi.saveAndSendMqMessage(mqMessageData);
+        });
     }
 
     private void validateRegisterInfo(UserRegisterDto registerDto) {

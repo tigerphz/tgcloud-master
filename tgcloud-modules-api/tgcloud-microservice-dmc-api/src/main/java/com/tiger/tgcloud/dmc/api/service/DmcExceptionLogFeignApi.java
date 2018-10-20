@@ -19,11 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface DmcExceptionLogFeignApi {
 
     /**
-     * Update product stock by id int.
+     * 添加异常日志
      *
      * @param exceptionLogDto the exception log dto
      * @return the int
      */
     @PostMapping(value = "/api/exception/saveAndSendExceptionLog")
     Wrapper saveAndSendExceptionLog(@RequestBody GlobalExceptionLogDto exceptionLogDto);
+
 }

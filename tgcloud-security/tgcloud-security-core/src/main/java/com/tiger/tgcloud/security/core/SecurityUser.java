@@ -18,7 +18,7 @@ import java.util.Collection;
 public class SecurityUser implements UserDetails {
     private static final long serialVersionUID = 4872628781561412463L;
 
-    private static final String ENABLE = "ENABLE";
+    private static final String ENABLE = "1";
 
     private Collection<GrantedAuthority> authorities;
 
@@ -102,7 +102,7 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return !StringUtils.equals(this.status.toString(), "2");
+        return StringUtils.equals(this.status.toString(), ENABLE);
     }
 
 }

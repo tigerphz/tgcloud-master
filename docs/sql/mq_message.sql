@@ -1,0 +1,23 @@
+CREATE TABLE `mq_message` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `version` int(11) DEFAULT '0' COMMENT '版本号',
+  `message_key` varchar(200) CHARACTER SET utf8 DEFAULT '' COMMENT '消息key',
+  `message_topic` varchar(50) CHARACTER SET utf8 DEFAULT '' COMMENT 'topic',
+  `message_tag` varchar(50) CHARACTER SET utf8 DEFAULT '' COMMENT 'tag',
+  `message_body` longtext CHARACTER SET utf8 COMMENT '消息内容',
+  `message_type` int(11) DEFAULT '10' COMMENT '消息类型: 10 - 生产者 ; 20 - 消费者',
+  `delay_level` int(11) DEFAULT '0' COMMENT '延时级别 1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h',
+  `order_type` int(11) DEFAULT '0' COMMENT '顺序类型 0有序 1无序',
+  `status` int(11) DEFAULT '10' COMMENT '消息状态',
+  `creator` varchar(20) DEFAULT '' COMMENT '创建人',
+  `creator_id` bigint(20) DEFAULT NULL COMMENT '创建人ID',
+  `created_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_operator` varchar(20) DEFAULT NULL COMMENT '更新操作人',
+  `update_operator_id` bigint(20) DEFAULT NULL COMMENT '更新操作人ID',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `deleted` int(11) DEFAULT '0' COMMENT '是否删除 -0 未删除 -1 已删除',
+  PRIMARY KEY (`id`),
+  KEY `idx_message_key` (`message_key`) USING BTREE,
+  KEY `idx_created_time` (`created_time`) USING BTREE,
+  KEY `idx_update_time` (`update_time`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='消息记录表';
