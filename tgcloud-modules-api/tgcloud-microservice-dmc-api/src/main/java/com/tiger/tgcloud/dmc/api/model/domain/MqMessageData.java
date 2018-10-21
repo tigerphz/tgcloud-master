@@ -4,6 +4,7 @@ import com.tiger.tgcloud.core.mybatis.BaseEntity;
 import com.tiger.tgcloud.dmc.api.model.dto.MqMessageDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.type.Alias;
 
 import javax.persistence.*;
 
@@ -14,7 +15,8 @@ import javax.persistence.*;
  * @version: V1.0
  * @modified by:
  */
-@Table(name = "mq_message")
+@Alias("dmcMqMessage")
+@Table(name = "dmc_mq_message")
 @Data
 @NoArgsConstructor
 public class MqMessageData extends BaseEntity {

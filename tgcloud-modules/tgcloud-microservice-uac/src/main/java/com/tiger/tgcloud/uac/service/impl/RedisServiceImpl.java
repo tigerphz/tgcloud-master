@@ -51,8 +51,6 @@ public class RedisServiceImpl implements RedisService {
         ops.set(key, value);
         rt.expire(key, GlobalConstant.Sys.REDIS_DEFAULT_EXPIRE, TimeUnit.MINUTES);
         log.info("setKey. [OK] key={}, value={}, expire=默认超时时间", key, value);
-
-
     }
 
     @Override
@@ -63,6 +61,5 @@ public class RedisServiceImpl implements RedisService {
         ops.set(key, value);
         rt.expire(key, timeout, unit);
         log.info("setKey. [OK] key={}, value={}, timeout={}, unit={}", key, value, timeout, unit);
-
     }
 }

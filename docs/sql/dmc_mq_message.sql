@@ -1,4 +1,4 @@
-CREATE TABLE `mq_message` (
+CREATE TABLE `dmc_mq_message` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `version` int(11) DEFAULT '0' COMMENT '版本号',
   `message_key` varchar(200) CHARACTER SET utf8 DEFAULT '' COMMENT '消息key',

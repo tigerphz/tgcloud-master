@@ -119,7 +119,6 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
     }
 
     private void validateRegisterInfo(UserRegisterDto registerDto) {
-
         Preconditions.checkArgument(!StringUtils.isEmpty(registerDto.getPassword()), ErrorCodeEnum.UAC10011014.msg());
         Preconditions.checkArgument(!StringUtils.isEmpty(registerDto.getConfirmPwd()), ErrorCodeEnum.UAC10011009.msg());
         Preconditions.checkArgument(!StringUtils.isEmpty(registerDto.getRegisterSource()), "验证类型错误");
@@ -145,6 +144,5 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
         if (count > 0) {
             throw new UacBizException(ErrorCodeEnum.UAC10011019);
         }
-
     }
 }
