@@ -17,7 +17,7 @@ import java.util.Date;
  * @modified by:
  */
 @Alias("dmcExceptionLog")
-@Table(name = "exception_log")
+@Table(name = "dmc_exception_log")
 @Data
 @NoArgsConstructor
 public class DmcExceptionLog {

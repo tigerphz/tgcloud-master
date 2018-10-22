@@ -18,4 +18,11 @@ public interface UserAuthService extends IService<UserInfo> {
      * @param registerDto the register dto
      */
     void register(UserRegisterDto registerDto);
+
+    /**
+     * 激活用户.
+     *
+     * @param activeUserToken the active user token
+     */
+    void activeUser(String activeUserToken);
 }

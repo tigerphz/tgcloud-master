@@ -147,4 +147,52 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
             throw new UacBizException(ErrorCodeEnum.UAC10011019);
         }
     }
+
+    @Override
+    public void activeUser(String activeUserToken) {
+        Preconditions.checkArgument(!StringUtils.isEmpty(activeUserToken), "激活用户失败");
+
+        String activeUserKey = RedisKeyUtil.getActiveUserKey(activeUserToken);
+
+        String email = redisService.getKey(activeUserKey);
+
+        if (StringUtils.isEmpty(email)) {
+            throw new UacBizException(ErrorCodeEnum.UAC10011030);
+        }
+        // 修改用户状态, 绑定访客角色
+        UserInfo userInfo = new UserInfo();
+        userInfo.setEmail(email);
+
+        userInfo = userMapper.selectOne(userInfo);
+        if (userInfo == null) {
+            logger.error("找不到用户信息. email={}", email);
+            throw new UacBizException(ErrorCodeEnum.UAC10011004, email);
+        }
+
+        UserInfo update = new UserInfo();
+        update.setId(userInfo.getId());
+        update.setStatus(UserStatusEnum.ENABLE.getKey());
+
+        //更新保存用户状态
+        int result = userMapper.updateByPrimaryKeySelective(update);
+        update.setUpdateOperatorId(update.getId());
+        update.setUpdateOperator(update.getUserName());
+        update.setUpdateTime(new Date());
+        if (result < 1) {
+            throw new UacBizException(ErrorCodeEnum.UAC10011038, update.getId());
+        }
+
+        Map<String, Object> param = Maps.newHashMap();
+        param.put("loginName", userInfo.getUserName());
+        param.put("dateTime", DateUtil.formatDateTime(new Date()));
+
+        Set<String> to = Sets.newHashSet();
+        to.add(userInfo.getEmail());
+
+        MqMessageData mqMessageData = emailProducer.sendEmailMq(to, EmailTemplateEnum.ACTIVE_USER_SUCCESS, MqTopicConstants.MqTagEnum.ACTIVE_USER_SUCCESS, param);
+        mqMessageFeignApi.saveAndSendMqMessage(mqMessageData);
+
+        // 删除 activeUserToken
+        redisService.deleteKey(activeUserKey);
+    }
 }

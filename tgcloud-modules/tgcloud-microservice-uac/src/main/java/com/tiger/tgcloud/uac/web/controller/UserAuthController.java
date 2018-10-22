@@ -11,10 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -65,5 +62,18 @@ public class UserAuthController {
         userInfo.setEmail(email);
         int count = userAuthService.selectCount(userInfo);
         return WrapMapper.ok(count > 0);
+    }
+
+    /**
+     * 激活用户.
+     *
+     * @param activeUserToken the active user token
+     * @return the wrapper
+     */
+    @GetMapping(value = "/activeUser/{activeUserToken}")
+    @ApiOperation(httpMethod = "POST", value = "激活用户")
+    public Wrapper activeUser(@PathVariable String activeUserToken) {
+        userAuthService.activeUser(activeUserToken);
+        return WrapMapper.ok("激活成功");
     }
 }

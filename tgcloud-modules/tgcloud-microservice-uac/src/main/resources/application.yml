@@ -80,7 +80,7 @@ logging:
 tgcloud:
   auth:
     rest-pwd-url: http://localhost:9999/resetPwd?resetPwdKey=
-    active-user-url: http://localhost:7979/uac/auth/activeUser/
+    active-user-url: http://localhost:9999/activeUser
     refresh-token-url: http://localhost:7979/uac/oauth/token
   swagger:
     title: @pom.artifactId@
