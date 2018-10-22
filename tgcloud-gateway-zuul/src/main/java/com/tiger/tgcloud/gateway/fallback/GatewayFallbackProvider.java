@@ -21,7 +21,7 @@ import java.io.InputStream;
  */
 @Component
 @Slf4j
-public class UacFallbackProvider implements FallbackProvider {
+public class GatewayFallbackProvider implements FallbackProvider {
 
 
     @Override

@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -38,7 +39,7 @@ public class MqMessageFeignClient extends BaseController implements MqMessageFei
      */
     @Override
     @ApiOperation(httpMethod = "POST", value = "保存并发送消息日志")
-    public Wrapper saveAndSendMqMessage(MqMessageData mqMessageData) {
+    public Wrapper saveAndSendMqMessage(@RequestBody MqMessageData mqMessageData) {
         Boolean result = mqMessageService.saveAndSendMqMessage(mqMessageData);
         return WrapMapper.ok(result);
     }

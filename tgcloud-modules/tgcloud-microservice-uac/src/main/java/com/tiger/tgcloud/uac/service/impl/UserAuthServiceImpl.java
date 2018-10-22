@@ -24,7 +24,6 @@ import com.tiger.tgcloud.utils.RedisKeyUtil;
 import com.xiaoleilu.hutool.date.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -58,9 +57,6 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
     @Autowired
     private MqMessageFeignApi mqMessageFeignApi;
 
-    @Resource
-    private TaskExecutor taskExecutor;
-
     @Autowired
     private UserMapper userMapper;
 
@@ -86,36 +82,42 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
         userInfo.setMobile(mobileNo);
         userInfo.setStatus(UserStatusEnum.UNENABLE.getKey());
         userInfo.setSource(UserSourceEnum.REGISTER.getKey());
-        userInfo.setCreatedTime(now);
-        userInfo.setUpdateTime(now);
         userInfo.setEmail(email);
         userInfo.setId(id);
+
         userInfo.setCreatorId(id);
         userInfo.setCreator(registerDto.getUserName());
+        userInfo.setCreatedTime(now);
+
         userInfo.setUpdateOperatorId(id);
-        userInfo.setUserName(registerDto.getUserName());
         userInfo.setUpdateOperator(registerDto.getUserName());
+        userInfo.setUpdateTime(now);
 
         userMapper.insertSelective(userInfo);
 
         // 发送激活邮件
-        taskExecutor.execute(() -> {
-            String activeToken = PublicUtil.uuid() + super.generateId();
-            redisService.setKey(RedisKeyUtil.getActiveUserKey(activeToken), email, 1, TimeUnit.DAYS);
+        String activeToken = PublicUtil.uuid() + super.generateId();
+        redisService.setKey(RedisKeyUtil.getActiveUserKey(activeToken), email, 1, TimeUnit.DAYS);
 
-            Map<String, Object> param = Maps.newHashMap();
-            param.put("loginName", registerDto.getUserName());
-            param.put("email", registerDto.getEmail());
-            param.put("activeUserUrl", activeUserUrl + activeToken);
-            param.put("dateTime", DateUtil.formatDateTime(new Date()));
+        Map<String, Object> param = Maps.newHashMap();
+        param.put("loginName", registerDto.getUserName());
+        param.put("email", registerDto.getEmail());
+        param.put("activeUserUrl", activeUserUrl + activeToken);
+        param.put("dateTime", DateUtil.formatDateTime(new Date()));
 
-            Set<String> to = Sets.newHashSet();
-            to.add(registerDto.getEmail());
+        Set<String> to = Sets.newHashSet();
+        to.add(registerDto.getEmail());
 
-            MqMessageData mqMessageData = emailProducer.sendEmailMq(to, EmailTemplateEnum.ACTIVE_USER, MqTopicConstants.MqTagEnum.ACTIVE_USER, param);
+        MqMessageData mqMessageData = emailProducer.sendEmailMq(to, EmailTemplateEnum.ACTIVE_USER, MqTopicConstants.MqTagEnum.ACTIVE_USER, param);
+        mqMessageData.setCreatorId(id);
+        mqMessageData.setCreator(registerDto.getUserName());
+        mqMessageData.setCreatedTime(now);
 
-            mqMessageFeignApi.saveAndSendMqMessage(mqMessageData);
-        });
+        mqMessageData.setUpdateOperatorId(id);
+        mqMessageData.setUpdateOperator(registerDto.getUserName());
+        mqMessageData.setUpdateTime(now);
+
+        mqMessageFeignApi.saveAndSendMqMessage(mqMessageData);
     }
 
     private void validateRegisterInfo(UserRegisterDto registerDto) {

@@ -1,6 +1,6 @@
 <html>
 <body>
-<h3>尊敬的,  ${loginName}, 您好!</h3>
+<h3>尊敬的: ${loginName}, 您好!</h3>
 
 重置密码成功新密码是${newLoginPwd}。
 

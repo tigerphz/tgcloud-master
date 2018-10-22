@@ -19,7 +19,7 @@ import java.util.HashMap;
  * @author tgcloud.net @gmail.com
  */
 @Slf4j
-public class Oauth2FeignErrorInterceptor implements ErrorDecoder {
+public class OAuth2FeignErrorInterceptor implements ErrorDecoder {
     private final ErrorDecoder defaultErrorDecoder = new Default();
 
     /**

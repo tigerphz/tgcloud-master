@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Data
 @ConfigurationProperties(prefix = "tgcloud.oauth2.client")
-public class Oauth2ClientProperties {
+public class OAuth2ClientProperties {
     private String id;
     private String accessTokenUrl;
     private String clientId;

@@ -1,6 +1,6 @@
 <html>
 <body>
-<h3>尊敬的${loginName}:<br/> 您好!</h3>
+<h3>尊敬的: ${loginName}:<br/> 您好!</h3>
 
 您在XXX网注册用户已激活成功。
 

@@ -14,6 +14,11 @@
     <packaging>pom</packaging>
 
     <name>tgcloud-modules</name>
+
+    <properties>
+        <ok-http-version>10.0.1</ok-http-version>
+    </properties>
+
     <modules>
         <module>tgcloud-microservice-dmc</module>
         <module>tgcloud-microservice-uac</module>
@@ -121,6 +126,11 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-jwt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+            <version>${ok-http-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

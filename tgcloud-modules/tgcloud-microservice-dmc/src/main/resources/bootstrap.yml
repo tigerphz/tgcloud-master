@@ -76,6 +76,10 @@ security:
         key-uri: http://localhost:8999/oauth/token_key
 
 feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
   hystrix:
     enabled: true
   client:

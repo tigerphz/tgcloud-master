@@ -20,10 +20,10 @@ import org.springframework.security.oauth2.common.AuthenticationScheme;
  * @author tgcloud.net @gmail.com
  */
 @Configuration
-@EnableConfigurationProperties(Oauth2ClientProperties.class)
+@EnableConfigurationProperties(OAuth2ClientProperties.class)
 public class OAuth2FeignAutoConfiguration {
 
-    private final Oauth2ClientProperties oauth2ClientProperties;
+    private final OAuth2ClientProperties oauth2ClientProperties;
 
     /**
      * Instantiates a new O auth 2 feign auto configuration.
@@ -31,7 +31,7 @@ public class OAuth2FeignAutoConfiguration {
      * @param oauth2ClientProperties the oauth 2 client properties
      */
     @Autowired
-    public OAuth2FeignAutoConfiguration(Oauth2ClientProperties oauth2ClientProperties) {
+    public OAuth2FeignAutoConfiguration(OAuth2ClientProperties oauth2ClientProperties) {
         this.oauth2ClientProperties = oauth2ClientProperties;
     }
 
@@ -96,6 +96,6 @@ public class OAuth2FeignAutoConfiguration {
 
     @Bean
     public ErrorDecoder errorDecoder() {
-        return new Oauth2FeignErrorInterceptor();
+        return new OAuth2FeignErrorInterceptor();
     }
 }
