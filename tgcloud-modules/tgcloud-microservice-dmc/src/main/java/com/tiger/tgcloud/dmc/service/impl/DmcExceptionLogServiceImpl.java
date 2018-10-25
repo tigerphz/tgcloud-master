@@ -4,12 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.core.support.BaseService;
 import com.tiger.tgcloud.dmc.api.model.dto.GlobalExceptionLogDto;
-import com.tiger.tgcloud.dmc.mapper.DmcExceptionLogMapper;
 import com.tiger.tgcloud.dmc.model.domain.DmcExceptionLog;
 import com.tiger.tgcloud.dmc.model.dto.DmcExceptionQueryConditionDto;
 import com.tiger.tgcloud.dmc.repository.DmcExceptionLogRepository;
 import com.tiger.tgcloud.dmc.service.DmcExceptionLogService;
-import com.tiger.tgcloud.core.support.BaseRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

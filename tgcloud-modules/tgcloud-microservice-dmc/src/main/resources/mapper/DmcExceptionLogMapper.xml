@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tiger.tgcloud.dmc.mapper.DmcExceptionLogMapper">
+<mapper namespace="com.tiger.tgcloud.dmc.repository.mapper.DmcExceptionLogMapper">
     <resultMap id="BaseResultMap" type="com.tiger.tgcloud.dmc.model.domain.DmcExceptionLog">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="application_name" property="applicationName" jdbcType="VARCHAR"/>

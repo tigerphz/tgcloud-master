@@ -1,4 +1,4 @@
-package com.tiger.tgcloud.dmc.mapper;
+package com.tiger.tgcloud.dmc.repository.mapper;
 
 import com.tiger.tgcloud.core.mybatis.MyMapper;
 import com.tiger.tgcloud.dmc.model.domain.DmcExceptionLog;

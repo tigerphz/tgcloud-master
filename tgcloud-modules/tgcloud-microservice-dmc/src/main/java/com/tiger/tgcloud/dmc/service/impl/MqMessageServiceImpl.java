@@ -2,7 +2,7 @@ package com.tiger.tgcloud.dmc.service.impl;
 
 import com.tiger.tgcloud.core.support.BaseService;
 import com.tiger.tgcloud.dmc.api.model.domain.MqMessageData;
-import com.tiger.tgcloud.dmc.mapper.MqMessageMapper;
+import com.tiger.tgcloud.dmc.repository.mapper.MqMessageMapper;
 import com.tiger.tgcloud.dmc.service.MqMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
