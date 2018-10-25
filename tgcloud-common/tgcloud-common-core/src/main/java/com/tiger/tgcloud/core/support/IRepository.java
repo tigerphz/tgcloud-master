@@ -13,7 +13,7 @@ import java.util.List;
  * @version: V1.0
  * @modified by:
  */
-public interface IService<T> {
+public interface IRepository<T> {
     /**
      * 根据实体中的属性值进行查询, 查询条件使用等号  @param record the record
      *
@@ -59,7 +59,7 @@ public interface IService<T> {
      * @param record the record
      * @return the int
      */
-    int save(T record);
+    Boolean save(T record);
 
     /**
      * 批量保存  @param list the list
@@ -76,7 +76,7 @@ public interface IService<T> {
      * @param entity the entity
      * @return the int
      */
-    int update(T entity);
+    Boolean update(T entity);
 
     /**
      * 根据实体属性作为条件进行删除, 查询条件使用等号  @param record the record
@@ -84,7 +84,7 @@ public interface IService<T> {
      * @param record the record
      * @return the int
      */
-    int delete(T record);
+    Boolean delete(T record);
 
     /**
      * 批量删除  @param list the list
@@ -101,7 +101,7 @@ public interface IService<T> {
      * @param key the key
      * @return the int
      */
-    int deleteByKey(Object key);
+    Boolean deleteByKey(Object key);
 
     /**
      * 这个查询支持通过Example类指定查询列, 通过selectProperties方法指定查询列  @param example the example
@@ -126,7 +126,9 @@ public interface IService<T> {
      * @param example the example
      * @return the int
      */
-    int updateByExample(@Param("record") T record, @Param("example") Object example);
+    Boolean updateByExample(@Param("record") T record, @Param("example") Object example);
+
+    Boolean updateByPrimaryKeySelective(T record);
 
     /**
      * 根据Example条件删除数据  @param example the example
@@ -134,7 +136,7 @@ public interface IService<T> {
      * @param example the example
      * @return the int
      */
-    int deleteByExample(Object example);
+    Boolean deleteByExample(Object example);
 
     /**
      * 根据实体属性和RowBounds进行分页查询  @param record the record

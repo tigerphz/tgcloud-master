@@ -56,7 +56,7 @@ public class UserRegisterDto implements Serializable {
      */
     @ApiModelProperty(value = "邮箱")
     @NotNull(message = "邮箱不能为空")
-    @Email
+    @Email(message = "邮箱格式错误")
     private String email;
 
     /**

@@ -1,6 +1,6 @@
 package com.tiger.tgcloud.service.impl;
 
-import com.tiger.tgcloud.core.support.BaseService;
+import com.tiger.tgcloud.core.support.BaseRepository;
 import com.tiger.tgcloud.mapper.UserMapper;
 import com.tiger.tgcloud.model.UserInfo;
 import com.tiger.tgcloud.service.UserService;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class UserServiceImpl extends BaseService<UserInfo> implements UserService {
+public class UserServiceImpl extends BaseRepository<UserInfo> implements UserService {
 
     @Autowired
     private UserMapper userMapper;

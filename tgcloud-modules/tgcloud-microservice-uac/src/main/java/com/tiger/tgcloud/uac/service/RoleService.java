@@ -1,0 +1,30 @@
+package com.tiger.tgcloud.uac.service;
+
+import com.github.pagehelper.PageInfo;
+import com.tiger.tgcloud.uac.model.domain.RoleInfo;
+import com.tiger.tgcloud.uac.model.query.RoleParam;
+
+/**
+ * @description:
+ * @author: tiger
+ * @date: 2018/10/24 16:21
+ * @version: V1.0
+ * @modified by:
+ */
+public interface RoleService {
+    /**
+     * 分页查询用户列表
+     *
+     * @param param
+     * @return
+     */
+    PageInfo<RoleInfo> selectByConditionWithPage(RoleParam param);
+
+    /**
+     * 添加角色
+     *
+     * @param roleInfo
+     * @return
+     */
+    Boolean addRole(RoleInfo roleInfo);
+}

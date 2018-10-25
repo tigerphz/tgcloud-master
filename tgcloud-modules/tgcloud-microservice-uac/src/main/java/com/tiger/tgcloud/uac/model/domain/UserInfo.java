@@ -28,7 +28,7 @@ public class UserInfo extends BaseEntity {
      * 登录名
      */
     @Column(name = "username")
-    private String userName;
+    private String username;
 
     /**
      * 昵称
@@ -39,13 +39,13 @@ public class UserInfo extends BaseEntity {
      * 登录密码
      */
     @Column(name = "passwordhash")
-    private String password;
+    private String passwordhash;
 
     /**
      * 盐,用于shiro加密, 字段停用
      */
     @Column(name = "passwordsalt")
-    private String salt;
+    private String passwordsalt;
 
     /**
      * 性别
@@ -70,6 +70,8 @@ public class UserInfo extends BaseEntity {
 
     @Column(name = "is_mobile_active")
     private Integer isMobileActive;
+
+    private String identitycard;
 
     private String email;
 
@@ -100,11 +102,9 @@ public class UserInfo extends BaseEntity {
     /**
      * 用户所属的组织ID
      */
-    @ApiModelProperty(value = "用户所属的组织ID")
-    @Transient
     private Long deptid;
 
     @ApiModelProperty(value = "用户所属的组织名称")
     @Transient
-    private String deptName;
+    private String deptname;
 }

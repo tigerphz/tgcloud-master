@@ -1,7 +1,7 @@
 package com.tiger.tgcloud.dmc.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.tiger.tgcloud.base.dto.BaseQuery;
+import com.tiger.tgcloud.base.dto.BaseQueryCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,7 +20,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel
-public class DmcExceptionQueryDto extends BaseQuery {
+public class DmcExceptionQueryConditionDto extends BaseQueryCondition {
 
     private static final long serialVersionUID = 3967075132487249652L;
     /**

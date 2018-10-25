@@ -2,7 +2,7 @@ package com.tiger.tgcloud.dmc.mapper;
 
 import com.tiger.tgcloud.core.mybatis.MyMapper;
 import com.tiger.tgcloud.dmc.model.domain.DmcExceptionLog;
-import com.tiger.tgcloud.dmc.model.dto.DmcExceptionQueryDto;
+import com.tiger.tgcloud.dmc.model.dto.DmcExceptionQueryConditionDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -24,5 +24,5 @@ public interface DmcExceptionLogMapper extends MyMapper<DmcExceptionLog> {
      * @param dmcExceptionQueryDto the mdc exception query dto
      * @return the list
      */
-    List<DmcExceptionLog> queryExceptionListWithPage(DmcExceptionQueryDto dmcExceptionQueryDto);
+    List<DmcExceptionLog> queryExceptionListWithPage(DmcExceptionQueryConditionDto dmcExceptionQueryDto);
 }

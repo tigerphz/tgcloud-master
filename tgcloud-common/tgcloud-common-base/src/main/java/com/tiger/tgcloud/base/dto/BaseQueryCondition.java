@@ -1,6 +1,7 @@
 package com.tiger.tgcloud.base.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -12,7 +13,8 @@ import java.io.Serializable;
  * @modified by:
  */
 @Data
-public class BaseQuery implements Serializable {
+@EqualsAndHashCode
+public class BaseQueryCondition implements Serializable {
 
     private static final long serialVersionUID = 3319698607712846427L;
 

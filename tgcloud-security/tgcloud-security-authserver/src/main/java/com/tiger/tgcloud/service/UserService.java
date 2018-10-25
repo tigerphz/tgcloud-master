@@ -1,6 +1,6 @@
 package com.tiger.tgcloud.service;
 
-import com.tiger.tgcloud.core.support.IService;
+import com.tiger.tgcloud.core.support.IRepository;
 import com.tiger.tgcloud.model.UserInfo;
 
 /**
@@ -10,7 +10,7 @@ import com.tiger.tgcloud.model.UserInfo;
  * @version: V1.0
  * @modified by:
  */
-public interface UserService extends IService<UserInfo> {
+public interface UserService extends IRepository<UserInfo> {
 
     /**
      * 根据登录名查询用户信息

@@ -1,6 +1,5 @@
 package com.tiger.tgcloud.dmc.service;
 
-import com.tiger.tgcloud.core.support.IService;
 import com.tiger.tgcloud.dmc.api.model.domain.MqMessageData;
 
 /**
@@ -10,7 +9,7 @@ import com.tiger.tgcloud.dmc.api.model.domain.MqMessageData;
  * @version: V1.0
  * @modified by:
  */
-public interface MqMessageService extends IService<MqMessageData> {
+public interface MqMessageService {
 
     /**
      * 保存并发送消息日志

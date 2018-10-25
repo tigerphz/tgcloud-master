@@ -1,13 +1,12 @@
 package com.tiger.tgcloud.core.mybatis;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tiger.tgcloud.base.dto.LoginAuthDto;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -67,4 +66,34 @@ public class BaseEntity implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
+
+    /**
+     * Is new boolean.
+     *
+     * @return the boolean
+     */
+    @Transient
+    @JsonIgnore
+    public boolean isNew() {
+        return this.id == null;
+    }
+
+    /**
+     * Sets update info.
+     *
+     * @param user the user
+     */
+    @Transient
+    @JsonIgnore
+    public void setUpdateInfo(LoginAuthDto user) {
+
+        if (isNew()) {
+            this.creatorId = (this.updateOperatorId = user.getUserId());
+            this.creator = user.getUserName();
+            this.createdTime = (this.updateTime = new Date());
+        }
+        this.updateOperatorId = user.getUserId();
+        this.updateOperator = user.getUserName() == null ? user.getUserName() : user.getNickName();
+        this.updateTime = new Date();
+    }
 }

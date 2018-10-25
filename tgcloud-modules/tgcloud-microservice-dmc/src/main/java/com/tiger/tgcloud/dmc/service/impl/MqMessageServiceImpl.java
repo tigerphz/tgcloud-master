@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @modified by:
  */
 @Service
-public class MqMessageServiceImpl extends BaseService<MqMessageData> implements MqMessageService {
+public class MqMessageServiceImpl extends BaseService implements MqMessageService {
     @Autowired
     private MqMessageMapper mqMessageMapper;
 

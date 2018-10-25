@@ -1,8 +1,7 @@
 package com.tiger.tgcloud.uac.web.controller;
 
+import com.tiger.tgcloud.core.support.BaseController;
 import com.tiger.tgcloud.uac.api.model.dto.UserRegisterDto;
-import com.tiger.tgcloud.uac.model.domain.UserInfo;
-import com.tiger.tgcloud.uac.model.enums.UserStatusEnum;
 import com.tiger.tgcloud.uac.service.UserAuthService;
 import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
@@ -25,7 +24,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/auth")
 @Api(value = "Web-UserAuthController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class UserAuthController {
+public class UserAuthController extends BaseController {
 
     @Autowired
     private UserAuthService userAuthService;
@@ -57,11 +56,7 @@ public class UserAuthController {
     @PostMapping(value = "/checkEmailActive/{email:.+}")
     @ApiOperation(httpMethod = "POST", value = "校验邮箱")
     public Wrapper<Boolean> checkEmailActive(@PathVariable("email") String email) {
-        UserInfo userInfo = new UserInfo();
-        userInfo.setStatus(UserStatusEnum.ENABLE.getKey());
-        userInfo.setEmail(email);
-        int count = userAuthService.selectCount(userInfo);
-        return WrapMapper.ok(count > 0);
+        return WrapMapper.ok(userAuthService.checkEmailActive(email));
     }
 
     /**

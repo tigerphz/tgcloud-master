@@ -1,8 +1,6 @@
 package com.tiger.tgcloud.uac.service;
 
-import com.tiger.tgcloud.core.support.IService;
 import com.tiger.tgcloud.uac.api.model.dto.UserRegisterDto;
-import com.tiger.tgcloud.uac.model.domain.UserInfo;
 
 /**
  * @description:
@@ -11,7 +9,7 @@ import com.tiger.tgcloud.uac.model.domain.UserInfo;
  * @version: V1.0
  * @modified by:
  */
-public interface UserAuthService extends IService<UserInfo> {
+public interface UserAuthService {
     /**
      * 注册用户.
      *
@@ -25,4 +23,12 @@ public interface UserAuthService extends IService<UserInfo> {
      * @param activeUserToken the active user token
      */
     void activeUser(String activeUserToken);
+
+    /**
+     * 检测邮箱是否可用
+     *
+     * @param email
+     * @return
+     */
+    Boolean checkEmailActive(String email);
 }

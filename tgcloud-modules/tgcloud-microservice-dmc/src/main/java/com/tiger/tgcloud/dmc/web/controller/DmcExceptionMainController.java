@@ -1,7 +1,7 @@
 package com.tiger.tgcloud.dmc.web.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.tiger.tgcloud.dmc.model.dto.DmcExceptionQueryDto;
+import com.tiger.tgcloud.dmc.model.dto.DmcExceptionQueryConditionDto;
 import com.tiger.tgcloud.dmc.service.DmcExceptionLogService;
 import com.tiger.tgcloud.core.support.BaseController;
 import com.tiger.tgcloud.utils.wrapper.WrapMapper;
@@ -39,7 +39,7 @@ public class DmcExceptionMainController extends BaseController {
      */
     @PostMapping(value = "/queryListWithPage")
     @ApiOperation(httpMethod = "POST", value = "查询日志列表")
-    public Wrapper queryLogListWithPage(@ApiParam(name = "mdcExceptionQueryDto", value = "异常查询条件") @RequestBody DmcExceptionQueryDto dmcExceptionQueryDto) {
+    public Wrapper queryLogListWithPage(@ApiParam(name = "mdcExceptionQueryDto", value = "异常查询条件") @RequestBody DmcExceptionQueryConditionDto dmcExceptionQueryDto) {
         logger.info("查询日志处理列表 mdcExceptionQueryDto={}", dmcExceptionQueryDto);
         PageInfo pageInfo = dmcExceptionLogService.queryExceptionListWithPage(dmcExceptionQueryDto);
         return WrapMapper.ok(pageInfo);

@@ -1,5 +1,5 @@
 CREATE TABLE `uac_user` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `version` int(11) DEFAULT '0' COMMENT '版本号',
   `username` varchar(50) NOT NULL COMMENT '登录名',
   `nickname` varchar(50) DEFAULT NULL COMMENT '昵称',

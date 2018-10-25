@@ -10,12 +10,12 @@ import com.tiger.tgcloud.dmc.api.model.domain.MqMessageData;
 import com.tiger.tgcloud.dmc.api.service.MqMessageFeignApi;
 import com.tiger.tgcloud.uac.api.exceptions.UacBizException;
 import com.tiger.tgcloud.uac.api.model.dto.UserRegisterDto;
-import com.tiger.tgcloud.uac.mapper.UserMapper;
 import com.tiger.tgcloud.uac.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.model.enums.EmailTemplateEnum;
 import com.tiger.tgcloud.uac.model.enums.UserSourceEnum;
 import com.tiger.tgcloud.uac.model.enums.UserStatusEnum;
 import com.tiger.tgcloud.uac.mq.EmailProducer;
+import com.tiger.tgcloud.uac.repository.UserRepository;
 import com.tiger.tgcloud.uac.service.RedisService;
 import com.tiger.tgcloud.uac.service.UserAuthService;
 import com.tiger.tgcloud.uac.utils.Md5Util;
@@ -43,7 +43,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAuthService {
+public class UserAuthServiceImpl extends BaseService implements UserAuthService {
 
     @Resource
     private RedisService redisService;
@@ -58,7 +58,7 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
     private MqMessageFeignApi mqMessageFeignApi;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserRepository userRepository;
 
     /**
      * 注册用户.
@@ -77,8 +77,8 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
         // 封装注册信息
         long id = generateId();
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserName(registerDto.getUserName());
-        userInfo.setPassword(Md5Util.encrypt(registerDto.getPassword()));
+        userInfo.setUsername(registerDto.getUserName());
+        userInfo.setPasswordhash(Md5Util.encrypt(registerDto.getPassword()));
         userInfo.setMobile(mobileNo);
         userInfo.setStatus(UserStatusEnum.UNENABLE.getKey());
         userInfo.setSource(UserSourceEnum.REGISTER.getKey());
@@ -93,7 +93,7 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
         userInfo.setUpdateOperator(registerDto.getUserName());
         userInfo.setUpdateTime(now);
 
-        userMapper.insertSelective(userInfo);
+        userRepository.save(userInfo);
 
         // 发送激活邮件
         String activeToken = PublicUtil.uuid() + super.generateId();
@@ -127,22 +127,22 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
         Preconditions.checkArgument(registerDto.getPassword().equals(registerDto.getConfirmPwd()), "两次密码不一致");
 
         UserInfo uacUser = new UserInfo();
-        uacUser.setUserName(registerDto.getUserName());
-        int count = userMapper.selectCount(uacUser);
+        uacUser.setUsername(registerDto.getUserName());
+        int count = userRepository.selectCount(uacUser);
         if (count > 0) {
             throw new UacBizException(ErrorCodeEnum.UAC10011012);
         }
 
         uacUser = new UserInfo();
         uacUser.setMobile(registerDto.getMobileNo());
-        count = userMapper.selectCount(uacUser);
+        count = userRepository.selectCount(uacUser);
         if (count > 0) {
             throw new UacBizException(ErrorCodeEnum.UAC10011013);
         }
 
         uacUser = new UserInfo();
         uacUser.setEmail(registerDto.getEmail());
-        count = userMapper.selectCount(uacUser);
+        count = userRepository.selectCount(uacUser);
         if (count > 0) {
             throw new UacBizException(ErrorCodeEnum.UAC10011019);
         }
@@ -163,7 +163,7 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
         UserInfo userInfo = new UserInfo();
         userInfo.setEmail(email);
 
-        userInfo = userMapper.selectOne(userInfo);
+        userInfo = userRepository.selectOne(userInfo);
         if (userInfo == null) {
             logger.error("找不到用户信息. email={}", email);
             throw new UacBizException(ErrorCodeEnum.UAC10011004, email);
@@ -174,16 +174,16 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
         update.setStatus(UserStatusEnum.ENABLE.getKey());
 
         //更新保存用户状态
-        int result = userMapper.updateByPrimaryKeySelective(update);
+        boolean result = userRepository.updateByPrimaryKeySelective(update);
         update.setUpdateOperatorId(update.getId());
-        update.setUpdateOperator(update.getUserName());
+        update.setUpdateOperator(update.getUsername());
         update.setUpdateTime(new Date());
-        if (result < 1) {
+        if (!result) {
             throw new UacBizException(ErrorCodeEnum.UAC10011038, update.getId());
         }
 
         Map<String, Object> param = Maps.newHashMap();
-        param.put("loginName", userInfo.getUserName());
+        param.put("loginName", userInfo.getUsername());
         param.put("dateTime", DateUtil.formatDateTime(new Date()));
 
         Set<String> to = Sets.newHashSet();
@@ -194,5 +194,19 @@ public class UserAuthServiceImpl extends BaseService<UserInfo> implements UserAu
 
         // 删除 activeUserToken
         redisService.deleteKey(activeUserKey);
+    }
+
+    /**
+     * 检测邮箱是否可用
+     *
+     * @param email
+     * @return
+     */
+    @Override
+    public Boolean checkEmailActive(String email) {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setStatus(UserStatusEnum.ENABLE.getKey());
+        userInfo.setEmail(email);
+        return userRepository.selectCount(userInfo) > 0;
     }
 }
