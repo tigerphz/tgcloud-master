@@ -27,4 +27,19 @@ public interface RoleService {
      * @return
      */
     Boolean addRole(RoleInfo roleInfo);
+
+    /**
+     * 更新角色
+     *
+     * @param roleInfo
+     * @return
+     */
+    Boolean updateRole(RoleInfo roleInfo);
+
+    /**
+     * 更新角色状态
+     *
+     * @return
+     */
+    Boolean updateUserStatusById(RoleInfo roleInfo);
 }

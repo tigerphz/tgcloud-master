@@ -62,4 +62,34 @@ public class RoleServiceImpl extends BaseService implements RoleService {
 
         return roleRepository.save(roleInfo);
     }
+
+    /**
+     * 更新角色
+     *
+     * @param roleInfo
+     * @return
+     */
+    @Override
+    public Boolean updateRole(RoleInfo roleInfo) {
+        return roleRepository.updateByPrimaryKeySelective(roleInfo);
+    }
+
+    /**
+     * 更新角色状态
+     *
+     * @param roleInfo
+     * @return
+     */
+    @Override
+    public Boolean updateUserStatusById(RoleInfo roleInfo) {
+        long roleId = roleInfo.getId();
+        RoleInfo param = new RoleInfo();
+        param.setId(roleId);
+        int count = roleRepository.selectCount(param);
+        if (count == 0) {
+            throw new UacBizException(ErrorCodeEnum.UAC10012005, roleId);
+        }
+
+        return roleRepository.updateByPrimaryKeySelective(roleInfo);
+    }
 }

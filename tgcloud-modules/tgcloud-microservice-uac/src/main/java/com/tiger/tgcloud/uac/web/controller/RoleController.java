@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 /**
  * @description: 角色管理
@@ -68,5 +69,41 @@ public class RoleController extends BaseController {
         roleInfo.setUpdateInfo(loginAuthDto);
 
         return WrapMapper.ok(roleService.addRole(roleInfo));
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @ApiOperation("更新角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "body", name = "roleVO", dataType = "RoleVO", value = "角色信息")
+    })
+    public Wrapper<Boolean> update(@Valid @RequestBody() RoleVO roleVO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String message = bindingResult.getFieldError().getDefaultMessage();
+            return WrapMapper.error(message);
+        }
+
+        RoleInfo roleInfo = roleMapping.to(roleVO);
+
+        LoginAuthDto loginAuthDto = getLoginAuthDto();
+        roleInfo.setUpdateInfo(loginAuthDto);
+
+        return WrapMapper.ok(roleService.updateRole(roleInfo));
+    }
+
+    @RequestMapping(value = "/{id}/status/{status}", method = RequestMethod.PUT)
+    @ApiOperation(value = "更新角色状态")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", name = "id", dataType = "Long", value = "Id", required = true),
+            @ApiImplicitParam(paramType = "path", name = "status", dataType = "Long", value = "状态", required = true)
+    })
+    public Wrapper<Boolean> updateStatus(@PathParam(value = "id") Long id, @PathParam(value = "status") Integer status) {
+        RoleInfo roleInfo = new RoleInfo();
+        roleInfo.setId(id);
+        roleInfo.setStatus(status);
+
+        LoginAuthDto loginAuthDto = getLoginAuthDto();
+        roleInfo.setUpdateInfo(loginAuthDto);
+
+        return WrapMapper.ok(roleService.updateUserStatusById(roleInfo));
     }
 }
