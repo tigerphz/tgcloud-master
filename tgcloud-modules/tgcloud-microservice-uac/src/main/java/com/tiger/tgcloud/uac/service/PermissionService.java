@@ -1,5 +1,9 @@
 package com.tiger.tgcloud.uac.service;
 
+import com.github.pagehelper.PageInfo;
+import com.tiger.tgcloud.uac.model.domain.PermissionInfo;
+import com.tiger.tgcloud.uac.model.query.PermissionParam;
+
 /**
  * @description:
  * @author: tiger
@@ -8,4 +12,11 @@ package com.tiger.tgcloud.uac.service;
  * @modified by:
  */
 public interface PermissionService {
+    /**
+     * 分页查询权限列表
+     *
+     * @param param
+     * @return
+     */
+    PageInfo<PermissionInfo> selectByConditionWithPage(PermissionParam param);
 }
