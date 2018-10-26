@@ -84,8 +84,7 @@ public class UserController extends BaseController {
         userInfo.setStatus(status);
         userInfo.setUpdateInfo(loginAuthDto);
 
-        Boolean isSucc = userService.updateUserStatusById(userInfo);
-        return WrapMapper.ok(isSucc);
+        return WrapMapper.ok(userService.updateUserStatusById(userInfo));
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
@@ -107,9 +106,7 @@ public class UserController extends BaseController {
         LoginAuthDto loginAuthDto = getLoginAuthDto();
         userInfo.setUpdateInfo(loginAuthDto);
 
-        Boolean isSucc = userService.updateUserById(userInfo);
-
-        return WrapMapper.ok(isSucc);
+        return WrapMapper.ok(userService.updateUserById(userInfo));
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
@@ -128,8 +125,6 @@ public class UserController extends BaseController {
         LoginAuthDto loginAuthDto = getLoginAuthDto();
         userInfo.setUpdateInfo(loginAuthDto);
 
-        Boolean isSucc = userService.addUser(userInfo);
-
-        return WrapMapper.ok(isSucc);
+        return WrapMapper.ok(userService.addUser(userInfo));
     }
 }

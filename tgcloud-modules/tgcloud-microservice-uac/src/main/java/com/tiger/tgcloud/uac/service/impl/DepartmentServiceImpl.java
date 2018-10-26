@@ -2,7 +2,9 @@ package com.tiger.tgcloud.uac.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.tiger.tgcloud.base.enums.ErrorCodeEnum;
 import com.tiger.tgcloud.core.support.BaseService;
+import com.tiger.tgcloud.uac.api.exceptions.UacBizException;
 import com.tiger.tgcloud.uac.model.domain.DepartmentInfo;
 import com.tiger.tgcloud.uac.model.query.DepartmentParam;
 import com.tiger.tgcloud.uac.repository.DepartmentRepository;
@@ -40,5 +42,54 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
 
         List<DepartmentInfo> departmentInfos = departmentRepository.selectByCondition(param);
         return new PageInfo<>(departmentInfos);
+    }
+
+    /**
+     * 添加部门信息
+     *
+     * @param departmentInfo
+     * @return
+     */
+    @Override
+    public Boolean addDepartment(DepartmentInfo departmentInfo) {
+        DepartmentInfo param = new DepartmentInfo();
+        param.setDeptname(departmentInfo.getDeptname());
+        if (departmentRepository.selectCount(param) > 0) {
+            throw new UacBizException(ErrorCodeEnum.UAC10012010);
+        }
+
+        departmentInfo.setId(generateId());
+
+        return departmentRepository.save(departmentInfo);
+    }
+
+    /**
+     * 更新部门信息
+     *
+     * @param departmentInfo
+     * @return
+     */
+    @Override
+    public Boolean updateDepartment(DepartmentInfo departmentInfo) {
+        return departmentRepository.updateByPrimaryKeySelective(departmentInfo);
+    }
+
+    /**
+     * 更新部门信息
+     *
+     * @param departmentInfo
+     * @return
+     */
+    @Override
+    public Boolean updateUserStatusById(DepartmentInfo departmentInfo) {
+        long roleId = departmentInfo.getId();
+        DepartmentInfo param = new DepartmentInfo();
+        param.setId(roleId);
+        int count = departmentRepository.selectCount(param);
+        if (count == 0) {
+            throw new UacBizException(ErrorCodeEnum.UAC10012011, roleId);
+        }
+
+        return departmentRepository.updateByPrimaryKeySelective(departmentInfo);
     }
 }

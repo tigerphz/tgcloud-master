@@ -30,4 +30,34 @@ public class PermissionRepository extends BaseRepository<PermissionInfo> {
     public List<PermissionInfo> selectByCondition(PermissionParam param) {
         return permissionMapper.selectByCondition(param);
     }
+
+    /**
+     * 根据用户ID获取权限
+     *
+     * @param userId
+     * @return
+     */
+    public List<PermissionInfo> selectByUserId(Long userId) {
+        return permissionMapper.selectByUserId(userId);
+    }
+
+    /**
+     * 根据用户名获取权限
+     *
+     * @param userName
+     * @return
+     */
+    public List<PermissionInfo> selectByUserName(String userName) {
+        return permissionMapper.selectByUserName(userName);
+    }
+
+    /**
+     * 获取角色拥有的权限
+     *
+     * @param roleId
+     * @return
+     */
+    public List<PermissionInfo> selectByRoleId(Long roleId) {
+        return permissionMapper.selectByRoleId(roleId);
+    }
 }

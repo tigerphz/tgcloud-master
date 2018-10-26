@@ -1,9 +1,13 @@
 package com.tiger.tgcloud.uac.web.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.tiger.tgcloud.base.dto.LoginAuthDto;
 import com.tiger.tgcloud.core.support.BaseController;
+import com.tiger.tgcloud.uac.mapping.PermissionMapping;
+import com.tiger.tgcloud.uac.model.bo.MenuBO;
 import com.tiger.tgcloud.uac.model.domain.PermissionInfo;
 import com.tiger.tgcloud.uac.model.query.PermissionParam;
+import com.tiger.tgcloud.uac.model.vo.PermissionVO;
 import com.tiger.tgcloud.uac.service.PermissionService;
 import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
@@ -12,9 +16,11 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @description: 权限管理
@@ -24,11 +30,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @modified by:
  */
 @RestController
-@RequestMapping(value = "/permissions")
+@RequestMapping(value = "/perms")
 @Api(value = "Web - PermissionController")
 public class PermissionController extends BaseController {
     @Autowired
     private PermissionService permissionService;
+
+    @Autowired
+    private PermissionMapping permissionMapping;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ApiOperation("获取所有权限信息")
@@ -39,5 +48,70 @@ public class PermissionController extends BaseController {
         PageInfo<PermissionInfo> permissionInfoPageInfos = permissionService.selectByConditionWithPage(param);
 
         return WrapMapper.ok(permissionInfoPageInfos);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @ApiOperation("添加权限信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "body", name = "permission", dataType = "PermissionVO", value = "权限信息")
+    })
+    public Wrapper<Boolean> add(@Valid @RequestBody() PermissionVO permissionVO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String message = bindingResult.getFieldError().getDefaultMessage();
+            return WrapMapper.error(message);
+        }
+
+        PermissionInfo permissionInfo = permissionMapping.to(permissionVO);
+
+        LoginAuthDto loginAuthDto = getLoginAuthDto();
+        permissionInfo.setUpdateInfo(loginAuthDto);
+
+        return WrapMapper.ok(permissionService.addPermission(permissionInfo));
+    }
+
+    @RequestMapping(value = "update", method = RequestMethod.PUT)
+    @ApiOperation("更新权限")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "body", name = "permissionVO", dataType = "PermissionVO", value = "权限信息")
+    })
+    public Wrapper<Boolean> update(@Valid @RequestBody() PermissionVO permissionVO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String message = bindingResult.getFieldError().getDefaultMessage();
+            return WrapMapper.error(message);
+        }
+
+        PermissionInfo permissionInfo = permissionMapping.to(permissionVO);
+
+        LoginAuthDto loginAuthDto = getLoginAuthDto();
+        permissionInfo.setUpdateInfo(loginAuthDto);
+
+        return WrapMapper.ok(permissionService.updatePermission(permissionInfo));
+    }
+
+    @RequestMapping(value = "/{id}/status/{status}", method = RequestMethod.PUT)
+    @ApiOperation("更新权限状态")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", name = "id", dataType = "Long", value = "Id", required = true),
+            @ApiImplicitParam(paramType = "path", name = "status", dataType = "Long", value = "状态", required = true)
+    })
+    public Wrapper<Boolean> updateStatus(@RequestParam(value = "id") Long id, @RequestParam(value = "status") Integer status) {
+        PermissionInfo permissionInfo = new PermissionInfo();
+        permissionInfo.setId(id);
+        permissionInfo.setStatus(status);
+
+        LoginAuthDto loginAuthDto = getLoginAuthDto();
+        permissionInfo.setUpdateInfo(loginAuthDto);
+
+        return WrapMapper.ok(permissionService.updateUserStatusById(permissionInfo));
+    }
+
+    @RequestMapping(value = "/menu/tree", method = RequestMethod.GET)
+    @ApiOperation("获取所有权限树结构信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "param", dataType = "PermissionParam", value = "查询条件信息")
+    })
+    public Wrapper<List<MenuBO>> tree(PermissionParam param) {
+        List<MenuBO> menuBOList = permissionService.selectPermTree(param);
+        return WrapMapper.ok(menuBOList);
     }
 }

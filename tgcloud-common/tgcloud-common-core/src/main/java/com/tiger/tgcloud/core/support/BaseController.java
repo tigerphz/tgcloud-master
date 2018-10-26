@@ -4,14 +4,10 @@ import com.tiger.tgcloud.base.constant.GlobalConstant;
 import com.tiger.tgcloud.base.dto.LoginAuthDto;
 import com.tiger.tgcloud.base.enums.ErrorCodeEnum;
 import com.tiger.tgcloud.base.exception.BusinessException;
-import com.tiger.tgcloud.core.security.SnowflakeIdWorker;
 import com.tiger.tgcloud.utils.PublicUtil;
 import com.tiger.tgcloud.utils.ThreadLocalMap;
-import com.tiger.tgcloud.utils.wrapper.WrapMapper;
-import com.tiger.tgcloud.utils.wrapper.Wrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @description:
@@ -21,11 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @modified by:
  */
 public class BaseController {
-
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    private SnowflakeIdWorker snowflakeIdWorker;
 
     /**
      * Gets login auth dto.
@@ -38,56 +30,5 @@ public class BaseController {
             throw new BusinessException(ErrorCodeEnum.UAC10011041);
         }
         return loginAuthDto;
-    }
-
-    /**
-     * Handle result wrapper.
-     *
-     * @param <T>    the type parameter
-     * @param result the result
-     * @return the wrapper
-     */
-    protected <T> Wrapper<T> handleResult(T result) {
-        boolean flag = isFlag(result);
-
-        if (flag) {
-            return WrapMapper.wrap(Wrapper.SUCCESS_CODE, "操作成功", result);
-        } else {
-            return WrapMapper.wrap(Wrapper.ERROR_CODE, "操作失败", result);
-        }
-    }
-
-    /**
-     * Handle result wrapper.
-     *
-     * @param <E>      the type parameter
-     * @param result   the result
-     * @param errorMsg the error msg
-     * @return the wrapper
-     */
-    protected <E> Wrapper<E> handleResult(E result, String errorMsg) {
-        boolean flag = isFlag(result);
-
-        if (flag) {
-            return WrapMapper.wrap(Wrapper.SUCCESS_CODE, "操作成功", result);
-        } else {
-            return WrapMapper.wrap(Wrapper.ERROR_CODE, errorMsg, result);
-        }
-    }
-
-    private boolean isFlag(Object result) {
-        boolean flag;
-        if (result instanceof Integer) {
-            flag = (Integer) result > 0;
-        } else if (result instanceof Boolean) {
-            flag = (Boolean) result;
-        } else {
-            flag = PublicUtil.isNotEmpty(result);
-        }
-        return flag;
-    }
-
-    protected long generateId() {
-        return snowflakeIdWorker.nextId();
     }
 }

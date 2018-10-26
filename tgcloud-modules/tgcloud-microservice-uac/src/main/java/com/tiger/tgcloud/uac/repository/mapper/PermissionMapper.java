@@ -25,4 +25,26 @@ public interface PermissionMapper extends MyMapper<PermissionInfo> {
      * @return
      */
     List<PermissionInfo> selectByCondition(PermissionParam param);
+
+    /**
+     * 根据用户ID获取权限
+     * @param userId
+     * @return
+     */
+    List<PermissionInfo> selectByUserId(Long userId);
+
+    /**
+     * 根据用户名获取权限
+     * @param userName
+     * @return
+     */
+    List<PermissionInfo> selectByUserName(String userName);
+
+    /**
+     * 获取角色拥有的权限
+     *
+     * @param roleId
+     * @return
+     */
+    List<PermissionInfo> selectByRoleId(Long roleId);
 }

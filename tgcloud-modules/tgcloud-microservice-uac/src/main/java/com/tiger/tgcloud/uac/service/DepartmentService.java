@@ -19,4 +19,27 @@ public interface DepartmentService {
      * @return
      */
     PageInfo<DepartmentInfo> selectByConditionWithPage(DepartmentParam param);
+
+    /**
+     * 添加部门信息
+     *
+     * @param departmentInfo
+     * @return
+     */
+    Boolean addDepartment(DepartmentInfo departmentInfo);
+
+    /**
+     * 更新部门信息
+     *
+     * @param departmentInfo
+     * @return
+     */
+    Boolean updateDepartment(DepartmentInfo departmentInfo);
+
+    /**
+     * 更新部门信息
+     * @param departmentInfo
+     * @return
+     */
+    Boolean updateUserStatusById(DepartmentInfo departmentInfo);
 }

@@ -305,6 +305,21 @@ public enum ErrorCodeEnum {
     UAC10012009(10012009, "该角色名已经存在"),
 
     /**
+     * Uac 10012008 error code enum.
+     */
+    UAC10012010(10012010, "该部门名已经存在"),
+
+    /**
+     * Uac 10012005 error code enum.
+     */
+    UAC10012011(10012011, "找不到部门信息,roleId=%s"),
+
+    /**
+     * Uac 10012005 error code enum.
+     */
+    UAC10012012(10012012, "找不到权限信息,roleId=%s"),
+
+    /**
      * Uac 10013001 error code enum.
      */
     UAC10013001(10013001, "父菜单不存在,menuId=%s"),
