@@ -25,4 +25,6 @@ public interface RoleMapper extends MyMapper<RoleInfo> {
      * @return
      */
     List<RoleInfo> selectByCondition(RoleParam param);
+
+    List<RoleInfo> selectByUserName(String userName);
 }

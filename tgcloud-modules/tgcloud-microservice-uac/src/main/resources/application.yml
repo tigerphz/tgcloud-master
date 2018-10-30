@@ -79,9 +79,9 @@ logging:
 
 tgcloud:
   auth:
-    rest-pwd-url: http://localhost:9999/resetPwd?resetPwdKey=
-    active-user-url: http://localhost:9999/activeUser
-    refresh-token-url: http://localhost:7979/uac/oauth/token
+    rest-pwd-url: http://passport.tgcloud.net:9999/resetPwd?resetPwdKey=
+    active-user-url: http://passport.tgcloud.net:9999/activeUser
+    refresh-token-url: http://api.tgcloud.net:7979/uac/oauth/token
   swagger:
     title: @pom.artifactId@
     description: @pom.description@

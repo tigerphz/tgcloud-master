@@ -2,6 +2,7 @@ package com.tiger.tgcloud.dmc.repository;
 
 import com.tiger.tgcloud.core.support.BaseRepository;
 import com.tiger.tgcloud.dmc.api.model.domain.MqMessageData;
+import org.springframework.stereotype.Repository;
 
 /**
  * @description:
@@ -10,5 +11,6 @@ import com.tiger.tgcloud.dmc.api.model.domain.MqMessageData;
  * @version: V1.0
  * @modified by:
  */
-public class MqMessageRepository  extends BaseRepository<MqMessageData> {
+@Repository
+public class MqMessageRepository extends BaseRepository<MqMessageData> {
 }

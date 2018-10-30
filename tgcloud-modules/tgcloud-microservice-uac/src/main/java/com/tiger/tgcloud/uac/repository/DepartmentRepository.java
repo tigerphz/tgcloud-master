@@ -3,6 +3,7 @@ package com.tiger.tgcloud.uac.repository;
 import com.tiger.tgcloud.core.support.BaseRepository;
 import com.tiger.tgcloud.uac.model.domain.DepartmentInfo;
 import com.tiger.tgcloud.uac.model.query.DepartmentParam;
+import com.tiger.tgcloud.uac.repository.mapper.DepartmentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @Repository
 public class DepartmentRepository extends BaseRepository<DepartmentInfo> {
     @Autowired
-    private DepartmentRepository departmentRepository;
+    private DepartmentMapper departmentMapper;
 
     /**
      * 根据条件查询用户信息
@@ -27,6 +28,6 @@ public class DepartmentRepository extends BaseRepository<DepartmentInfo> {
      * @return
      */
     public List<DepartmentInfo> selectByCondition(DepartmentParam param) {
-        return departmentRepository.selectByCondition(param);
+        return departmentMapper.selectByCondition(param);
     }
 }

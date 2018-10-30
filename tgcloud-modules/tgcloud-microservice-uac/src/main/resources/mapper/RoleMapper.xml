@@ -67,4 +67,12 @@
         </where>
         order by u.update_time desc
     </select>
+
+    <select id="selectByUserName" resultMap="BaseResultMap">
+        SELECT r.*
+        FROM uac_role r
+            INNER JOIN uac_user_role ur ON r.id = ur.roleid
+            INNER JOIN uac_user u ON ur.userid = u.id
+        WHERE u.username = #{userName,jdbcType=VARCHAR}
+    </select>
 </mapper>

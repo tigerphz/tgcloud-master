@@ -1,9 +1,12 @@
 package com.tiger.tgcloud.uac.web.controller;
 
+import com.tiger.tgcloud.base.dto.LoginAuthDto;
 import com.tiger.tgcloud.core.support.BaseController;
+import com.tiger.tgcloud.uac.model.bo.LoginedUserBO;
 import com.tiger.tgcloud.uac.model.bo.MenuBO;
 import com.tiger.tgcloud.uac.model.domain.PermissionInfo;
 import com.tiger.tgcloud.uac.service.PermissionService;
+import com.tiger.tgcloud.uac.service.UserLoginService;
 import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
 import io.swagger.annotations.Api;
@@ -33,6 +36,19 @@ import java.util.List;
 public class UserLoginController extends BaseController {
     @Autowired
     private PermissionService permissionService;
+
+    @Autowired
+    private UserLoginService userLoginService;
+
+    @RequestMapping(value = "/logininfo", method = RequestMethod.GET)
+    @ApiOperation("获取登录用户角色权限信息")
+    public Wrapper<LoginedUserBO> getLoginedUserRolesPerms() {
+        LoginAuthDto loginAuthDto = getLoginAuthDto();
+
+        LoginedUserBO loginedUserBO = userLoginService.getLoginedUserBO(loginAuthDto.getUserName());
+
+        return WrapMapper.ok(loginedUserBO);
+    }
 
     @RequestMapping(value = "/{id}/menus", method = RequestMethod.GET)
     @ApiOperation("获取用户菜单信息")

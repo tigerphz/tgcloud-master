@@ -2,21 +2,17 @@ package com.tiger.tgcloud.core.interceptor;
 
 import com.tiger.tgcloud.base.constant.GlobalConstant;
 import com.tiger.tgcloud.base.dto.LoginAuthDto;
-import com.tiger.tgcloud.base.dto.UserTokenDto;
 import com.tiger.tgcloud.core.annotation.NoNeedAccessAuthentication;
-import com.tiger.tgcloud.utils.RedisKeyUtil;
 import com.tiger.tgcloud.utils.ThreadLocalMap;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,20 +25,18 @@ import java.lang.reflect.Method;
  * @version: V1.0
  * @modified by:
  */
-@Slf4j
-public class TokenInterceptor implements HandlerInterceptor {
+public abstract class TokenInterceptor implements HandlerInterceptor {
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Value("${tgcloud.oauth2.jwtSigningKey}")
-    private String jwtSigningKey;
-
-    @Resource
-    private RedisTemplate<String, Object> redisTemplate;
-
-    private static final String OPTIONS = "OPTIONS";
-    private static final String AUTH_PATH1 = "/auth";
-    private static final String AUTH_PATH2 = "/oauth";
-    private static final String AUTH_PATH3 = "/error";
-    private static final String AUTH_PATH4 = "/api";
+    /**
+     * OPTIONS方法是用于请求获得由Request-URI标识的资源在请求/响应的通信过程中可以使用的功能选项。
+     * 通过这个方法，客户端可以在采取具体资源请求之前，决定对该资源采取何种必要措施，或者了解服务器的性能。
+     */
+    protected static final String OPTIONS = "OPTIONS";
+    protected static final String AUTH_PATH1 = "/auth";
+    protected static final String AUTH_PATH2 = "/oauth";
+    protected static final String AUTH_PATH3 = "/error";
+    protected static final String AUTH_PATH4 = "/api";
 
     /**
      * After completion.
@@ -56,7 +50,7 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object arg2, Exception ex) throws Exception {
         if (ex != null) {
-            log.error("<== afterCompletion - 解析token失败. ex={}", ex.getMessage(), ex);
+            logger.error("<== afterCompletion - 解析token失败. ex={}", ex.getMessage(), ex);
             this.handleException(response);
         }
     }
@@ -84,33 +78,32 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String uri = request.getRequestURI();
-        log.info("<== preHandle - 权限拦截器.  url={}", uri);
+        logger.info("<== preHandle - 权限拦截器.  url={}", uri);
         if (uri.contains(AUTH_PATH1) || uri.contains(AUTH_PATH2) || uri.contains(AUTH_PATH3) || uri.contains(AUTH_PATH4)) {
-            log.info("<== preHandle - 配置URL不走认证.  url={}", uri);
+            logger.info("<== preHandle - 配置URL不走认证.  url={}", uri);
             return true;
         }
-        log.info("<== preHandle - 调试模式不走认证.  OPTIONS={}", request.getMethod().toUpperCase());
 
         if (OPTIONS.equalsIgnoreCase(request.getMethod())) {
-            log.info("<== preHandle - 调试模式不走认证.  url={}", uri);
+            logger.info("<== preHandle - OPTIONS请求模式不走认证.  url={}", uri);
             return true;
         }
 
         if (isHaveAccess(handler)) {
-            log.info("<== preHandle - 不需要认证注解不走认证.  token={}");
+            logger.info("<== preHandle - 不需要认证注解不走认证.  token={}");
             return true;
         }
 
         String token = StringUtils.substringAfter(request.getHeader(HttpHeaders.AUTHORIZATION), "Bearer ");
-        log.info("<== preHandle - 权限拦截器.  token={}", token);
-        LoginAuthDto loginUser = (UserTokenDto) redisTemplate.opsForValue().get(RedisKeyUtil.getAccessTokenKey(token));
+        logger.info("<== preHandle - 权限拦截器.  token={}", token);
+        LoginAuthDto loginUser = getLoginAuthDto(token);
         if (loginUser == null) {
-            log.error("获取用户信息失败, 不允许操作");
+            logger.error("获取用户信息失败, 不允许操作");
             return false;
         }
-        log.info("<== preHandle - 权限拦截器.  loginUser={}", loginUser);
+        logger.info("<== preHandle - 权限拦截器.  loginUser={}", loginUser);
         ThreadLocalMap.put(GlobalConstant.Sys.TOKEN_AUTH_DTO, loginUser);
-        log.info("<== preHandle - 权限拦截器.  url={}, loginUser={}", uri, loginUser);
+        logger.info("<== preHandle - 权限拦截器.  url={}, loginUser={}", uri, loginUser);
         return true;
     }
 
@@ -124,7 +117,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         res.flushBuffer();
     }
 
-    private boolean isHaveAccess(Object handler) {
+    protected boolean isHaveAccess(Object handler) {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
 
         Method method = handlerMethod.getMethod();
@@ -133,4 +126,11 @@ public class TokenInterceptor implements HandlerInterceptor {
         return responseBody != null;
     }
 
+    /**
+     * 通过token获取登陆信息
+     *
+     * @param token
+     * @return
+     */
+    protected abstract LoginAuthDto getLoginAuthDto(String token);
 }

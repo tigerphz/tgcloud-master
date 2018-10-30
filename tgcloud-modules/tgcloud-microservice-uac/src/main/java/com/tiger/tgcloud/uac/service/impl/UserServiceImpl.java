@@ -6,6 +6,9 @@ import com.google.common.base.Preconditions;
 import com.tiger.tgcloud.base.enums.ErrorCodeEnum;
 import com.tiger.tgcloud.core.support.BaseService;
 import com.tiger.tgcloud.uac.api.exceptions.UacBizException;
+import com.tiger.tgcloud.uac.model.bo.LoginedUserBO;
+import com.tiger.tgcloud.uac.model.domain.PermissionInfo;
+import com.tiger.tgcloud.uac.model.domain.RoleInfo;
 import com.tiger.tgcloud.uac.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.model.enums.UserSourceEnum;
 import com.tiger.tgcloud.uac.model.enums.UserTypeEnum;
@@ -19,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @description:

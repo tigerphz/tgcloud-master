@@ -1,9 +1,9 @@
 package com.tiger.tgcloud.uac.repository;
 
 import com.tiger.tgcloud.core.support.BaseRepository;
-import com.tiger.tgcloud.uac.repository.mapper.RoleMapper;
 import com.tiger.tgcloud.uac.model.domain.RoleInfo;
 import com.tiger.tgcloud.uac.model.query.RoleParam;
+import com.tiger.tgcloud.uac.repository.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,5 +29,9 @@ public class RoleRepository extends BaseRepository<RoleInfo> {
      */
     public List<RoleInfo> selectByCondition(RoleParam param) {
         return roleMapper.selectByCondition(param);
+    }
+
+    public List<RoleInfo> selectByUserName(String userName) {
+        return roleMapper.selectByUserName(userName);
     }
 }

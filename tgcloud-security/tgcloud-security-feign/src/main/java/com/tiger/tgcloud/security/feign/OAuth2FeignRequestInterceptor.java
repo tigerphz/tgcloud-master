@@ -14,7 +14,7 @@ import org.springframework.util.Assert;
  */
 @Slf4j
 public class OAuth2FeignRequestInterceptor implements RequestInterceptor {
-    private static final String BEARER_TOKEN_TYPE = "bearer";
+    private static final String BEARER_TOKEN_TYPE = "Bearer";
 
     private final OAuth2RestTemplate oAuth2RestTemplate;
 

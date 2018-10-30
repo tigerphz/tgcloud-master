@@ -40,7 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         return new SecurityUser(user.getId(), user.getUserName(), user.getPassword(),
-                user.getUserName(), user.getDeptid(), user.getDeptName(), user.getStatus(), null);
+                user.getNickname(), user.getDeptid(), user.getDeptName(), user.getStatus(), null);
     }
 
 }
