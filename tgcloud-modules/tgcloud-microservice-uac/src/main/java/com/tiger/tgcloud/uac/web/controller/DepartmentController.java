@@ -39,7 +39,7 @@ public class DepartmentController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", name = "param", dataType = "DepartmentParam", value = "获取所有权限信息")
     })
-    public Wrapper<PageInfo<DepartmentInfo>> list(DepartmentParam param) {
+    public Wrapper<PageInfo<DepartmentInfo>> list(@ModelAttribute DepartmentParam param) {
         PageInfo<DepartmentInfo> permissionInfoPageInfos = departmentService.selectByConditionWithPage(param);
 
         return WrapMapper.ok(permissionInfoPageInfos);
@@ -67,7 +67,7 @@ public class DepartmentController extends BaseController {
     @RequestMapping(value = "/", method = RequestMethod.PUT)
     @ApiOperation("更新部门信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "body", name = "roleVO", dataType = "RoleVO", value = "角色信息")
+            @ApiImplicitParam(paramType = "body", name = "roleVO", dataType = "RoleVO", value = "部门信息")
     })
     public Wrapper<Boolean> update(@Valid @RequestBody() DepartmentVO departmentVO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

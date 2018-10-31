@@ -105,12 +105,18 @@
     <select id="selectByCondition" parameterType="com.tiger.tgcloud.uac.model.query.PermissionParam"
             resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List"/>,d.deptname
+        <include refid="Base_Column_List"/>
         FROM uac_permission u
         <where>
-            <include refid="Base_Colunm_Where">
-                <property name="alias" value="u"></property>
-            </include>
+            <if test="permname != null">
+                u.permname = #{permname,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                u.status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="url != null">
+                u.url = #{url,jdbcType=VARCHAR},
+            </if>
         </where>
         order by u.update_time desc
     </select>

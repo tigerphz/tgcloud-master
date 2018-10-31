@@ -58,12 +58,21 @@
     <select id="selectByCondition" parameterType="com.tiger.tgcloud.uac.model.query.RoleParam"
             resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List"/>,d.deptname
+        <include refid="Base_Column_List"/>
         FROM uac_role u
         <where>
-            <include refid="Base_Colunm_Where">
-                <property name="alias" value="u"></property>
-            </include>
+            <if test="rolename != null">
+                u.rolename = #{rolename,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                u.status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                u.description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="deptid != null">
+                u.deptid = #{deptid,jdbcType=BIGINT},
+            </if>
         </where>
         order by u.update_time desc
     </select>

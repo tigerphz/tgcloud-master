@@ -86,14 +86,13 @@ public class BaseEntity implements Serializable {
     @Transient
     @JsonIgnore
     public void setUpdateInfo(LoginAuthDto user) {
-
         if (isNew()) {
             this.creatorId = (this.updateOperatorId = user.getUserId());
             this.creator = user.getUserName();
             this.createdTime = (this.updateTime = new Date());
         }
         this.updateOperatorId = user.getUserId();
-        this.updateOperator = user.getUserName() == null ? user.getUserName() : user.getNickName();
+        this.updateOperator = user.getUserName() != null ? user.getUserName() : user.getNickName();
         this.updateTime = new Date();
     }
 }

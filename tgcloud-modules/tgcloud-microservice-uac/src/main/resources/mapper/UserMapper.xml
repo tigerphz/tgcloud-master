@@ -27,6 +27,7 @@
         <result column="update_operator" jdbcType="VARCHAR" property="updateOperator"/>
         <result column="update_operator_id" jdbcType="BIGINT" property="updateOperatorId"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="deptname" jdbcType="VARCHAR" property="deptname"/>
     </resultMap>
     <sql id="Base_Column_List">
     id, version, username, nickname, passwordhash, passwordsalt, gender, status, code,
@@ -112,14 +113,46 @@
     <select id="selectByCondition" parameterType="com.tiger.tgcloud.uac.model.query.UserParam"
             resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List"/>,d.deptname
+        <include refid="Base_Column_List"/>,
+        (select deptname from uac_department d where d.id=u.deptid) deptname
         FROM uac_user u
-        left join uac_department d
-        on u.deptid=d.id
         <where>
-            <include refid="Base_Colunm_Where">
-                <property name="alias" value="u"></property>
-            </include>
+            <if test="username != null">
+                u.username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                u.nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                u.gender = #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                u.status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                u.code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                u.mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="identitycard != null">
+                u.identitycard = #{identitycard,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                u.email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="source != null">
+                u.source = #{source,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                u.type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                u.qq = #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="deptid != null">
+                u.deptid = #{deptid,jdbcType=BIGINT},
+            </if>
         </where>
         order by u.update_time desc
     </select>

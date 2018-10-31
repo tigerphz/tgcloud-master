@@ -14,8 +14,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class UserParam extends BaseQueryCondition {
-    private Long id;
-
     private String username;
 
     private String nickname;
@@ -24,13 +22,19 @@ public class UserParam extends BaseQueryCondition {
 
     private Integer status;
 
-    private String cellphone;
+    private String mobile;
 
     private String identitycard;
 
     private String email;
 
     private String qq;
+
+    private String code;
+
+    private String type;
+
+    private String source;
 
     private String address;
 
