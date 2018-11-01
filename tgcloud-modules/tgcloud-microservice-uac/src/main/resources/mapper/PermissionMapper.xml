@@ -26,52 +26,52 @@
   </sql>
     <sql id="Base_Colunm_Where">
         <if test="permname != null">
-            ${alias}.permname = #{permname,jdbcType=VARCHAR},
+            ${alias}.permname = #{permname,jdbcType=VARCHAR}
         </if>
         <if test="status != null">
-            ${alias}.status = #{status,jdbcType=INTEGER},
+            ${alias}.status = #{status,jdbcType=INTEGER}
         </if>
         <if test="description != null">
-            ${alias}.description = #{description,jdbcType=VARCHAR},
+            ${alias}.description = #{description,jdbcType=VARCHAR}
         </if>
         <if test="type != null">
-            ${alias}.type = #{type,jdbcType=INTEGER},
+            ${alias}.type = #{type,jdbcType=INTEGER}
         </if>
         <if test="icon != null">
-            ${alias}.icon = #{icon,jdbcType=VARCHAR},
+            ${alias}.icon = #{icon,jdbcType=VARCHAR}
         </if>
         <if test="sort != null">
-            ${alias}.sort = #{sort,jdbcType=INTEGER},
+            ${alias}.sort = #{sort,jdbcType=INTEGER}
         </if>
         <if test="parentid != null">
-            ${alias}.parentid = #{parentid,jdbcType=BIGINT},
+            ${alias}.parentid = #{parentid,jdbcType=BIGINT}
         </if>
         <if test="url != null">
-            ${alias}.url = #{url,jdbcType=VARCHAR},
+            ${alias}.url = #{url,jdbcType=VARCHAR}
         </if>
         <if test="code != null">
-            ${alias}.code = #{code,jdbcType=VARCHAR},
+            ${alias}.code = #{code,jdbcType=VARCHAR}
         </if>
         <if test="version != null">
-            ${alias}.version = #{version,jdbcType=INTEGER},
+            ${alias}.version = #{version,jdbcType=INTEGER}
         </if>
         <if test="creator != null">
-            ${alias}.creator = #{creator,jdbcType=VARCHAR},
+            ${alias}.creator = #{creator,jdbcType=VARCHAR}
         </if>
         <if test="creatorId != null">
-            ${alias}.creator_id = #{creatorId,jdbcType=BIGINT},
+            ${alias}.creator_id = #{creatorId,jdbcType=BIGINT}
         </if>
         <if test="createdTime != null">
-            ${alias}.created_time = #{createdTime,jdbcType=TIMESTAMP},
+            ${alias}.created_time = #{createdTime,jdbcType=TIMESTAMP}
         </if>
         <if test="updateOperator != null">
-            ${alias}.update_operator = #{updateOperator,jdbcType=VARCHAR},
+            ${alias}.update_operator = #{updateOperator,jdbcType=VARCHAR}
         </if>
         <if test="updateOperatorId != null">
-            ${alias}.update_operator_id = #{updateOperatorId,jdbcType=BIGINT},
+            ${alias}.update_operator_id = #{updateOperatorId,jdbcType=BIGINT}
         </if>
         <if test="updateTime != null">
-            ${alias}.update_time = #{updateTime,jdbcType=TIMESTAMP},
+            ${alias}.update_time = #{updateTime,jdbcType=TIMESTAMP}
         </if>
     </sql>
 
@@ -109,13 +109,13 @@
         FROM uac_permission u
         <where>
             <if test="permname != null">
-                u.permname = #{permname,jdbcType=VARCHAR},
+                u.permname = #{permname,jdbcType=VARCHAR}
             </if>
             <if test="status != null">
-                u.status = #{status,jdbcType=INTEGER},
+                u.status = #{status,jdbcType=INTEGER}
             </if>
             <if test="url != null">
-                u.url = #{url,jdbcType=VARCHAR},
+                u.url = #{url,jdbcType=VARCHAR}
             </if>
         </where>
         order by u.update_time desc

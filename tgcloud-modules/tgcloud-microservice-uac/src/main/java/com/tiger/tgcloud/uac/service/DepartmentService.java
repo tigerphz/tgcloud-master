@@ -41,5 +41,5 @@ public interface DepartmentService {
      * @param departmentInfo
      * @return
      */
-    Boolean updateUserStatusById(DepartmentInfo departmentInfo);
+    Boolean updateDepartmentStatusById(DepartmentInfo departmentInfo);
 }

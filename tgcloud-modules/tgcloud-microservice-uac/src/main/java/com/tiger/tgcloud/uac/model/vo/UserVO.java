@@ -44,11 +44,37 @@ public class UserVO {
 
     private String address;
 
-    private Date createdate;
+    /**
+     * 版本号
+     */
+    private Integer version;
+    /**
+     * 创建人
+     */
+    private String creator;
 
-    private String createusername;
+    /**
+     * 创建人ID
+     */
+    private Long creatorId;
 
-    private Date modifydate;
+    /**
+     * 创建时间
+     */
+    private Date createdTime;
 
-    private String modifyusername;
+    /**
+     * 最近操作人
+     */
+    private String updateOperator;
+
+    /**
+     * 最后操作人ID
+     */
+    private Long updateOperatorId;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
 }

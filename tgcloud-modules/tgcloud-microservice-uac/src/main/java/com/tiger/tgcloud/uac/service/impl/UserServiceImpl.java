@@ -95,7 +95,7 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     public Boolean addUser(UserInfo userInfo) {
         String password = userInfo.getPasswordhash();
-        Preconditions.checkArgument(StringUtils.isEmpty(password), "密码不能为空");
+        Preconditions.checkArgument(!StringUtils.isEmpty(password), "密码不能为空");
 
         UserInfo param = new UserInfo();
         param.setUsername(userInfo.getUsername());

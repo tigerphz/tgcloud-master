@@ -94,7 +94,7 @@ public class PermissionController extends BaseController {
             @ApiImplicitParam(paramType = "path", name = "id", dataType = "Long", value = "Id", required = true),
             @ApiImplicitParam(paramType = "path", name = "status", dataType = "Long", value = "状态", required = true)
     })
-    public Wrapper<Boolean> updateStatus(@RequestParam(value = "id") Long id, @RequestParam(value = "status") Integer status) {
+    public Wrapper<Boolean> updateStatus(@PathVariable(value = "id") Long id, @PathVariable(value = "status") Integer status) {
         PermissionInfo permissionInfo = new PermissionInfo();
         permissionInfo.setId(id);
         permissionInfo.setStatus(status);

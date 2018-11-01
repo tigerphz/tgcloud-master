@@ -10,7 +10,10 @@ import com.tiger.tgcloud.uac.model.vo.DepartmentVO;
 import com.tiger.tgcloud.uac.service.DepartmentService;
 import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +42,7 @@ public class DepartmentController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", name = "param", dataType = "DepartmentParam", value = "获取所有权限信息")
     })
-    public Wrapper<PageInfo<DepartmentInfo>> list(@ModelAttribute DepartmentParam param) {
+    public Wrapper<PageInfo<DepartmentInfo>> list(DepartmentParam param) {
         PageInfo<DepartmentInfo> permissionInfoPageInfos = departmentService.selectByConditionWithPage(param);
 
         return WrapMapper.ok(permissionInfoPageInfos);
@@ -83,13 +86,12 @@ public class DepartmentController extends BaseController {
     }
 
     @RequestMapping(value = "/{id}/status/{status}", method = RequestMethod.PUT)
-    @ApiOperation(value = "更新部门状态", responseHeaders = @ResponseHeader(name = "Content-type", description = "application/x-www-form-urlencoded"))
+    @ApiOperation(value = "更新部门状态")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", name = "id", dataType = "Long", value = "Id", required = true),
             @ApiImplicitParam(paramType = "path", name = "status", dataType = "Long", value = "状态", required = true)
     })
-    public Wrapper<Boolean> updateStatus(@RequestParam(value = "id") Long id, @RequestParam(value = "status") Integer status) {
-
+    public Wrapper<Boolean> updateStatus(@PathVariable(value = "id") Long id, @PathVariable(value = "status") Integer status) {
         DepartmentInfo departmentInfo = new DepartmentInfo();
         departmentInfo.setId(id);
         departmentInfo.setStatus(status);
@@ -97,6 +99,6 @@ public class DepartmentController extends BaseController {
         LoginAuthDto loginAuthDto = getLoginAuthDto();
         departmentInfo.setUpdateInfo(loginAuthDto);
 
-        return WrapMapper.ok(departmentService.updateUserStatusById(departmentInfo));
+        return WrapMapper.ok(departmentService.updateDepartmentStatusById(departmentInfo));
     }
 }

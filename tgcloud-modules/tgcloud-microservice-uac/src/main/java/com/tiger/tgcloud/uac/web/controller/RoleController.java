@@ -16,13 +16,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 /**
  * @description: 角色管理
@@ -52,7 +48,7 @@ public class RoleController extends BaseController {
         return WrapMapper.ok(roleInfoPageInfo);
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     @ApiOperation("添加角色信息")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "body", name = "role", dataType = "RoleVO", value = "角色信息")
@@ -96,7 +92,7 @@ public class RoleController extends BaseController {
             @ApiImplicitParam(paramType = "path", name = "id", dataType = "Long", value = "Id", required = true),
             @ApiImplicitParam(paramType = "path", name = "status", dataType = "Long", value = "状态", required = true)
     })
-    public Wrapper<Boolean> updateStatus(@PathParam(value = "id") Long id, @PathParam(value = "status") Integer status) {
+    public Wrapper<Boolean> updateStatus(@PathVariable(value = "id") Long id, @PathVariable(value = "status") Integer status) {
         RoleInfo roleInfo = new RoleInfo();
         roleInfo.setId(id);
         roleInfo.setStatus(status);

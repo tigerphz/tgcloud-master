@@ -5,6 +5,7 @@ import com.tiger.tgcloud.base.dto.LoginAuthDto;
 import com.tiger.tgcloud.core.support.BaseController;
 import com.tiger.tgcloud.uac.mapping.UserMapping;
 import com.tiger.tgcloud.uac.model.domain.UserInfo;
+import com.tiger.tgcloud.uac.model.enums.UserTypeEnum;
 import com.tiger.tgcloud.uac.model.query.UserParam;
 import com.tiger.tgcloud.uac.model.vo.UserVO;
 import com.tiger.tgcloud.uac.service.UserService;
@@ -17,10 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
@@ -50,6 +48,7 @@ public class UserController extends BaseController {
             @ApiImplicitParam(paramType = "query", name = "param", dataType = "UserParam", value = "查询条件")
     })
     public Wrapper<PageInfo<UserVO>> list(UserParam param) {
+        param.setType(UserTypeEnum.OPERATE.getKey());
         PageInfo<UserInfo> userInfoPageInfo = userService.selectByConditionWithPage(param);
 
         List<UserVO> userList = userMapping.from(userInfoPageInfo.getList());
@@ -76,7 +75,7 @@ public class UserController extends BaseController {
             @ApiImplicitParam(paramType = "path", name = "id", dataType = "Long", value = "用户ID", required = true),
             @ApiImplicitParam(paramType = "path", name = "status", dataType = "Long", value = "状态", required = true)
     })
-    public Wrapper<Boolean> updateStatus(@PathParam(value = "id") Long userId, @PathParam(value = "status") Integer status) {
+    public Wrapper<Boolean> updateStatus(@PathVariable(value = "id") Long userId, @PathVariable(value = "status") Integer status) {
         LoginAuthDto loginAuthDto = getLoginAuthDto();
 
         UserInfo userInfo = new UserInfo();

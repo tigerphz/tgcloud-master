@@ -21,37 +21,37 @@
   </sql>
     <sql id="Base_Colunm_Where">
         <if test="deptname != null">
-            ${alias}.deptname = #{deptname,jdbcType=VARCHAR},
+            ${alias}.deptname = #{deptname,jdbcType=VARCHAR}
         </if>
         <if test="status != null">
-            ${alias}.status = #{status,jdbcType=INTEGER},
+            ${alias}.status = #{status,jdbcType=INTEGER}
         </if>
         <if test="description != null">
-            ${alias}.description = #{description,jdbcType=VARCHAR},
+            ${alias}.description = #{description,jdbcType=VARCHAR}
         </if>
         <if test="parentid != null">
-            ${alias}.parentid = #{parentid,jdbcType=BIGINT},
+            ${alias}.parentid = #{parentid,jdbcType=BIGINT}
         </if>
         <if test="version != null">
-            ${alias}.version = #{version,jdbcType=INTEGER},
+            ${alias}.version = #{version,jdbcType=INTEGER}
         </if>
         <if test="creator != null">
-            ${alias}.creator = #{creator,jdbcType=VARCHAR},
+            ${alias}.creator = #{creator,jdbcType=VARCHAR}
         </if>
         <if test="creatorId != null">
-            ${alias}.creator_id = #{creatorId,jdbcType=BIGINT},
+            ${alias}.creator_id = #{creatorId,jdbcType=BIGINT}
         </if>
         <if test="createdTime != null">
-            ${alias}.created_time = #{createdTime,jdbcType=TIMESTAMP},
+            ${alias}.created_time = #{createdTime,jdbcType=TIMESTAMP}
         </if>
         <if test="updateOperator != null">
-            ${alias}.update_operator = #{updateOperator,jdbcType=VARCHAR},
+            ${alias}.update_operator = #{updateOperator,jdbcType=VARCHAR}
         </if>
         <if test="updateOperatorId != null">
-            ${alias}.update_operator_id = #{updateOperatorId,jdbcType=BIGINT},
+            ${alias}.update_operator_id = #{updateOperatorId,jdbcType=BIGINT}
         </if>
         <if test="updateTime != null">
-            ${alias}.update_time = #{updateTime,jdbcType=TIMESTAMP},
+            ${alias}.update_time = #{updateTime,jdbcType=TIMESTAMP}
         </if>
     </sql>
 
@@ -62,16 +62,16 @@
         FROM uac_department u
         <where>
             <if test="deptname != null">
-                u.deptname = #{deptname,jdbcType=VARCHAR},
+                u.deptname = #{deptname,jdbcType=VARCHAR}
             </if>
             <if test="status != null">
-                u.status = #{status,jdbcType=INTEGER},
+                u.status = #{status,jdbcType=INTEGER}
             </if>
             <if test="description != null">
-                u.description = #{description,jdbcType=VARCHAR},
+                u.description = #{description,jdbcType=VARCHAR}
             </if>
             <if test="parentid != null">
-                u.parentid = #{parentid,jdbcType=BIGINT},
+                u.parentid = #{parentid,jdbcType=BIGINT}
             </if>
         </where>
         order by u.update_time desc

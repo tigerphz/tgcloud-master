@@ -81,13 +81,13 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
      * @return
      */
     @Override
-    public Boolean updateUserStatusById(DepartmentInfo departmentInfo) {
-        long roleId = departmentInfo.getId();
+    public Boolean updateDepartmentStatusById(DepartmentInfo departmentInfo) {
+        long deptId = departmentInfo.getId();
         DepartmentInfo param = new DepartmentInfo();
-        param.setId(roleId);
+        param.setId(deptId);
         int count = departmentRepository.selectCount(param);
         if (count == 0) {
-            throw new UacBizException(ErrorCodeEnum.UAC10012011, roleId);
+            throw new UacBizException(ErrorCodeEnum.UAC10012011, deptId);
         }
 
         return departmentRepository.updateByPrimaryKeySelective(departmentInfo);

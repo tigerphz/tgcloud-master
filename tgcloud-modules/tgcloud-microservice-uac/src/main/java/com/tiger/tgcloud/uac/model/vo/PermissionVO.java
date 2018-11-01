@@ -3,6 +3,7 @@ package com.tiger.tgcloud.uac.model.vo;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * @description:
@@ -35,4 +36,38 @@ public class PermissionVO {
     private String url;
 
     private String code;
+
+    /**
+     * 版本号
+     */
+    private Integer version;
+    /**
+     * 创建人
+     */
+    private String creator;
+
+    /**
+     * 创建人ID
+     */
+    private Long creatorId;
+
+    /**
+     * 创建时间
+     */
+    private Date createdTime;
+
+    /**
+     * 最近操作人
+     */
+    private String updateOperator;
+
+    /**
+     * 最后操作人ID
+     */
+    private Long updateOperatorId;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
 }

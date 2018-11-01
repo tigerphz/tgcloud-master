@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,7 +67,7 @@ public class UserLoginController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", name = "id", dataType = "Long", value = "角色Id", required = true),
     })
-    public Wrapper<List<PermissionInfo>> getUserPerms(@PathParam("id") Long roleId) {
+    public Wrapper<List<PermissionInfo>> getUserPerms(@PathVariable("id") Long roleId) {
         List<PermissionInfo> roleInfos = permissionService.selectByRoleId(roleId);
 
         return WrapMapper.ok(roleInfos);

@@ -4,6 +4,8 @@ import com.tiger.tgcloud.core.support.BasicObjectMapping;
 import com.tiger.tgcloud.uac.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.model.vo.UserVO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 /**
  * @description:
@@ -14,4 +16,9 @@ import org.mapstruct.Mapper;
  */
 @Mapper(componentModel = "spring")
 public interface UserMapping extends BasicObjectMapping<UserVO, UserInfo> {
+    @Override
+    @Mappings({
+            @Mapping(target = "passwordhash", source = "password")
+    })
+    UserInfo to(UserVO var1);
 }
