@@ -21,37 +21,37 @@
   </sql>
     <sql id="Base_Colunm_Where">
         <if test="rolename != null">
-            ${alias}.rolename = #{rolename,jdbcType=VARCHAR}
+            and ${alias}.rolename = #{rolename,jdbcType=VARCHAR}
         </if>
         <if test="status != null">
-            ${alias}.status = #{status,jdbcType=INTEGER}
+            and ${alias}.status = #{status,jdbcType=INTEGER}
         </if>
         <if test="description != null">
-            ${alias}.description = #{description,jdbcType=VARCHAR}
+            and ${alias}.description = #{description,jdbcType=VARCHAR}
         </if>
         <if test="deptid != null">
-            ${alias}.deptid = #{deptid,jdbcType=BIGINT}
+            and ${alias}.deptid = #{deptid,jdbcType=BIGINT}
         </if>
         <if test="version != null">
-            ${alias}.version = #{version,jdbcType=INTEGER}
+            and ${alias}.version = #{version,jdbcType=INTEGER}
         </if>
         <if test="creator != null">
-            ${alias}.creator = #{creator,jdbcType=VARCHAR}
+            and ${alias}.creator = #{creator,jdbcType=VARCHAR}
         </if>
         <if test="creatorId != null">
-            ${alias}.creator_id = #{creatorId,jdbcType=BIGINT}
+            and ${alias}.creator_id = #{creatorId,jdbcType=BIGINT}
         </if>
         <if test="createdTime != null">
-            ${alias}.created_time = #{createdTime,jdbcType=TIMESTAMP}
+            and ${alias}.created_time = #{createdTime,jdbcType=TIMESTAMP}
         </if>
         <if test="updateOperator != null">
-            ${alias}.update_operator = #{updateOperator,jdbcType=VARCHAR}
+            and ${alias}.update_operator = #{updateOperator,jdbcType=VARCHAR}
         </if>
         <if test="updateOperatorId != null">
-            ${alias}.update_operator_id = #{updateOperatorId,jdbcType=BIGINT}
+            and ${alias}.update_operator_id = #{updateOperatorId,jdbcType=BIGINT}
         </if>
         <if test="updateTime != null">
-            ${alias}.update_time = #{updateTime,jdbcType=TIMESTAMP}
+            and ${alias}.update_time = #{updateTime,jdbcType=TIMESTAMP}
         </if>
     </sql>
 
@@ -62,16 +62,16 @@
         FROM uac_role u
         <where>
             <if test="rolename != null">
-                u.rolename = #{rolename,jdbcType=VARCHAR}
+                and u.rolename = #{rolename,jdbcType=VARCHAR}
             </if>
             <if test="status != null">
-                u.status = #{status,jdbcType=INTEGER}
+                and u.status = #{status,jdbcType=INTEGER}
             </if>
             <if test="description != null">
-                u.description = #{description,jdbcType=VARCHAR}
+                and u.description = #{description,jdbcType=VARCHAR}
             </if>
             <if test="deptid != null">
-                u.deptid = #{deptid,jdbcType=BIGINT}
+                and u.deptid = #{deptid,jdbcType=BIGINT}
             </if>
         </where>
         order by u.update_time desc
@@ -84,4 +84,22 @@
             INNER JOIN uac_user u ON ur.userid = u.id
         WHERE u.username = #{userName,jdbcType=VARCHAR}
     </select>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT r.*
+        FROM uac_role r
+            INNER JOIN uac_user_role ur ON r.id = ur.roleid
+            INNER JOIN uac_user u ON ur.userid = u.id
+        WHERE u.id = #{userId,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteRolePermRelationByRoleId">
+        DELETE FROM uac_role_permission
+        WHERE roleid = #{roleId,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insertRolePermRelation">
+        INSERT uac_role_permission (roleid, permid)
+        VALUES (#{roleId,jdbcType=BIGINT}, #{permId,jdbcType=BIGINT})
+    </insert>
 </mapper>

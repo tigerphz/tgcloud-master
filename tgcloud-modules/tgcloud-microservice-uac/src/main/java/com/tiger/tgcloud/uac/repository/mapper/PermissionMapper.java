@@ -47,4 +47,11 @@ public interface PermissionMapper extends MyMapper<PermissionInfo> {
      * @return
      */
     List<PermissionInfo> selectByRoleId(Long roleId);
+
+    /**
+     * 获取所有节点数据不包括按钮
+     *
+     * @return
+     */
+    List<PermissionInfo> selectMenuNode();
 }

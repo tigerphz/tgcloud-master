@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.base.enums.ErrorCodeEnum;
 import com.tiger.tgcloud.core.support.BaseService;
 import com.tiger.tgcloud.uac.api.exceptions.UacBizException;
+import com.tiger.tgcloud.uac.model.domain.PermissionInfo;
 import com.tiger.tgcloud.uac.model.domain.RoleInfo;
 import com.tiger.tgcloud.uac.model.query.RoleParam;
 import com.tiger.tgcloud.uac.repository.RoleRepository;
@@ -71,6 +72,7 @@ public class RoleServiceImpl extends BaseService implements RoleService {
      */
     @Override
     public Boolean updateRole(RoleInfo roleInfo) {
+        CheckUpdateRole(roleInfo);
         return roleRepository.updateByPrimaryKeySelective(roleInfo);
     }
 
@@ -81,7 +83,17 @@ public class RoleServiceImpl extends BaseService implements RoleService {
      * @return
      */
     @Override
-    public Boolean updateUserStatusById(RoleInfo roleInfo) {
+    public Boolean updateRoleStatusById(RoleInfo roleInfo) {
+        CheckUpdateRole(roleInfo);
+        return roleRepository.updateByPrimaryKeySelective(roleInfo);
+    }
+
+    @Override
+    public List<RoleInfo> selectByUserId(Long userId) {
+        return roleRepository.selectByUserId(userId);
+    }
+
+    private void CheckUpdateRole(RoleInfo roleInfo) {
         long roleId = roleInfo.getId();
         RoleInfo param = new RoleInfo();
         param.setId(roleId);
@@ -89,7 +101,15 @@ public class RoleServiceImpl extends BaseService implements RoleService {
         if (count == 0) {
             throw new UacBizException(ErrorCodeEnum.UAC10012005, roleId);
         }
+    }
 
-        return roleRepository.updateByPrimaryKeySelective(roleInfo);
+    @Override
+    public Boolean bindRolePermRelation(Long roleId, List<Long> permIds) {
+        roleRepository.deleteRolePermRelationByRoleId(roleId);
+        for (Long permId : permIds) {
+            roleRepository.insertRolePermRelation(roleId, permId);
+        }
+
+        return true;
     }
 }

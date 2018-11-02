@@ -60,4 +60,13 @@ public class PermissionRepository extends BaseRepository<PermissionInfo> {
     public List<PermissionInfo> selectByRoleId(Long roleId) {
         return permissionMapper.selectByRoleId(roleId);
     }
+
+    /**
+     * 获取所有节点数据不包括按钮
+     *
+     * @return
+     */
+    public List<PermissionInfo> selectMenuNode() {
+        return permissionMapper.selectMenuNode();
+    }
 }

@@ -87,6 +87,22 @@ public class UserServiceImpl extends BaseService implements UserService {
     }
 
     /**
+     * 绑定用户角色关系
+     * @param userId
+     * @param roleIds
+     * @return
+     */
+    @Override
+    public Boolean bindUserRoleRelation(Long userId, List<Long> roleIds) {
+        userRepository.deleteUserRoleRelationByUserId(userId);
+        for (Long roleId : roleIds) {
+            userRepository.insertUserRoleRelation(userId, roleId);
+        }
+
+        return true;
+    }
+
+    /**
      * 保存用户
      *
      * @param userInfo

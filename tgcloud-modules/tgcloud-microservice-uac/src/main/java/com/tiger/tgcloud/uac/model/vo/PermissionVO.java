@@ -37,6 +37,12 @@ public class PermissionVO {
 
     private String code;
 
+    private String component;
+
+    private String title;
+
+    private String path;
+
     /**
      * 版本号
      */

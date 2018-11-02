@@ -1,9 +1,9 @@
 package com.tiger.tgcloud.uac.repository;
 
 import com.tiger.tgcloud.core.support.BaseRepository;
-import com.tiger.tgcloud.uac.repository.mapper.UserMapper;
 import com.tiger.tgcloud.uac.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.model.query.UserParam;
+import com.tiger.tgcloud.uac.repository.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,5 +29,13 @@ public class UserRepository extends BaseRepository<UserInfo> {
      */
     public List<UserInfo> selectByCondition(UserParam param) {
         return userMapper.selectByCondition(param);
+    }
+
+    public Boolean deleteUserRoleRelationByUserId(Long userId) {
+        return userMapper.deleteUserRoleRelationByUserId(userId);
+    }
+
+    public Boolean insertUserRoleRelation(Long userId, Long roleId) {
+        return userMapper.insertUserRoleRelation(userId, roleId);
     }
 }

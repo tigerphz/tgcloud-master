@@ -71,17 +71,23 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
      */
     @Override
     public Boolean updateDepartment(DepartmentInfo departmentInfo) {
+        CheckUpdateDepartment(departmentInfo);
         return departmentRepository.updateByPrimaryKeySelective(departmentInfo);
     }
 
     /**
-     * 更新部门信息
+     * 更新部门状态信息
      *
      * @param departmentInfo
      * @return
      */
     @Override
     public Boolean updateDepartmentStatusById(DepartmentInfo departmentInfo) {
+        CheckUpdateDepartment(departmentInfo);
+        return departmentRepository.updateByPrimaryKeySelective(departmentInfo);
+    }
+
+    private void CheckUpdateDepartment(DepartmentInfo departmentInfo) {
         long deptId = departmentInfo.getId();
         DepartmentInfo param = new DepartmentInfo();
         param.setId(deptId);
@@ -89,7 +95,5 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
         if (count == 0) {
             throw new UacBizException(ErrorCodeEnum.UAC10012011, deptId);
         }
-
-        return departmentRepository.updateByPrimaryKeySelective(departmentInfo);
     }
 }

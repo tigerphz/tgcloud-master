@@ -312,12 +312,12 @@ public enum ErrorCodeEnum {
     /**
      * Uac 10012005 error code enum.
      */
-    UAC10012011(10012011, "找不到部门信息,roleId=%s"),
+    UAC10012011(10012011, "找不到部门信息,deptId=%s"),
 
     /**
      * Uac 10012005 error code enum.
      */
-    UAC10012012(10012012, "找不到权限信息,roleId=%s"),
+    UAC10012012(10012012, "找不到权限信息,permId=%s"),
 
     /**
      * Uac 10013001 error code enum.

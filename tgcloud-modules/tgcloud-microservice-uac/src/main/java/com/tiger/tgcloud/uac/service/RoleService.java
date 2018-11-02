@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.uac.model.domain.RoleInfo;
 import com.tiger.tgcloud.uac.model.query.RoleParam;
 
+import java.util.List;
+
 /**
  * @description:
  * @author: tiger
@@ -41,5 +43,9 @@ public interface RoleService {
      *
      * @return
      */
-    Boolean updateUserStatusById(RoleInfo roleInfo);
+    Boolean updateRoleStatusById(RoleInfo roleInfo);
+
+    List<RoleInfo> selectByUserId(Long userId);
+
+    Boolean bindRolePermRelation(Long roleId, List<Long> permIds);
 }

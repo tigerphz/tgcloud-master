@@ -4,10 +4,13 @@ import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.base.dto.LoginAuthDto;
 import com.tiger.tgcloud.core.support.BaseController;
 import com.tiger.tgcloud.uac.mapping.UserMapping;
+import com.tiger.tgcloud.uac.model.domain.RoleInfo;
 import com.tiger.tgcloud.uac.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.model.enums.UserTypeEnum;
 import com.tiger.tgcloud.uac.model.query.UserParam;
+import com.tiger.tgcloud.uac.model.vo.UserRolesVO;
 import com.tiger.tgcloud.uac.model.vo.UserVO;
+import com.tiger.tgcloud.uac.service.RoleService;
 import com.tiger.tgcloud.uac.service.UserService;
 import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
@@ -38,6 +41,9 @@ import java.util.List;
 public class UserController extends BaseController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     @Autowired
     private UserMapping userMapping;
@@ -126,4 +132,29 @@ public class UserController extends BaseController {
 
         return WrapMapper.ok(userService.addUser(userInfo));
     }
+
+    @RequestMapping(value = "{id}/roles", method = RequestMethod.GET)
+    @ApiOperation("获取用户拥有的角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", name = "id", dataType = "Long", value = "用户Id", required = true),
+    })
+    public Wrapper<List<RoleInfo>> getUserRoles(@PathVariable(name = "id") Long userId) {
+        List<RoleInfo> roleInfos = roleService.selectByUserId(userId);
+        return WrapMapper.ok(roleInfos);
+    }
+
+    @RequestMapping(value = "/bindRoles", method = RequestMethod.POST)
+    @ApiOperation(value = "绑定用户角色关系")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "body", name = "userRolesVO", dataType = "UserRolesVO", value = "用户Id与角色Id关系信息", required = true),
+    })
+    public Wrapper<Boolean> bindUserRoles(@Valid @RequestBody UserRolesVO userRolesVO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String message = bindingResult.getFieldError().getDefaultMessage();
+            return WrapMapper.error(message);
+        }
+        boolean isSucc = userService.bindUserRoleRelation(userRolesVO.getUserId(), userRolesVO.getRoleIds());
+        return WrapMapper.ok(isSucc);
+    }
+
 }

@@ -4,6 +4,7 @@ import com.tiger.tgcloud.core.mybatis.MyMapper;
 import com.tiger.tgcloud.uac.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.model.query.UserParam;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 @Mapper
 @Component
 public interface UserMapper extends MyMapper<UserInfo> {
-    
+
     /**
      * 根据条件查询用户信息
      *
@@ -26,4 +27,8 @@ public interface UserMapper extends MyMapper<UserInfo> {
      * @return
      */
     List<UserInfo> selectByCondition(UserParam param);
+
+    Boolean deleteUserRoleRelationByUserId(Long userId);
+
+    Boolean insertUserRoleRelation(@Param("userId") Long userId, @Param("roleId") Long roleId);
 }

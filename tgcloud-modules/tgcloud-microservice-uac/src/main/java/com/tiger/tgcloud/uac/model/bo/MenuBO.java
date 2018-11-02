@@ -34,6 +34,12 @@ public class MenuBO {
 
     private String code;
 
+    private String component;
+
+    private String title;
+
+    private String path;
+
     private Date createdate;
 
     private String createusername;

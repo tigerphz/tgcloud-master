@@ -37,76 +37,76 @@
     </sql>
     <sql id="Base_Colunm_Where">
         <if test="version != null">
-            ${alias}.version = #{version,jdbcType=INTEGER}
+            and ${alias}.version = #{version,jdbcType=INTEGER}
         </if>
         <if test="username != null">
-            ${alias}.username = #{username,jdbcType=VARCHAR}
+            and ${alias}.username = #{username,jdbcType=VARCHAR}
         </if>
         <if test="nickname != null">
-            ${alias}.nickname = #{nickname,jdbcType=VARCHAR}
+            and ${alias}.nickname = #{nickname,jdbcType=VARCHAR}
         </if>
         <if test="passwordhash != null">
-            ${alias}.passwordhash = #{passwordhash,jdbcType=VARCHAR}
+            and ${alias}.passwordhash = #{passwordhash,jdbcType=VARCHAR}
         </if>
         <if test="passwordsalt != null">
-            ${alias}.passwordsalt = #{passwordsalt,jdbcType=VARCHAR}
+            and ${alias}.passwordsalt = #{passwordsalt,jdbcType=VARCHAR}
         </if>
         <if test="gender != null">
-            ${alias}.gender = #{gender,jdbcType=INTEGER}
+            and ${alias}.gender = #{gender,jdbcType=INTEGER}
         </if>
         <if test="status != null">
-            ${alias}.status = #{status,jdbcType=VARCHAR}
+            and ${alias}.status = #{status,jdbcType=VARCHAR}
         </if>
         <if test="code != null">
-            ${alias}.code = #{code,jdbcType=VARCHAR}
+            and ${alias}.code = #{code,jdbcType=VARCHAR}
         </if>
         <if test="mobile != null">
-            ${alias}.mobile = #{mobile,jdbcType=VARCHAR}
+            and ${alias}.mobile = #{mobile,jdbcType=VARCHAR}
         </if>
         <if test="isMobileActive != null">
-            ${alias}.is_mobile_active = #{isMobileActive,jdbcType=INTEGER}
+            and ${alias}.is_mobile_active = #{isMobileActive,jdbcType=INTEGER}
         </if>
         <if test="identitycard != null">
-            ${alias}.identitycard = #{identitycard,jdbcType=VARCHAR}
+            and ${alias}.identitycard = #{identitycard,jdbcType=VARCHAR}
         </if>
         <if test="email != null">
-            ${alias}.email = #{email,jdbcType=VARCHAR}
+            and ${alias}.email = #{email,jdbcType=VARCHAR}
         </if>
         <if test="isEmailActive != null">
-            ${alias}.is_email_active = #{isEmailActive,jdbcType=INTEGER}
+            and ${alias}.is_email_active = #{isEmailActive,jdbcType=INTEGER}
         </if>
         <if test="source != null">
-            ${alias}.source = #{source,jdbcType=VARCHAR}
+            and ${alias}.source = #{source,jdbcType=VARCHAR}
         </if>
         <if test="type != null">
-            ${alias}.type = #{type,jdbcType=VARCHAR}
+            and ${alias}.type = #{type,jdbcType=VARCHAR}
         </if>
         <if test="qq != null">
-            ${alias}.qq = #{qq,jdbcType=VARCHAR}
+            and ${alias}.qq = #{qq,jdbcType=VARCHAR}
         </if>
         <if test="deptid != null">
-            ${alias}.deptid = #{deptid,jdbcType=BIGINT}
+            and ${alias}.deptid = #{deptid,jdbcType=BIGINT}
         </if>
         <if test="remark != null">
-            ${alias}.remark = #{remark,jdbcType=VARCHAR}
+            and ${alias}.remark = #{remark,jdbcType=VARCHAR}
         </if>
         <if test="creator != null">
-            ${alias}.creator = #{creator,jdbcType=VARCHAR}
+            and ${alias}.creator = #{creator,jdbcType=VARCHAR}
         </if>
         <if test="creatorId != null">
-            ${alias}.creator_id = #{creatorId,jdbcType=BIGINT}
+            and ${alias}.creator_id = #{creatorId,jdbcType=BIGINT}
         </if>
         <if test="createdTime != null">
-            ${alias}.created_time = #{createdTime,jdbcType=TIMESTAMP}
+            and ${alias}.created_time = #{createdTime,jdbcType=TIMESTAMP}
         </if>
         <if test="updateOperator != null">
-            ${alias}.update_operator = #{updateOperator,jdbcType=VARCHAR}
+            and ${alias}.update_operator = #{updateOperator,jdbcType=VARCHAR}
         </if>
         <if test="updateOperatorId != null">
-            ${alias}.update_operator_id = #{updateOperatorId,jdbcType=BIGINT}
+            and ${alias}.update_operator_id = #{updateOperatorId,jdbcType=BIGINT}
         </if>
         <if test="updateTime != null">
-            ${alias}.update_time = #{updateTime,jdbcType=TIMESTAMP}
+            and ${alias}.update_time = #{updateTime,jdbcType=TIMESTAMP}
         </if>
     </sql>
 
@@ -121,42 +121,52 @@
         FROM uac_user u
         <where>
             <if test="username != null">
-                u.username = #{username,jdbcType=VARCHAR}
+                and u.username = #{username,jdbcType=VARCHAR}
             </if>
             <if test="nickname != null">
-                u.nickname = #{nickname,jdbcType=VARCHAR}
+                and u.nickname = #{nickname,jdbcType=VARCHAR}
             </if>
             <if test="gender != null">
-                u.gender = #{gender,jdbcType=INTEGER}
+                and u.gender = #{gender,jdbcType=INTEGER}
             </if>
             <if test="status != null">
-                u.status = #{status,jdbcType=VARCHAR}
+                and u.status = #{status,jdbcType=VARCHAR}
             </if>
             <if test="code != null">
-                u.code = #{code,jdbcType=VARCHAR}
+                and u.code = #{code,jdbcType=VARCHAR}
             </if>
             <if test="mobile != null">
-                u.mobile = #{mobile,jdbcType=VARCHAR}
+                and u.mobile = #{mobile,jdbcType=VARCHAR}
             </if>
             <if test="identitycard != null">
-                u.identitycard = #{identitycard,jdbcType=VARCHAR}
+                and u.identitycard = #{identitycard,jdbcType=VARCHAR}
             </if>
             <if test="email != null">
-                u.email = #{email,jdbcType=VARCHAR}
+                and u.email = #{email,jdbcType=VARCHAR}
             </if>
             <if test="source != null">
-                u.source = #{source,jdbcType=VARCHAR}
+                and u.source = #{source,jdbcType=VARCHAR}
             </if>
             <if test="type != null">
-                u.type = #{type,jdbcType=VARCHAR}
+                and u.type = #{type,jdbcType=VARCHAR}
             </if>
             <if test="qq != null">
-                u.qq = #{qq,jdbcType=VARCHAR}
+                and u.qq = #{qq,jdbcType=VARCHAR}
             </if>
             <if test="deptid != null">
-                u.deptid = #{deptid,jdbcType=BIGINT}
+                and u.deptid = #{deptid,jdbcType=BIGINT}
             </if>
         </where>
         order by u.update_time desc
     </select>
+
+    <delete id="deleteUserRoleRelationByUserId">
+        DELETE FROM uac_user_role
+        WHERE userid = #{userId,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insertUserRoleRelation">
+        INSERT uac_user_role (userid, roleid)
+        VALUES (#{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT})
+    </insert>
 </mapper>

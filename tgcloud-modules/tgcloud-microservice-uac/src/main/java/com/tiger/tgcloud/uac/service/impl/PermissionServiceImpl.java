@@ -44,13 +44,34 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
      * @return
      */
     @Override
-    public PageInfo<PermissionInfo> selectByConditionWithPage(PermissionParam param) {
+    public PageInfo<MenuBO> selectByConditionWithPage(PermissionParam param) {
         if (null != param.getPageNum() && null != param.getPageSize()) {
             PageHelper.startPage(param.getPageNum(), param.getPageSize());
         }
 
-        List<PermissionInfo> permissionInfos = permissionRepository.selectByCondition(param);
-        return new PageInfo<>(permissionInfos);
+        //首先查询出菜单或者页面
+        List<PermissionInfo> topPermissionList = permissionRepository.selectByCondition(param);
+
+        List<MenuBO> menuBOList = new ArrayList<>();
+
+        //根据页面选中的状态查询所有权限
+        PermissionParam allParam = new PermissionParam();
+        allParam.setStatus(param.getStatus());
+        List<PermissionInfo> permissionInfolist = permissionRepository.selectByCondition(allParam);
+
+        //顶级菜单
+        topPermissionList.stream().forEach(x -> {
+            MenuBO menuBO = menuBoMapping.from(x);
+            menuBO.setChildren(getChildMenu(permissionInfolist, x));
+
+            menuBOList.add(menuBO);
+        });
+
+        PageInfo pageInfo = new PageInfo<>(topPermissionList);
+
+        pageInfo.setList(menuBOList);
+
+        return pageInfo;
     }
 
     /**
@@ -76,6 +97,7 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
      */
     @Override
     public Boolean updatePermission(PermissionInfo permissionInfo) {
+        CheckUpdatePermission(permissionInfo);
         return permissionRepository.updateByPrimaryKeySelective(permissionInfo);
     }
 
@@ -86,7 +108,12 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
      * @return
      */
     @Override
-    public Boolean updateUserStatusById(PermissionInfo permissionInfo) {
+    public Boolean updatePermissionStatusById(PermissionInfo permissionInfo) {
+        CheckUpdatePermission(permissionInfo);
+        return permissionRepository.updateByPrimaryKeySelective(permissionInfo);
+    }
+
+    private void CheckUpdatePermission(PermissionInfo permissionInfo) {
         long roleId = permissionInfo.getId();
         PermissionInfo param = new PermissionInfo();
         param.setId(roleId);
@@ -94,8 +121,6 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
         if (count == 0) {
             throw new UacBizException(ErrorCodeEnum.UAC10012012, roleId);
         }
-
-        return permissionRepository.updateByPrimaryKeySelective(permissionInfo);
     }
 
     /**
@@ -185,5 +210,15 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
     @Override
     public List<PermissionInfo> selectByRoleId(Long roleId) {
         return permissionRepository.selectByRoleId(roleId);
+    }
+
+    /**
+     * 获取所有节点数据不包括按钮
+     *
+     * @return
+     */
+    @Override
+    public List<PermissionInfo> selectMenuNode() {
+        return permissionRepository.selectMenuNode();
     }
 }

@@ -1,9 +1,11 @@
 package com.tiger.tgcloud.uac.repository;
 
 import com.tiger.tgcloud.core.support.BaseRepository;
+import com.tiger.tgcloud.uac.model.domain.PermissionInfo;
 import com.tiger.tgcloud.uac.model.domain.RoleInfo;
 import com.tiger.tgcloud.uac.model.query.RoleParam;
 import com.tiger.tgcloud.uac.repository.mapper.RoleMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,5 +35,17 @@ public class RoleRepository extends BaseRepository<RoleInfo> {
 
     public List<RoleInfo> selectByUserName(String userName) {
         return roleMapper.selectByUserName(userName);
+    }
+
+    public List<RoleInfo> selectByUserId(Long userId) {
+        return roleMapper.selectByUserId(userId);
+    }
+
+    public Boolean deleteRolePermRelationByRoleId(Long roleId) {
+        return roleMapper.deleteRolePermRelationByRoleId(roleId);
+    }
+
+    public Boolean insertRolePermRelation(Long roleId, Long permId) {
+        return roleMapper.insertRolePermRelation(roleId, permId);
     }
 }

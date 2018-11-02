@@ -44,8 +44,8 @@ public class PermissionController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", name = "param", dataType = "PermissionParam", value = "查询条件信息")
     })
-    public Wrapper<PageInfo<PermissionInfo>> list(PermissionParam param) {
-        PageInfo<PermissionInfo> permissionInfoPageInfos = permissionService.selectByConditionWithPage(param);
+    public Wrapper<PageInfo<MenuBO>> list(PermissionParam param) {
+        PageInfo<MenuBO> permissionInfoPageInfos = permissionService.selectByConditionWithPage(param);
 
         return WrapMapper.ok(permissionInfoPageInfos);
     }
@@ -102,7 +102,7 @@ public class PermissionController extends BaseController {
         LoginAuthDto loginAuthDto = getLoginAuthDto();
         permissionInfo.setUpdateInfo(loginAuthDto);
 
-        return WrapMapper.ok(permissionService.updateUserStatusById(permissionInfo));
+        return WrapMapper.ok(permissionService.updatePermissionStatusById(permissionInfo));
     }
 
     @RequestMapping(value = "/menu/tree", method = RequestMethod.GET)
@@ -113,5 +113,14 @@ public class PermissionController extends BaseController {
     public Wrapper<List<MenuBO>> tree(PermissionParam param) {
         List<MenuBO> menuBOList = permissionService.selectPermTree(param);
         return WrapMapper.ok(menuBOList);
+    }
+
+    @RequestMapping(value = "menunode", method = RequestMethod.GET)
+    @ApiOperation("获取所有菜单节点")
+    @ApiImplicitParams({
+    })
+    public Wrapper<List<PermissionInfo>> menuNode() {
+        List<PermissionInfo> permissionInfoList = permissionService.selectMenuNode();
+        return WrapMapper.ok(permissionInfoList);
     }
 }

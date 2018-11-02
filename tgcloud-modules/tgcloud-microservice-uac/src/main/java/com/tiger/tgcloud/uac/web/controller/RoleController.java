@@ -4,9 +4,12 @@ import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.base.dto.LoginAuthDto;
 import com.tiger.tgcloud.core.support.BaseController;
 import com.tiger.tgcloud.uac.mapping.RoleMapping;
+import com.tiger.tgcloud.uac.model.domain.PermissionInfo;
 import com.tiger.tgcloud.uac.model.domain.RoleInfo;
 import com.tiger.tgcloud.uac.model.query.RoleParam;
+import com.tiger.tgcloud.uac.model.vo.RolePermsVO;
 import com.tiger.tgcloud.uac.model.vo.RoleVO;
+import com.tiger.tgcloud.uac.service.PermissionService;
 import com.tiger.tgcloud.uac.service.RoleService;
 import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
@@ -19,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @description: 角色管理
@@ -33,6 +37,9 @@ import javax.validation.Valid;
 public class RoleController extends BaseController {
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private PermissionService permissionService;
 
     @Autowired
     private RoleMapping roleMapping;
@@ -100,6 +107,31 @@ public class RoleController extends BaseController {
         LoginAuthDto loginAuthDto = getLoginAuthDto();
         roleInfo.setUpdateInfo(loginAuthDto);
 
-        return WrapMapper.ok(roleService.updateUserStatusById(roleInfo));
+        return WrapMapper.ok(roleService.updateRoleStatusById(roleInfo));
+    }
+
+    @RequestMapping(value = "{id}/perms", method = RequestMethod.GET)
+    @ApiOperation("获取角色拥有的权限")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", name = "id", dataType = "Long", value = "角色Id", required = true),
+    })
+    public Wrapper<List<PermissionInfo>> getUserPerms(@PathVariable(name = "id") Long roleId) {
+        List<PermissionInfo> roleInfos = permissionService.selectByRoleId(roleId);
+        return WrapMapper.ok(roleInfos);
+    }
+
+    @RequestMapping(value = "bindPerms", method = RequestMethod.POST)
+    @ApiOperation(value = "更新角色拥有的权限")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "body", name = "rolePermsVO", dataType = "RolePermsVO", value = "角色Id与权限Id关系信息", required = true),
+    })
+    public Wrapper<Boolean> updateRolePerms(@Valid @RequestBody RolePermsVO rolePermsVO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String message = bindingResult.getFieldError().getDefaultMessage();
+            return WrapMapper.error(message);
+        }
+
+        boolean isSucc = roleService.bindRolePermRelation(rolePermsVO.getRoleId(), rolePermsVO.getPermIds());
+        return WrapMapper.ok(isSucc);
     }
 }

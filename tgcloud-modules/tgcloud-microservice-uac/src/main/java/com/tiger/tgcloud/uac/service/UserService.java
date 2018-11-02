@@ -5,6 +5,8 @@ import com.tiger.tgcloud.uac.model.bo.LoginedUserBO;
 import com.tiger.tgcloud.uac.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.model.query.UserParam;
 
+import java.util.List;
+
 /**
  * @description:
  * @author: tiger
@@ -52,4 +54,12 @@ public interface UserService {
      * @return
      */
     Boolean addUser(UserInfo userInfo);
+
+    /**
+     * 绑定用户角色关系
+     * @param userId
+     * @param roleIds
+     * @return
+     */
+    Boolean bindUserRoleRelation(Long userId, List<Long> roleIds);
 }

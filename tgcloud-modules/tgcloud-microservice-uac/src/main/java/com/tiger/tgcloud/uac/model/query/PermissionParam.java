@@ -19,4 +19,6 @@ public class PermissionParam extends BaseQueryCondition {
     private String url;
 
     private Integer status;
+
+    private Integer type;
 }
