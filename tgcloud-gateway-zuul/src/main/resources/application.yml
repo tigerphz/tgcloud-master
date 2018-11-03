@@ -171,4 +171,4 @@ swagger.butler.api-docs-path: v2/api-docs
 swagger.butler.swagger-version: 1.0
 swagger.butler.auto-generate-from-zuul-routes: true
 # 指定要生成的范围
-swagger.butler.generate-routes: aus-route,dmc-route,uac-route
+swagger.butler.generate-routes: uac-route,dmc-route

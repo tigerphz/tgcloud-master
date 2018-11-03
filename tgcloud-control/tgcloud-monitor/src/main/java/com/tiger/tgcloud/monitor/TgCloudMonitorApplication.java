@@ -31,6 +31,7 @@ public class TgCloudMonitorApplication {
     public static class SecurityPermitAllConfig extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
+            http.headers().frameOptions().disable();
             http.authorizeRequests()
                     .anyRequest()
                     .permitAll()
@@ -54,7 +55,7 @@ public class TgCloudMonitorApplication {
         protected void configure(HttpSecurity http) throws Exception {
             SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
             successHandler.setTargetUrlParameter("redirectTo");
-
+            http.headers().frameOptions().disable();
             http.authorizeRequests()
                     .antMatchers(adminContextPath + "/assets/**").permitAll()
                     .antMatchers(adminContextPath + "/login").permitAll()

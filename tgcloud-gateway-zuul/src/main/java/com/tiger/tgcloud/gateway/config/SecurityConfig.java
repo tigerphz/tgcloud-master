@@ -24,10 +24,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http.csrf().disable();
-
-
+        //X-Frame-Options: DENY     //表示该页面不允许在 frame 中展示，即便是在相同域名的页面中嵌套也不允许。。
+        //X-Frame-Options: SAMEORIGIN    //表示该页面可以在相同域名页面的 frame 中展示。
+        //X-Frame-Options: ALLOW-FROM http://caibaojian.com/   //表示该网页只能放在http://caibaojian.com//网页架设的iFrame内。
+        http.headers().frameOptions().disable()
+                .and().csrf().disable();
     }
 
 }
