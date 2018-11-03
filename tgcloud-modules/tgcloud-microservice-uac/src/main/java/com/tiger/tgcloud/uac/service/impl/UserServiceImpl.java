@@ -61,7 +61,7 @@ public class UserServiceImpl extends BaseService implements UserService {
      */
     @Override
     public UserInfo getUserById(Long userId) {
-        return null;
+        return userRepository.selectByKey(userId);
     }
 
     /**
@@ -72,7 +72,8 @@ public class UserServiceImpl extends BaseService implements UserService {
      */
     @Override
     public Boolean updateUserStatusById(UserInfo userInfo) {
-        return null;
+        CheckUpdateUserInfo(userInfo);
+        return userRepository.updateByPrimaryKeySelective(userInfo);
     }
 
     /**
@@ -83,11 +84,23 @@ public class UserServiceImpl extends BaseService implements UserService {
      */
     @Override
     public Boolean updateUserById(UserInfo userInfo) {
-        return null;
+        CheckUpdateUserInfo(userInfo);
+        return userRepository.updateByPrimaryKeySelective(userInfo);
+    }
+
+    private void CheckUpdateUserInfo(UserInfo userInfo) {
+        long userId = userInfo.getId();
+        UserInfo param = new UserInfo();
+        param.setId(userId);
+        int count = userRepository.selectCount(param);
+        if (count == 0) {
+            throw new UacBizException(ErrorCodeEnum.UAC10011003, userId);
+        }
     }
 
     /**
      * 绑定用户角色关系
+     *
      * @param userId
      * @param roleIds
      * @return
