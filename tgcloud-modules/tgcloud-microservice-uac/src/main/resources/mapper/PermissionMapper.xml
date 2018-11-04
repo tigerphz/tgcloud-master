@@ -101,7 +101,7 @@
     </select>
 
     <sql id="selectByUserIdBase">
-        SELECT p.*
+        SELECT distinct p.*
         FROM uac_permission p
             INNER JOIN uac_role_permission rp ON p.id = rp.permid
             INNER JOIN uac_role r ON rp.roleid = r.id

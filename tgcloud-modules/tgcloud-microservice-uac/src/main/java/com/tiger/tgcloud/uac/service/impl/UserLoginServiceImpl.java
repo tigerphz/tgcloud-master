@@ -2,12 +2,14 @@ package com.tiger.tgcloud.uac.service.impl;
 
 import com.tiger.tgcloud.core.support.BaseService;
 import com.tiger.tgcloud.uac.model.bo.LoginedUserBO;
+import com.tiger.tgcloud.uac.model.bo.RouterTreeBO;
 import com.tiger.tgcloud.uac.model.domain.PermissionInfo;
 import com.tiger.tgcloud.uac.model.domain.RoleInfo;
 import com.tiger.tgcloud.uac.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.repository.PermissionRepository;
 import com.tiger.tgcloud.uac.repository.RoleRepository;
 import com.tiger.tgcloud.uac.repository.UserRepository;
+import com.tiger.tgcloud.uac.service.PermissionService;
 import com.tiger.tgcloud.uac.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,9 @@ public class UserLoginServiceImpl extends BaseService implements UserLoginServic
     @Autowired
     private PermissionRepository permissionRepository;
 
+    @Autowired
+    private PermissionService permissionService;
+
     /**
      * 获取登陆信息
      *
@@ -57,6 +62,9 @@ public class UserLoginServiceImpl extends BaseService implements UserLoginServic
 
         List<PermissionInfo> permissionInfos = permissionRepository.selectByUserName(userName);
         loginedUserBO.setPermissions(permissionInfos.stream().map(x -> x.getCode()).collect(Collectors.toList()));
+
+        List<RouterTreeBO> routerTreeBOList = permissionService.getRouterByUserId(userInfo.getId());
+        loginedUserBO.setRouters(routerTreeBOList);
 
         return loginedUserBO;
     }

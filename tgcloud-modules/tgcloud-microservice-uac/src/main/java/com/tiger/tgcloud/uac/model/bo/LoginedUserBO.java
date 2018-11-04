@@ -22,4 +22,6 @@ public class LoginedUserBO {
     private List<String> roles;
 
     private List<String> permissions;
+
+    private List<RouterTreeBO> routers;
 }

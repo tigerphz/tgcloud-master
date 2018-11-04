@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -60,9 +61,10 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
         List<MenuBO> menuBOList = new ArrayList<>();
 
         //根据页面选中的状态查询所有权限
-        PermissionParam allParam = new PermissionParam();
+        PermissionInfo allParam = new PermissionInfo();
         allParam.setStatus(param.getStatus());
-        List<PermissionInfo> permissionInfolist = permissionRepository.selectByCondition(allParam);
+
+        List<PermissionInfo> permissionInfolist = permissionRepository.select(allParam);
 
         //顶级菜单
         topPermissionList.stream().forEach(x -> {
@@ -247,12 +249,31 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
      * @return
      */
     @Override
-    public List<MenuBO> getMenuByUserId(long userId) {
+    public List<RouterTreeBO> getRouterByUserId(long userId) {
         List<MenuBO> menuBOList = new ArrayList<>();
 
+        //查找用户的权限
         List<PermissionInfo> permissionInfolist = permissionRepository.selectByUserId(userId);
 
-        List<PermissionInfo> topPermissionList = permissionInfolist.stream()
+        //查询所有正常权限
+        PermissionInfo allParam = new PermissionInfo();
+        allParam.setStatus(0);
+
+        Example example = new Example(PermissionInfo.class);
+        example.createCriteria().andEqualTo("isnavigate", true)
+                .orIn("type", Arrays.asList(0, 1));
+
+        List<PermissionInfo> allPermissionInfolist = permissionRepository.selectByExample(example);
+
+        //找出导航权限的父节点，父节点可能没有保存到角色权限关系表中
+        getParentPermission(allPermissionInfolist, permissionInfolist);
+
+        //获取导航权限
+        List<PermissionInfo> routerPermissionList = permissionInfolist.stream().filter(x -> x.getIsnavigate() == true)
+                .distinct()
+                .collect(Collectors.toList());
+
+        List<PermissionInfo> topPermissionList = routerPermissionList.stream()
                 .filter(p -> null == p.getParentid())
                 .sorted(Comparator.comparing(PermissionInfo::getSort))
                 .collect(Collectors.toList());
@@ -260,12 +281,42 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
         //顶级菜单
         topPermissionList.stream().forEach(x -> {
             MenuBO menuBO = menuBoMapping.from(x);
-            menuBO.setChildren(getChildMenu(permissionInfolist, x));
+            menuBO.setChildren(getChildMenu(routerPermissionList, x));
 
             menuBOList.add(menuBO);
         });
 
-        return menuBOList;
+        List<RouterTreeBO> routerTreeBOList = new ArrayList<>();
+
+        if (CollectionUtils.isEmpty(menuBOList)) {
+            return routerTreeBOList;
+        }
+
+        routerTreeBOList = toRouterTreeBO(menuBOList);
+
+        return routerTreeBOList;
+    }
+
+    private void getParentPermission(List<PermissionInfo> allPermissionInfolist, List<PermissionInfo> routerPermissionList) {
+        List<PermissionInfo> parentPermissionList = new ArrayList<>();
+
+        routerPermissionList.stream().map(x -> x.getParentid()).distinct()
+                .forEach(x -> {
+                    allPermissionInfolist.stream()
+                            .filter(y -> y.getId().equals(x))
+                            .findFirst()
+                            .ifPresent(y -> {
+                                parentPermissionList.add(y);
+                            });
+                });
+
+        if (CollectionUtils.isEmpty(parentPermissionList)) {
+            return;
+        }
+
+        getParentPermission(allPermissionInfolist, parentPermissionList);
+
+        routerPermissionList.addAll(parentPermissionList);
     }
 
     /**

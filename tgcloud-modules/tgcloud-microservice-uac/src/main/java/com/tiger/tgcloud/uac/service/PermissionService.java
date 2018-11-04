@@ -69,7 +69,7 @@ public interface PermissionService {
      * @param userId
      * @return
      */
-    List<MenuBO> getMenuByUserId(long userId);
+    List<RouterTreeBO> getRouterByUserId(long userId);
 
     /**
      * 获取角色拥有的权限
