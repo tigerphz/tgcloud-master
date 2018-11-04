@@ -11,6 +11,7 @@
         <result column="sort" jdbcType="INTEGER" property="sort"/>
         <result column="parentid" jdbcType="BIGINT" property="parentid"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="action" jdbcType="VARCHAR" property="action"/>
         <result column="code" jdbcType="VARCHAR" property="code"/>
         <result column="version" jdbcType="INTEGER" property="version"/>
         <result column="creator" jdbcType="VARCHAR" property="creator"/>
@@ -25,7 +26,7 @@
         <result column="isnavigate" jdbcType="INTEGER" property="isnavigate"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, permname, status, description, type, icon, sort, parentid, url, code, version, 
+    id, permname, status, description, type, icon, sort, parentid, url, action, code, version,
     creator, creator_id, created_time, update_operator, update_operator_id, update_time,
     component, title, path, isnavigate
   </sql>
@@ -53,6 +54,9 @@
         </if>
         <if test="url != null">
             and ${alias}.url = #{url,jdbcType=VARCHAR}
+        </if>
+        <if test="action != null">
+            and ${alias}.action = #{action,jdbcType=VARCHAR}
         </if>
         <if test="code != null">
             and ${alias}.code = #{code,jdbcType=VARCHAR}

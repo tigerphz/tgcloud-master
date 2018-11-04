@@ -38,6 +38,8 @@ public class PermissionInfo extends BaseEntity {
 
     private String url;
 
+    private String action;
+
     private String code;
 
     private String component;

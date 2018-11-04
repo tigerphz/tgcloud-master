@@ -32,6 +32,8 @@ public class MenuBO {
 
     private String url;
 
+    private String action;
+
     private String code;
 
     private String component;
