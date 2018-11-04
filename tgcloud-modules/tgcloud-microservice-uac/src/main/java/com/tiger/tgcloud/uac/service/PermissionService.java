@@ -2,6 +2,7 @@ package com.tiger.tgcloud.uac.service;
 
 import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.uac.model.bo.MenuBO;
+import com.tiger.tgcloud.uac.model.bo.RouterTreeBO;
 import com.tiger.tgcloud.uac.model.domain.PermissionInfo;
 import com.tiger.tgcloud.uac.model.query.PermissionParam;
 
@@ -48,12 +49,19 @@ public interface PermissionService {
     Boolean updatePermissionStatusById(PermissionInfo permissionInfo);
 
     /**
-     * 获取权限树列表
+     * 删除部门信息
      *
-     * @param param
+     * @param id
      * @return
      */
-    List<MenuBO> selectPermTree(PermissionParam param);
+    Boolean deletePermission(Long id);
+
+    /**
+     * 获取权限树列表
+     *
+     * @return
+     */
+    List<RouterTreeBO> selectRouterTree();
 
     /**
      * 获取用户的菜单
@@ -73,6 +81,7 @@ public interface PermissionService {
 
     /**
      * 获取所有节点数据不包括按钮
+     *
      * @return
      */
     List<PermissionInfo> selectMenuNode();

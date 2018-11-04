@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
 
+import javax.persistence.Column;
 import javax.persistence.Table;
 
 /**
@@ -44,4 +45,6 @@ public class PermissionInfo extends BaseEntity {
     private String title;
 
     private String path;
+
+    private Boolean isnavigate;
 }

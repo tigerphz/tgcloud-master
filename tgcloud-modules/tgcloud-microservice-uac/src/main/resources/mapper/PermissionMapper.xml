@@ -19,10 +19,15 @@
         <result column="update_operator" jdbcType="VARCHAR" property="updateOperator"/>
         <result column="update_operator_id" jdbcType="BIGINT" property="updateOperatorId"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="component" jdbcType="VARCHAR" property="component"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="isnavigate" jdbcType="INTEGER" property="isnavigate"/>
     </resultMap>
     <sql id="Base_Column_List">
     id, permname, status, description, type, icon, sort, parentid, url, code, version, 
-    creator, creator_id, created_time, update_operator, update_operator_id, update_time
+    creator, creator_id, created_time, update_operator, update_operator_id, update_time,
+    component, title, path, isnavigate
   </sql>
     <sql id="Base_Colunm_Where">
         <if test="permname != null">
@@ -72,6 +77,18 @@
         </if>
         <if test="updateTime != null">
             and ${alias}.update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="component != null">
+            and ${alias}.component = #{component,jdbcType=VARCHAR},
+        </if>
+        <if test="title != null">
+            and ${alias}.title = #{title,jdbcType=VARCHAR},
+        </if>
+        <if test="path != null">
+            and ${alias}.path = #{path,jdbcType=VARCHAR},
+        </if>
+        <if test="isnavigate != null">
+            and ${alias}.isnavigate = #{isnavigate,jdbcType=INTEGER},
         </if>
     </sql>
 

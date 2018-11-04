@@ -7,6 +7,8 @@ import com.tiger.tgcloud.core.support.BaseService;
 import com.tiger.tgcloud.uac.api.exceptions.UacBizException;
 import com.tiger.tgcloud.uac.mapping.MenuBoMapping;
 import com.tiger.tgcloud.uac.model.bo.MenuBO;
+import com.tiger.tgcloud.uac.model.bo.RouterMetaBO;
+import com.tiger.tgcloud.uac.model.bo.RouterTreeBO;
 import com.tiger.tgcloud.uac.model.domain.PermissionInfo;
 import com.tiger.tgcloud.uac.model.query.PermissionParam;
 import com.tiger.tgcloud.uac.repository.PermissionRepository;
@@ -14,7 +16,9 @@ import com.tiger.tgcloud.uac.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -51,6 +55,7 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
 
         //首先查询出菜单或者页面
         List<PermissionInfo> topPermissionList = permissionRepository.selectByCondition(param);
+        topPermissionList = topPermissionList.stream().sorted(Comparator.comparing(PermissionInfo::getSort)).collect(Collectors.toList());
 
         List<MenuBO> menuBOList = new ArrayList<>();
 
@@ -113,6 +118,42 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
         return permissionRepository.updateByPrimaryKeySelective(permissionInfo);
     }
 
+    /**
+     * 删除部门信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Boolean deletePermission(Long id) {
+        PermissionInfo permissionInfo = new PermissionInfo();
+        permissionInfo.setId(id);
+        CheckUpdatePermission(permissionInfo);
+
+        //递归删除子项
+        deletePermissionByParentId(id);
+
+        return permissionRepository.deleteByKey(id);
+    }
+
+    /**
+     * 递归删除子项
+     *
+     * @param parentId
+     */
+    private void deletePermissionByParentId(Long parentId) {
+        PermissionInfo where = new PermissionInfo();
+        where.setParentid(parentId);
+        List<PermissionInfo> permissionInfoList = permissionRepository.select(where);
+        if (!CollectionUtils.isEmpty(permissionInfoList)) {
+            permissionInfoList.forEach(x -> {
+                deletePermissionByParentId(x.getId());
+                permissionRepository.deleteByKey(x.getId());
+
+            });
+        }
+    }
+
     private void CheckUpdatePermission(PermissionInfo permissionInfo) {
         long roleId = permissionInfo.getId();
         PermissionInfo param = new PermissionInfo();
@@ -126,14 +167,14 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
     /**
      * 查询权限返回树结构
      *
-     * @param param
      * @return
      */
     @Override
-    public List<MenuBO> selectPermTree(PermissionParam param) {
+    public List<RouterTreeBO> selectRouterTree() {
         List<MenuBO> menuBOList = new ArrayList<>();
-
-        List<PermissionInfo> permissionInfolist = permissionRepository.selectByCondition(param);
+        Example example = new Example(PermissionInfo.class);
+        example.createCriteria().andEqualTo("isnavigate", true);
+        List<PermissionInfo> permissionInfolist = permissionRepository.selectByExample(example);
 
         List<PermissionInfo> topPermissionList = permissionInfolist.stream()
                 .filter(p -> null == p.getParentid()).collect(Collectors.toList());
@@ -146,7 +187,33 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
             menuBOList.add(menuBO);
         });
 
-        return menuBOList;
+        List<RouterTreeBO> routerTreeBOList = new ArrayList<>();
+
+        if (CollectionUtils.isEmpty(menuBOList)) {
+            return routerTreeBOList;
+        }
+
+        routerTreeBOList = toRouterTreeBO(menuBOList);
+
+        return routerTreeBOList;
+    }
+
+    private List<RouterTreeBO> toRouterTreeBO(List<MenuBO> menuBOList) {
+        List<RouterTreeBO> routerTreeBOList = new ArrayList<>();
+
+        menuBOList.forEach(x -> {
+            RouterTreeBO routerTreeBO = new RouterTreeBO();
+            routerTreeBO.setName(x.getPermname());
+            routerTreeBO.setComponent(x.getComponent());
+            routerTreeBO.setPath(x.getPath());
+            routerTreeBO.setMeta(new RouterMetaBO(x.getIcon(), x.getTitle(), x.getCode()));
+            if (!CollectionUtils.isEmpty(x.getChildren())) {
+                routerTreeBO.setChildren(toRouterTreeBO(x.getChildren()));
+            }
+            routerTreeBOList.add(routerTreeBO);
+        });
+
+        return routerTreeBOList;
     }
 
     /**

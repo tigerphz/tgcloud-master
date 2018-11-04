@@ -5,6 +5,7 @@ import com.tiger.tgcloud.base.dto.LoginAuthDto;
 import com.tiger.tgcloud.core.support.BaseController;
 import com.tiger.tgcloud.uac.mapping.PermissionMapping;
 import com.tiger.tgcloud.uac.model.bo.MenuBO;
+import com.tiger.tgcloud.uac.model.bo.RouterTreeBO;
 import com.tiger.tgcloud.uac.model.domain.PermissionInfo;
 import com.tiger.tgcloud.uac.model.query.PermissionParam;
 import com.tiger.tgcloud.uac.model.vo.PermissionVO;
@@ -69,7 +70,7 @@ public class PermissionController extends BaseController {
         return WrapMapper.ok(permissionService.addPermission(permissionInfo));
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     @ApiOperation("更新权限")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "body", name = "permissionVO", dataType = "PermissionVO", value = "权限信息")
@@ -105,14 +106,22 @@ public class PermissionController extends BaseController {
         return WrapMapper.ok(permissionService.updatePermissionStatusById(permissionInfo));
     }
 
-    @RequestMapping(value = "/menu/tree", method = RequestMethod.GET)
-    @ApiOperation("获取所有权限树结构信息")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ApiOperation("删除权限")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query", name = "param", dataType = "PermissionParam", value = "查询条件信息")
+            @ApiImplicitParam(paramType = "path", name = "id", dataType = "Long", value = "Id", required = true)
     })
-    public Wrapper<List<MenuBO>> tree(PermissionParam param) {
-        List<MenuBO> menuBOList = permissionService.selectPermTree(param);
-        return WrapMapper.ok(menuBOList);
+    public Wrapper<Boolean> update(@PathVariable() Long id) {
+        return WrapMapper.ok(permissionService.deletePermission(id));
+    }
+
+    @RequestMapping(value = "/tree", method = RequestMethod.GET)
+    @ApiOperation("获取菜单路由树")
+    @ApiImplicitParams({
+    })
+    public Wrapper<List<RouterTreeBO>> tree() {
+        List<RouterTreeBO> routerTreeBOList = permissionService.selectRouterTree();
+        return WrapMapper.ok(routerTreeBOList);
     }
 
     @RequestMapping(value = "menunode", method = RequestMethod.GET)

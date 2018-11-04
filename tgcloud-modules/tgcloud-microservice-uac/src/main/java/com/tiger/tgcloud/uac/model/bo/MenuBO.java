@@ -40,6 +40,8 @@ public class MenuBO {
 
     private String path;
 
+    private Boolean isnavigate;
+
     private Date createdate;
 
     private String createusername;
