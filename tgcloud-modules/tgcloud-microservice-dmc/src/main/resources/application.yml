@@ -65,6 +65,13 @@ spring:
     user:
       name: admin
       password: admin
+  #指定zipkin中心
+  zipkin:
+    base-url: http://localhost:8011
+  sleuth:
+    sampler:
+      #默认为0.1；表示调用10次才会上传一次
+      probability: 0.6
 
 #客户端版本号，在监控中心显示
 info:

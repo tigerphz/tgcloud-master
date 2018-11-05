@@ -31,6 +31,13 @@ spring:
     http:
       legacy:
         enabled: true
+    sampler:
+      #默认为0.1；表示调用10次才会上传一次
+      probability: 0.6
+  #指定zipkin中心
+  zipkin:
+    base-url: http://localhost:8011
+
   boot:
     admin:
       client:
