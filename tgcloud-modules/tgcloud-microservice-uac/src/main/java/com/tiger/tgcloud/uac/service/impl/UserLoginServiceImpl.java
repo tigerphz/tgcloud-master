@@ -11,6 +11,7 @@ import com.tiger.tgcloud.uac.repository.RoleRepository;
 import com.tiger.tgcloud.uac.repository.UserRepository;
 import com.tiger.tgcloud.uac.service.PermissionService;
 import com.tiger.tgcloud.uac.service.UserLoginService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,7 +62,8 @@ public class UserLoginServiceImpl extends BaseService implements UserLoginServic
         loginedUserBO.setRoles(roleInfos.stream().map(x -> x.getRolename()).collect(Collectors.toList()));
 
         List<PermissionInfo> permissionInfos = permissionRepository.selectByUserName(userName);
-        loginedUserBO.setPermissions(permissionInfos.stream().map(x -> x.getCode()).collect(Collectors.toList()));
+        loginedUserBO.setPermissions(permissionInfos.stream().filter(x -> StringUtils.isNotEmpty(x.getCode()))
+                .map(x -> x.getCode().trim()).collect(Collectors.toList()));
 
         List<RouterTreeBO> routerTreeBOList = permissionService.getRouterByUserId(userInfo.getId());
         loginedUserBO.setRouters(routerTreeBOList);
