@@ -6,7 +6,23 @@ spring:
   profiles:
     active:
       - @profileActive@
-      - secure
+#zipkin数据保存到数据库中需要进行如下配置
+#表示当前程序不使用sleuth
+  sleuth:
+    enabled: false
+#数据库脚本创建地址，当有多个时可使用[x]表示集合第几个元素，脚本可到官网下载，需要先手动到数据库执行
+#  datasource:
+#    schema[0]: classpath:/zipkin.sql
+#spring boot数据源配置
+#    url: jdbc:mysql://localhost:3306/tgcloud?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+#    username: tiger
+#    password: 123456
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    continue-on-error: true
+#表示zipkin数据存储方式是mysql
+#zipkin:
+#  storage:
+#    type: mysql
 
 info:
   owner: tigerphz

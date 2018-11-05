@@ -71,7 +71,7 @@ spring:
   sleuth:
     sampler:
       #默认为0.1；表示调用10次才会上传一次
-      probability: 0.6
+      probability: 0.1
 
 #客户端版本号，在监控中心显示
 info:
