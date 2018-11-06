@@ -44,7 +44,7 @@ public class RoleController extends BaseController {
     @Autowired
     private RoleMapping roleMapping;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @ApiOperation("获取所有权角色信息")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", name = "param", dataType = "RoleParam", value = "获取所有权角色信息")
@@ -55,7 +55,7 @@ public class RoleController extends BaseController {
         return WrapMapper.ok(roleInfoPageInfo);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @ApiOperation("添加角色信息")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "body", name = "role", dataType = "RoleVO", value = "角色信息")
@@ -74,7 +74,7 @@ public class RoleController extends BaseController {
         return WrapMapper.ok(roleService.addRole(roleInfo));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     @ApiOperation("更新角色")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "body", name = "roleVO", dataType = "RoleVO", value = "角色信息")

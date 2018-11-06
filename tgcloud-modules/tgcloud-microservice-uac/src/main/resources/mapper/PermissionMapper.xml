@@ -142,7 +142,7 @@
                 and u.url = #{url,jdbcType=VARCHAR}
             </if>
         </where>
-        order by u.update_time desc
+        order by parentid asc, u.update_time desc
     </select>
 
     <select id="selectMenuNode" resultMap="BaseResultMap">

@@ -37,7 +37,7 @@ public class DepartmentController extends BaseController {
     @Autowired
     private DepartmentMapping departmentMapping;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @ApiOperation("获取所有权限信息")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", name = "param", dataType = "DepartmentParam", value = "获取所有权限信息")
@@ -48,7 +48,7 @@ public class DepartmentController extends BaseController {
         return WrapMapper.ok(permissionInfoPageInfos);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @ApiOperation("添加部门信息")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "body", name = "department", dataType = "DepartmentVO", value = "部门信息")
@@ -67,7 +67,7 @@ public class DepartmentController extends BaseController {
         return WrapMapper.ok(departmentService.addDepartment(departmentInfo));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     @ApiOperation("更新部门信息")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "body", name = "roleVO", dataType = "RoleVO", value = "部门信息")

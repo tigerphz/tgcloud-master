@@ -40,7 +40,7 @@ public class PermissionController extends BaseController {
     @Autowired
     private PermissionMapping permissionMapping;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @ApiOperation("获取所有权限信息")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", name = "param", dataType = "PermissionParam", value = "查询条件信息")
@@ -51,7 +51,7 @@ public class PermissionController extends BaseController {
         return WrapMapper.ok(permissionInfoPageInfos);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @ApiOperation("添加权限信息")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "body", name = "permission", dataType = "PermissionVO", value = "权限信息")
@@ -70,7 +70,7 @@ public class PermissionController extends BaseController {
         return WrapMapper.ok(permissionService.addPermission(permissionInfo));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     @ApiOperation("更新权限")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "body", name = "permissionVO", dataType = "PermissionVO", value = "权限信息")

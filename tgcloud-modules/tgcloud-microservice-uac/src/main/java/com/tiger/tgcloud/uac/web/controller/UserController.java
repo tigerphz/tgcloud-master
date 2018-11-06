@@ -48,7 +48,7 @@ public class UserController extends BaseController {
     @Autowired
     private UserMapping userMapping;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @ApiOperation("获取所有用户信息")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", name = "param", dataType = "UserParam", value = "查询条件")
@@ -92,7 +92,7 @@ public class UserController extends BaseController {
         return WrapMapper.ok(userService.updateUserStatusById(userInfo));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     @ApiOperation("更新用户")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "body", name = "userVO", dataType = "UserVO", value = "用户信息")
@@ -114,7 +114,7 @@ public class UserController extends BaseController {
         return WrapMapper.ok(userService.updateUserById(userInfo));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @ApiOperation("添加用户")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "body", name = "user", dataType = "UserVO", value = "用户信息")
