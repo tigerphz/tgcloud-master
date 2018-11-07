@@ -53,6 +53,10 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
 
         //首先查询出菜单或者页面
         List<PermissionInfo> topPermissionList = permissionRepository.selectByCondition(param);
+
+        //为了设置总条数等分页信息
+        PageInfo pageInfo = new PageInfo<>(topPermissionList);
+
         topPermissionList = topPermissionList.stream().sorted(Comparator.comparing(PermissionInfo::getSort)).collect(Collectors.toList());
 
         List<MenuBO> menuBOList = new ArrayList<>();
@@ -70,9 +74,6 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
 
             menuBOList.add(menuBO);
         });
-
-        //为了设置总条数等分页信息
-        PageInfo pageInfo = new PageInfo<>(topPermissionList);
 
         //设置正真的数据源
         pageInfo.setList(menuBOList.stream()
