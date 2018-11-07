@@ -134,7 +134,7 @@
         FROM uac_permission u
         <where>
             <if test="permname != null">
-                and u.permname = #{permname,jdbcType=VARCHAR}
+                and u.permname LIKE CONCAT('%',#{permname},'%')
             </if>
             <if test="status != null">
                 and u.status = #{status,jdbcType=INTEGER}

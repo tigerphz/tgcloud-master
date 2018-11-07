@@ -71,9 +71,13 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
             menuBOList.add(menuBO);
         });
 
+        //为了设置总条数等分页信息
         PageInfo pageInfo = new PageInfo<>(topPermissionList);
 
-        pageInfo.setList(menuBOList);
+        //设置正真的数据源
+        pageInfo.setList(menuBOList.stream()
+                .sorted(Comparator.comparing(x -> x.getParentid(), Comparator.nullsFirst(Long::compare)))
+                .collect(Collectors.toList()));
 
         return pageInfo;
     }
