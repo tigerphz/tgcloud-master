@@ -44,6 +44,8 @@ public class MenuBO {
 
     private Boolean isnavigate;
 
+    private Boolean isplugin;
+
     private Date createdate;
 
     private String createusername;

@@ -20,10 +20,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -212,6 +209,13 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
             if (!CollectionUtils.isEmpty(x.getChildren())) {
                 routerTreeBO.setChildren(toRouterTreeBO(x.getChildren()));
             }
+            if (x.getIsplugin()) {
+                Map<String, String> map = new HashMap<>(2);
+                map.put("url", x.getUrl());
+                map.put("name", x.getTitle());
+                routerTreeBO.setProps(map);
+            }
+
             routerTreeBOList.add(routerTreeBO);
         });
 

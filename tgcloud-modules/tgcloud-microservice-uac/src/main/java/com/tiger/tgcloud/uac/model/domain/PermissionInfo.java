@@ -49,4 +49,6 @@ public class PermissionInfo extends BaseEntity {
     private String path;
 
     private Boolean isnavigate;
+
+    private Boolean isplugin;
 }

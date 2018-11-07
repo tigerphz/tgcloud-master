@@ -3,6 +3,7 @@ package com.tiger.tgcloud.uac.model.bo;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description:
@@ -19,6 +20,8 @@ public class RouterTreeBO {
     private String name;
 
     private String component;
+
+    private Map<String, String> props;
 
     private RouterMetaBO meta;
 

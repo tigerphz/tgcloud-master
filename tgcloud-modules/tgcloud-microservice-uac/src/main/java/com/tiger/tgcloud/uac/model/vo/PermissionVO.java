@@ -46,4 +46,6 @@ public class PermissionVO {
     private String path;
 
     private Boolean isnavigate;
+
+    private Boolean isplugin;
 }
