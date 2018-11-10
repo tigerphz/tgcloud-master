@@ -29,6 +29,7 @@ public class RenewFilter extends ZuulFilter {
     @Resource
     private JwtTokenStore jwtTokenStore;
 
+    private static final String BEARER_TOKEN_TYPE = "Bearer ";
     private static final int EXPIRES_IN = 60 * 20;
 
     /**
@@ -81,7 +82,7 @@ public class RenewFilter extends ZuulFilter {
 
     private void doSomething(RequestContext requestContext) {
         HttpServletRequest request = requestContext.getRequest();
-        String token = StringUtils.substringAfter(request.getHeader(HttpHeaders.AUTHORIZATION), "bearer ");
+        String token = StringUtils.substringAfter(request.getHeader(HttpHeaders.AUTHORIZATION), BEARER_TOKEN_TYPE);
         if (StringUtils.isEmpty(token)) {
             return;
         }

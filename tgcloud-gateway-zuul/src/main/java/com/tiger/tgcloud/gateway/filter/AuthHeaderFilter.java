@@ -9,11 +9,15 @@ import com.tiger.tgcloud.core.interceptor.CoreHeaderInterceptor;
 import com.tiger.tgcloud.core.utils.RequestUtil;
 import com.tiger.tgcloud.utils.PublicUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -27,7 +31,10 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class AuthHeaderFilter extends ZuulFilter {
 
-    private static final String BEARER_TOKEN_TYPE = "bearer ";
+    @Resource
+    private JwtTokenStore jwtTokenStore;
+
+    private static final String BEARER_TOKEN_TYPE = "Bearer ";
     private static final String OPTIONS = "OPTIONS";
     private static final String AUTH_PATH = "/auth";
     private static final String LOGOUT_URI = "/oauth/token";
@@ -85,7 +92,7 @@ public class AuthHeaderFilter extends ZuulFilter {
         HttpServletRequest request = requestContext.getRequest();
         String requestURI = request.getRequestURI();
 
-        if (OPTIONS.equalsIgnoreCase(request.getMethod()) || !requestURI.contains(AUTH_PATH) || !requestURI.contains(LOGOUT_URI)) {
+        if (OPTIONS.equalsIgnoreCase(request.getMethod()) || requestURI.contains(AUTH_PATH) || requestURI.contains(LOGOUT_URI)) {
             return;
         }
         String authHeader = RequestUtil.getAuthHeader(request);
@@ -100,6 +107,12 @@ public class AuthHeaderFilter extends ZuulFilter {
             log.info("authHeader={} ", authHeader);
             // 传递给后续微服务
             requestContext.addZuulRequestHeader(CoreHeaderInterceptor.HEADER_LABEL, authHeader);
+        }
+
+        String token = StringUtils.substringAfter(authHeader, BEARER_TOKEN_TYPE);
+        if (!StringUtils.isEmpty(token)) {
+            OAuth2Authentication authentication = jwtTokenStore.readAuthentication(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

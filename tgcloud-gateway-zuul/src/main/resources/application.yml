@@ -54,7 +54,6 @@ spring:
       name: admin
       password: admin
 
-
 #客户端版本号，在监控中心显示
 info:
   owner: tigerphz
@@ -116,6 +115,27 @@ zuul:
   ribbon-isolation-strategy: thread #设置Hystrix隔离策略为线程池
   thread-pool:
     use-separate-thread-pools: true #每个路由使用独立的线程池
+  ratelimit: #zull 限流配置
+    key-prefix: tgcloud-ratelimit
+    enabled: true
+    repository: REDIS
+    behind-proxy: true
+    default-policy-list: #optional - will apply unless specific policy exists
+      - limit: 100 #optional - request number limit per refresh interval window
+        quota: 100 #optional - request time limit per refresh interval window (in seconds)
+        refresh-interval: 3 #default value (in seconds)
+        type: #optional
+          - user
+          - origin
+          - url
+    policy-list:
+      aus-route:
+        - limit: 10
+          quota: 1000
+          refresh-interval: 60
+          type:
+            - url=/auth/code
+
 hystrix:
   propagate:
     request-attribute:

@@ -13,6 +13,10 @@
 
     <name>tgcloud-gateway-zuul</name>
 
+    <properties>
+        <zuul-ratelimit-version>2.2.1.RELEASE</zuul-ratelimit-version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.tiger.tgcloud.common</groupId>
@@ -65,6 +69,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+        <!--https://github.com/marcosbarbero/spring-cloud-zuul-ratelimit-->
+        <dependency>
+            <groupId>com.marcosbarbero.cloud</groupId>
+            <artifactId>spring-cloud-zuul-ratelimit</artifactId>
+            <version>${zuul-ratelimit-version}</version>
         </dependency>
     </dependencies>
 
