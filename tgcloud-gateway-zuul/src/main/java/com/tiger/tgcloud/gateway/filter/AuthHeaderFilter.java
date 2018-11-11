@@ -2,23 +2,25 @@ package com.tiger.tgcloud.gateway.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
 import com.tiger.tgcloud.base.enums.ErrorCodeEnum;
 import com.tiger.tgcloud.base.exception.BusinessException;
 import com.tiger.tgcloud.core.interceptor.CoreHeaderInterceptor;
-import com.tiger.tgcloud.core.utils.RequestUtil;
-import com.tiger.tgcloud.utils.PublicUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
+import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.stereotype.Component;
+import org.springframework.util.PatternMatchUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @description:
@@ -30,6 +32,8 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @Component
 public class AuthHeaderFilter extends ZuulFilter {
+    @Autowired
+    private ZuulProperties properties;
 
     @Resource
     private JwtTokenStore jwtTokenStore;
@@ -37,7 +41,6 @@ public class AuthHeaderFilter extends ZuulFilter {
     private static final String BEARER_TOKEN_TYPE = "Bearer ";
     private static final String OPTIONS = "OPTIONS";
     private static final String AUTH_PATH = "/auth";
-    private static final String LOGOUT_URI = "/oauth/token";
 
 
     /**
@@ -47,7 +50,7 @@ public class AuthHeaderFilter extends ZuulFilter {
      */
     @Override
     public String filterType() {
-        return "pre";
+        return FilterConstants.PRE_TYPE;
     }
 
     /**
@@ -88,29 +91,28 @@ public class AuthHeaderFilter extends ZuulFilter {
         return null;
     }
 
-    private void doSomething(RequestContext requestContext) throws ZuulException {
+    private void doSomething(RequestContext requestContext) {
         HttpServletRequest request = requestContext.getRequest();
         String requestURI = request.getRequestURI();
 
-        if (OPTIONS.equalsIgnoreCase(request.getMethod()) || requestURI.contains(AUTH_PATH) || requestURI.contains(LOGOUT_URI)) {
+        if (OPTIONS.equalsIgnoreCase(request.getMethod()) || requestURI.contains(AUTH_PATH)) {
             return;
         }
-        String authHeader = RequestUtil.getAuthHeader(request);
 
-        if (PublicUtil.isEmpty(authHeader)) {
-            throw new ZuulException("刷新页面重试", 403, "check token fail");
+        Map<String, ZuulProperties.ZuulRoute> routeMaps = properties.getRoutes();
+        if (!routeMaps.values().stream().anyMatch(x ->
+                PatternMatchUtils.simpleMatch(x.getPath(), requestURI)
+        )) {
+            return;
         }
 
-        if (authHeader.startsWith(BEARER_TOKEN_TYPE)) {
-            requestContext.addZuulRequestHeader(HttpHeaders.AUTHORIZATION, authHeader);
-
-            log.info("authHeader={} ", authHeader);
+        String token = StringUtils.substringAfter(request.getHeader(HttpHeaders.AUTHORIZATION), BEARER_TOKEN_TYPE);
+        if (!StringUtils.isEmpty(token)) {
+            String authHeader = BEARER_TOKEN_TYPE + token;
             // 传递给后续微服务
             requestContext.addZuulRequestHeader(CoreHeaderInterceptor.HEADER_LABEL, authHeader);
-        }
+            log.info("authHeader={} ", authHeader);
 
-        String token = StringUtils.substringAfter(authHeader, BEARER_TOKEN_TYPE);
-        if (!StringUtils.isEmpty(token)) {
             OAuth2Authentication authentication = jwtTokenStore.readAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

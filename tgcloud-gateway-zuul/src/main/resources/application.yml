@@ -134,6 +134,7 @@ zuul:
           quota: 1000
           refresh-interval: 60
           type:
+            - origin
             - url=/auth/code
 
 hystrix:
@@ -193,6 +194,7 @@ logging:
   file: ${spring.application.name}.log
 tgcloud:
   enableSqlLogInterceptor: false
+
 # swagger butler配置
 swagger.butler.api-docs-path: v2/api-docs
 swagger.butler.swagger-version: 1.0
