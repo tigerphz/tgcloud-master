@@ -1,7 +1,9 @@
 
+zipkin 安装
+sudo docker run -it -p 9411:9411 -e STORAGE_TYPE=mysql -e MYSQL_DB=tgcloud_zipkin -e MYSQL_HOST=192.168.164.130 -e MYSQL_USER=root -e MYSQL_PASS=123456 -e RABBIT_ADDRESSES=192.168.164.130:5672 -e RABBIT_USER=admin -e RABBIT_PASSWORD=admin openzipkin/zipkin
+
 xxl-job 安装
 docker run -e PARAMS="--spring.datasource.url=jdbc:mysql://192.168.164.130:3306/xxl-job?Unicode=true&characterEncoding=UTF-8 --server.port=8011 --spring.datasource.username=root --spring.datasource.password=123456" -p 8011:8011 -v /home/hadoop/xxl-job-admin/applogs:/data/applogs --name xxl-job-admin -d xuxueli/xxl-job-admin:2.0.0
-
 
 安装 RabbitMQ
 apt-get install rabbitmq-server  #安装成功自动启动

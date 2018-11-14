@@ -5,6 +5,11 @@ spring:
     active: @profileActive@
   application:
     name: @pom.artifactId@
+  rabbitmq:
+    host: mq.tgcloud.net
+    port: 5672
+    username: admin
+    password: admin
   boot:
     admin:
       client:

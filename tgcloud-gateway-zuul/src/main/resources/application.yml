@@ -10,6 +10,11 @@ spring:
     active: @profileActive@
   application:
     name: @pom.artifactId@
+  rabbitmq:
+    host: mq.tgcloud.net
+    port: 5672
+    username: admin
+    password: admin
   redis:
     host: localhost
     port: 6379
@@ -26,18 +31,6 @@ spring:
         max-wait:  -1s
         # 最大活跃连接数，负数为不限制
         max-active: -1
-  sleuth:
-    enabled: true
-    http:
-      legacy:
-        enabled: true
-    sampler:
-      #默认为0.1；表示调用10次才会上传一次
-      probability: 0.1
-  #指定zipkin中心
-  zipkin:
-    base-url: http://localhost:8011
-
   boot:
     admin:
       client:
@@ -53,6 +46,21 @@ spring:
     user:
       name: admin
       password: admin
+  sleuth:
+    enabled: true
+    http:
+      legacy:
+        enabled: true
+    sampler:
+      #默认为0.1；表示调用10次才会上传一次
+      probability: 0.1
+  #指定zipkin中心 不使用mq需要指定
+#  zipkin:
+#    base-url: http://zipkin.tgcloud.net:9411
+
+zipkin:
+  rabbitmq:
+    queue: zipkin
 
 #客户端版本号，在监控中心显示
 info:

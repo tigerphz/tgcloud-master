@@ -1,4 +1,5 @@
-use tgcloud;
+CREATE DATABASE tgcloud_zipkin DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+use tgcloud_zipkin;
 
 CREATE TABLE IF NOT EXISTS zipkin_spans (
   `trace_id_high` BIGINT NOT NULL DEFAULT 0 COMMENT 'If non zero, this means the trace uses 128 bit traceIds instead of 64 bit',
