@@ -1,5 +1,8 @@
 
 zipkin 安装
+https://blog.csdn.net/xichenguan/article/details/80041119
+https://github.com/openzipkin/zipkin/blob/master/zipkin-server/README.md#rabbitmq-collector
+https://hub.docker.com/r/openzipkin/zipkin/
 sudo docker run -it -p 9411:9411 -e STORAGE_TYPE=mysql -e MYSQL_DB=tgcloud_zipkin -e MYSQL_HOST=192.168.164.130 -e MYSQL_USER=root -e MYSQL_PASS=123456 -e RABBIT_ADDRESSES=192.168.164.130:5672 -e RABBIT_USER=admin -e RABBIT_PASSWORD=admin openzipkin/zipkin
 
 xxl-job 安装
