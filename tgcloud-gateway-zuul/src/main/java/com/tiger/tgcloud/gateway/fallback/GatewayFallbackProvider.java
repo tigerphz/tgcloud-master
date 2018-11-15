@@ -13,7 +13,10 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 /**
- * @description:
+ * @description: Zuul作为服务网关为了保证自己不被服务拖垮，本身已经集成了Hystrix对路由转发进行隔离。
+ * 为了方便开发人员对服务短路进行自定义处理，
+ * Zuul 提供了 ZuulFallbackProvider 接口，开发人员可以通过实现该接口来完成自定义Hystrix Fallback
+ * Spring Cloud Zuul 提供了 FallbackProvider替代了ZuulFallbackProvider接口。因此我们实现FallbackProvider即可
  * @author: tiger
  * @date: 2018/9/14 20:30
  * @version: V1.0
