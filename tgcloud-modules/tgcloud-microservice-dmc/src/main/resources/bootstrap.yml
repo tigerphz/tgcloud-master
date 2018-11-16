@@ -99,15 +99,16 @@ feign:
 #        // 原来ribbonTimeout的计算方法在这里，以上文的设置为例
 #        // ribbonTimeout = (50000 + 50000) * (0 + 1) * (1 + 1) = 200000
 #        ribbonTimeout = (ribbonReadTimeout + ribbonConnectTimeout) * (maxAutoRetries + 1) * (maxAutoRetriesNextServer + 1);
-#ribbonTimeout 是最终ribbon的过期时间 这个时间应该比hystrix的过期时间要长
+#ribbonTimeout 是最终ribbon的过期时间 这个时间应该比hystrix的过期时间要短
 ribbon:
   eager-load:
     enabled: true
   MaxAutoRetries: 1
   MaxAutoRetriesNextServer: 2
+  #OKToRetryOnAllOperations的意义是无论是请求超时或者socket read timeout都进行重试
   OkToRetryOnAllOperations: false
-  ConnectTimeout: 10000
-  ReadTimeout: 10000
+  ConnectTimeout: 2000
+  ReadTimeout: 2000
 hystrix:
   propagate:
     request-attribute:
@@ -119,4 +120,4 @@ hystrix:
           enabled: true
         isolation:
           thread:
-            timeoutInMilliseconds: 120000
+            timeoutInMilliseconds: 24000

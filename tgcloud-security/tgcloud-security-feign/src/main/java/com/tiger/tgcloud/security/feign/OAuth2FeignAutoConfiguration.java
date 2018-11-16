@@ -87,12 +87,14 @@ public class OAuth2FeignAutoConfiguration {
 
     /*
      * To disable Hystrix support on a per-client basis create a vanilla Feign.Builder with the "prototype" scope, e.g.:
+     * 通过FeignClient配置文件禁用Hystrix断路器，因为默认使用的是HystrixFeign.Builder启用断路器,通过Feign.builder()替代
+     * HystrixFeign.Builder来禁用
      */
-//	@Bean
-//	@Scope("prototype")
-//	public Feign.Builder feignBuilder() {
-//		return Feign.builder();
-//	}
+//    @Bean
+//    @Scope("prototype")
+//    public Feign.Builder feignBuilder() {
+//        return Feign.builder();
+//    }
 
     @Bean
     public ErrorDecoder errorDecoder() {

@@ -145,6 +145,15 @@ zuul:
             - origin
             - url=/auth/code
 
+ribbon:
+  eager-load:
+    enabled: true
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  #OKToRetryOnAllOperations的意义是无论是请求超时或者socket read timeout都进行重试
+  OkToRetryOnAllOperations: false
+  ConnectTimeout: 2000
+  ReadTimeout: 2000
 hystrix:
   propagate:
     request-attribute:
@@ -157,15 +166,7 @@ hystrix:
           enabled: true
         isolation:
           thread:
-            timeoutInMilliseconds: 120000
-ribbon:
-  eager-load:
-    enabled: true
-  MaxAutoRetries: 1
-  MaxAutoRetriesNextServer: 2
-  OkToRetryOnAllOperations: false
-  ConnectTimeout: 10000
-  ReadTimeout: 10000
+            timeoutInMilliseconds: 24000
 
 eureka:
   client:
