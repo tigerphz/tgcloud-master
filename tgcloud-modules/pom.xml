@@ -143,16 +143,16 @@
             <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
         <!--https://github.com/apache/incubator-servicecomb-saga/blob/master/docs/user_guide_zh.md-->
-        <dependency>
-            <groupId>org.apache.servicecomb.saga</groupId>
-            <artifactId>omega-spring-starter</artifactId>
-            <version>${servicecomb.saga.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.servicecomb.saga</groupId>
-            <artifactId>omega-transport-resttemplate</artifactId>
-            <version>${servicecomb.saga.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.apache.servicecomb.saga</groupId>-->
+            <!--<artifactId>omega-spring-starter</artifactId>-->
+            <!--<version>${servicecomb.saga.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.servicecomb.saga</groupId>-->
+            <!--<artifactId>omega-transport-resttemplate</artifactId>-->
+            <!--<version>${servicecomb.saga.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

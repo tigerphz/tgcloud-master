@@ -1,17 +1,12 @@
 spring:
-  aop:
-    proxy-target-class: true
-    auto: true
-  mvc:
-    date-format: yyyy-MM-dd HH:mm:ss
-  jackson:
-    joda-date-time-format: yyyy-MM-dd HH:mm:ss
-    date-format: yyyy-MM-dd HH:mm:ss
   cloud:
     config:
-          uri: http://${CONFIG_HOST:localhost}:${CONFIG_PORT:8090}/
-          label: master
-          profile: ${spring.profiles.active:dev}
+      fail-fast: true
+      discovery:
+        enabled: true
+        service-id: tgcloud-config
+      label: ${spring.profiles.active}
+      profile: ${spring.profiles.active}
     inetutils:
       ignoredInterfaces: #网卡忽略列表
         - docker0
@@ -40,35 +35,12 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://admin:admin@${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+      defaultZone: http://admin:admin@${EUREKA_HOST:eureka.tgcloud.net}:${EUREKA_PORT:8761}/eureka/
     instance:
       # docker 部署开启
       prefer-ip-address: true
       status-page-url-path: /actuator/info
       health-check-url-path: /actuator/health
       instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
-mybatis:
-  type-aliases-package: com.tiger.tgcloud.model.domain
-  mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
-mapper:
-  mappers: com.tiger.tgcloud.core.mybatis.MyMapper
-  not-empty: false
-  identity: MYSQL
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
-security:
-  oauth2:
-    client:
-      clientId: tgcloud-security-authserver
-      clientSecret: tgcloudClientSecret
-      access-token-uri: http://${GATEWAY_HOST:localhost}:${GATEWAY_PORT:7979}/aus/oauth/token
-      user-authorization-uri: http://${GATEWAY_HOST:localhost}:${GATEWAY_PORT:7979}/aus/oauth/authorize
-    resource:
-      id: tgcloud-security-authserver
-      #filter-order: 3
+
 

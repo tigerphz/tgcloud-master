@@ -7,31 +7,6 @@ spring:
     active:
       - @profileActive@
       - secure
-  rabbitmq:
-    host: mq.tgcloud.net
-    port: 5672
-    username: admin
-    password: admin
-
-info:
-  owner: tigerphz
-  version: @project.version@
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://admin:admin@${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
-    instance:
-      # docker 部署开启
-      prefer-ip-address: true
-      status-page-url-path: /actuator/info
-      health-check-url-path: /actuator/health
-      instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
-
-logging:
-  level.root: info
-  path: logs/
-  file: ${spring.application.name}.log
 
 ---
 # 不安全配置
@@ -56,15 +31,5 @@ spring:
           name: @pom.artifactId@
           #客户端是否提供本机真实ip
           prefer-ip: true
-# 注册给eureka的时候告诉eureka自己的密码
-eureka:
-  instance:
-    metadata-map:
-      user.name: ${spring.security.user.name}         #These two are needed so that the server
-      user.password: ${spring.security.user.password} #can access the protected client endpoints
 
-turbine:
-  app-config: tgcloud-gateway-zuul #收集监控信息的服务名
-  combine-host-port: true
-  cluster-name-expression: new String('default') #集群名称
 

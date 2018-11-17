@@ -2,16 +2,9 @@ package com.tiger.tgcloud.uac.service;
 
 import com.tiger.tgcloud.TgCloudUacApplication;
 import com.tiger.tgcloud.core.security.SnowflakeIdWorker;
-import com.tiger.tgcloud.dmc.api.model.domain.MqMessageData;
 import com.tiger.tgcloud.dmc.api.service.MqMessageFeignApi;
-import com.tiger.tgcloud.uac.model.domain.DepartmentInfo;
 import com.tiger.tgcloud.uac.repository.DepartmentRepository;
-import org.apache.servicecomb.saga.omega.context.OmegaContext;
-import org.apache.servicecomb.saga.omega.context.annotations.SagaStart;
-import org.apache.servicecomb.saga.omega.spring.EnableOmega;
-import org.apache.servicecomb.saga.omega.transaction.annotations.Compensable;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -31,7 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TgCloudUacApplication.class)
 @AutoConfigureMockMvc
-@EnableOmega
+//@EnableOmega
 public class SagaOmegaTest {
     private MockMvc mvc;
 
@@ -49,40 +42,40 @@ public class SagaOmegaTest {
     @Autowired
     private DepartmentRepository departmentRepository;
 
-    @Autowired
-    private OmegaContext omegaContext;
+//    @Autowired
+//    private OmegaContext omegaContext;
 
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
 
-    @Test
-    public void SagaOmega() {
-        Long id = snowflakeIdWorker.nextId();
-        String msg = "SagaOmegaTest测试分布式事务";
+//    @Test
+//    public void SagaOmega() {
+//        Long id = snowflakeIdWorker.nextId();
+//        String msg = "SagaOmegaTest测试分布式事务";
+//
+//        sendMessage(id, msg);
+//    }
 
-        sendMessage(id, msg);
-    }
-
-    @SagaStart(timeout = 10)
-    public void sendMessage(Long id, String msg) {
-        recevieMessage(id, msg);
-
-        MqMessageData data = new MqMessageData();
-        data.setId(id);
-        data.setMessageBody(msg);
-
-        mqMessageFeignApi.saveAndSendMqMessage(data);
-    }
-
-    @Compensable(timeout = 5, compensationMethod = "cancel")
-    public void recevieMessage(Long id, String msg) {
-        DepartmentInfo departmentInfo = new DepartmentInfo();
-        departmentInfo.setId(id);
-        departmentInfo.setDeptname(msg);
-        departmentRepository.save(departmentInfo);
-
-        System.out.print("globalTxId:" + omegaContext.globalTxId() + "localTxId:" + omegaContext.localTxId());
-    }
+//    @SagaStart(timeout = 10)
+//    public void sendMessage(Long id, String msg) {
+//        recevieMessage(id, msg);
+//
+//        MqMessageData data = new MqMessageData();
+//        data.setId(id);
+//        data.setMessageBody(msg);
+//
+//        mqMessageFeignApi.saveAndSendMqMessage(data);
+//    }
+//
+//    @Compensable(timeout = 5, compensationMethod = "cancel")
+//    public void recevieMessage(Long id, String msg) {
+//        DepartmentInfo departmentInfo = new DepartmentInfo();
+//        departmentInfo.setId(id);
+//        departmentInfo.setDeptname(msg);
+//        departmentRepository.save(departmentInfo);
+//
+//        System.out.print("globalTxId:" + omegaContext.globalTxId() + "localTxId:" + omegaContext.localTxId());
+//    }
 
     public void cancel(Long id, String msg) {
         System.out.print("cancel=id:" + id + "msg:" + msg);

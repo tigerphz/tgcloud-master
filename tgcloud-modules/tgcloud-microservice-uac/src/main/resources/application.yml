@@ -5,56 +5,9 @@ spring:
     name: @pom.artifactId@
   profiles:
     active: @profileActive@
-  rabbitmq:
-    host: mq.tgcloud.net
-    port: 5672
-    username: admin
-    password: admin
-  redis:
-    host: localhost
-    port: 6379
-    # 数据库连接超时时间，2.0 中该参数的类型为Duration，这里在配置的时候需要指明单位
-    timeout: 60s
-    # 连接池配置，2.0中直接使用jedis或者lettuce配置连接池
-    jedis:
-      pool:
-        # 最大空闲连接数
-        max-idle: 500
-        # 最小空闲连接数
-        min-idle: 50
-        # 等待可用连接的最大时间，负数为不限制
-        max-wait:  -1s
-        # 最大活跃连接数，负数为不限制
-        max-active: -1
   datasource:
-    url: jdbc:mysql://localhost:3306/tgcloud?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
     username: tiger
     password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计   ，'wall'用于防火墙
-    filters: stat,wall,slf4j
-    druid:
-      # 初始化大小，最小，最大
-      initial-size: 5
-      min-idle: 5
-      max-active: 20
-      # 配置获取连接等待超时的时间
-      max-wait: 60000
-      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-      time-between-eviction-runs-millis: 60000
-      # 配置一个连接在池中最小生存的时间，单位是毫秒
-      min-evictable-idle-time-milli: 300000
-      web-stat-filter:
-              exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
-      # Oracle请使用select 1 from dual
-      validation-query: SELECT 'x'
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
-      # 打开PSCache，并且指定每个连接上PSCache的大小
-      pool-prepared-statements: true
-      max-pool-prepared-statement-per-connection-size: 20
   boot:
     admin:
       client:
@@ -81,35 +34,12 @@ zipkin:
   rabbitmq:
     queue: zipkin
 
-#客户端版本号，在监控中心显示
-info:
-  owner: tigerphz
-  version: @project.version@
-
-logging:
-  level.root: info
-  level.com.tiger.tgcloud: debug
-  path: logs/
-  file: ${spring.application.name}.log
-
 tgcloud:
-  auth:
-    rest-pwd-url: http://passport.tgcloud.net:9999/resetPwd?resetPwdKey=
-    active-user-url: http://passport.tgcloud.net:9999/activeUser
-    refresh-token-url: http://api.tgcloud.net:7979/uac/oauth/token
   swagger:
     title: @pom.artifactId@
     description: @pom.description@
   oauth2:
     jwtSigningKey: tgcloud
-    client:
-      id: ${security.oauth2.resource.id}
-      accessTokenUrl: ${security.oauth2.client.access-token-uri}
-      clientId: ${security.oauth2.client.clientId}
-      clientSecret: ${security.oauth2.client.clientSecret}
-      clientAuthenticationScheme: header
-      tokenStore: jwt
-  enableSqlLogInterceptor: false
 
 # Twitter_Snowflake 配置
 snowflakeid:

@@ -1,9 +1,12 @@
 spring:
   cloud:
     config:
-      uri: http://${CONFIG_HOST:localhost}:${CONFIG_PORT:8090}/
-      label: master
-      profile: ${spring.profiles.active:dev}
+      fail-fast: true
+      discovery:
+        enabled: true
+        service-id: tgcloud-config
+      label: ${spring.profiles.active[0]}
+      profile: ${spring.profiles.active[0]}
     inetutils:
       ignoredInterfaces:
         - docker0
@@ -18,3 +21,14 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://admin:admin@${EUREKA_HOST:eureka.tgcloud.net}:${EUREKA_PORT:8761}/eureka/
+    instance:
+      # docker 部署开启
+      prefer-ip-address: true
+      status-page-url-path: /actuator/info
+      health-check-url-path: /actuator/health
+      instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
