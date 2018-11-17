@@ -10,6 +10,7 @@ spring:
     port: 5672
     username: admin
     password: admin
+
 logging:
   level.root: info
   path: logs/

@@ -15,7 +15,7 @@ eureka:
   server:
     enable-self-preservation: false
   instance:
-    hostname: localhost
+    hostname: eureka.tgcloud.net
   client:
     register-with-eureka: false
     fetch-registry: false
