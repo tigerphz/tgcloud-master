@@ -3,6 +3,9 @@ package com.tiger.tgcloud.uac.service;
 import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.uac.model.domain.DepartmentInfo;
 import com.tiger.tgcloud.uac.model.query.DepartmentParam;
+import com.tiger.tgcloud.uac.model.bo.DepartmentTreeBO;
+
+import java.util.List;
 
 /**
  * @description:
@@ -21,6 +24,13 @@ public interface DepartmentService {
     PageInfo<DepartmentInfo> selectByConditionWithPage(DepartmentParam param);
 
     /**
+     * 查询部门树结构列表
+     *
+     * @return
+     */
+    List<DepartmentTreeBO> selectDepartmentTree();
+
+    /**
      * 添加部门信息
      *
      * @param departmentInfo
@@ -37,9 +47,10 @@ public interface DepartmentService {
     Boolean updateDepartment(DepartmentInfo departmentInfo);
 
     /**
-     * 更新部门信息
-     * @param departmentInfo
+     * 删除部门信息
+     *
+     * @param id
      * @return
      */
-    Boolean updateDepartmentStatusById(DepartmentInfo departmentInfo);
+    Boolean deleteDepartment(Long id);
 }

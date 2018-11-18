@@ -23,6 +23,8 @@ public class DepartmentVO {
 
     private String description;
 
+    private Integer sort;
+
     private Long parentid;
 
     private Date createdate;

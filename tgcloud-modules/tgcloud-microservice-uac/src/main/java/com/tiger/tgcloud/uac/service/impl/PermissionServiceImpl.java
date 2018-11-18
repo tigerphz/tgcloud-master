@@ -84,7 +84,7 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
     }
 
     /**
-     * 添加部门信息
+     * 添加权限信息
      *
      * @param permissionInfo
      * @return

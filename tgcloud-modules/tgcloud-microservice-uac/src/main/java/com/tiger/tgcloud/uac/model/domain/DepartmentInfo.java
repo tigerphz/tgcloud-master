@@ -27,5 +27,7 @@ public class DepartmentInfo extends BaseEntity {
 
     private String description;
 
+    private Integer sort;
+
     private Long parentid;
 }

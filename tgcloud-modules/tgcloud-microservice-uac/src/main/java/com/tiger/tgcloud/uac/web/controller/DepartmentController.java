@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.base.dto.LoginAuthDto;
 import com.tiger.tgcloud.core.support.BaseController;
 import com.tiger.tgcloud.uac.mapping.DepartmentMapping;
+import com.tiger.tgcloud.uac.model.bo.DepartmentTreeBO;
 import com.tiger.tgcloud.uac.model.domain.DepartmentInfo;
 import com.tiger.tgcloud.uac.model.query.DepartmentParam;
 import com.tiger.tgcloud.uac.model.vo.DepartmentVO;
@@ -19,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @description: 部门管理
@@ -46,6 +48,16 @@ public class DepartmentController extends BaseController {
         PageInfo<DepartmentInfo> permissionInfoPageInfos = departmentService.selectByConditionWithPage(param);
 
         return WrapMapper.ok(permissionInfoPageInfos);
+    }
+
+    @RequestMapping(value = "/tree", method = RequestMethod.GET)
+    @ApiOperation("获取所有部门树结构信息")
+    @ApiImplicitParams({
+    })
+    public Wrapper<List<DepartmentTreeBO>> tree() {
+        List<DepartmentTreeBO> departmentTreeBOList = departmentService.selectDepartmentTree();
+
+        return WrapMapper.ok(departmentTreeBOList);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -85,20 +97,12 @@ public class DepartmentController extends BaseController {
         return WrapMapper.ok(departmentService.updateDepartment(departmentInfo));
     }
 
-    @RequestMapping(value = "/{id}/status/{status}", method = RequestMethod.PUT)
-    @ApiOperation(value = "更新部门状态")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ApiOperation(value = "删除部门")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", name = "id", dataType = "Long", value = "Id", required = true),
-            @ApiImplicitParam(paramType = "path", name = "status", dataType = "Long", value = "状态", required = true)
     })
-    public Wrapper<Boolean> updateStatus(@PathVariable(value = "id") Long id, @PathVariable(value = "status") Integer status) {
-        DepartmentInfo departmentInfo = new DepartmentInfo();
-        departmentInfo.setId(id);
-        departmentInfo.setStatus(status);
-
-        LoginAuthDto loginAuthDto = getLoginAuthDto();
-        departmentInfo.setUpdateInfo(loginAuthDto);
-
-        return WrapMapper.ok(departmentService.updateDepartmentStatusById(departmentInfo));
+    public Wrapper<Boolean> updateStatus(@PathVariable(value = "id") Long id) {
+        return WrapMapper.ok(departmentService.deleteDepartment(id));
     }
 }
