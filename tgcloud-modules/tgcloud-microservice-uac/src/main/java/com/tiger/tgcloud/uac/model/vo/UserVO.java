@@ -44,6 +44,8 @@ public class UserVO {
 
     private String address;
 
+    private String deptname;
+
     /**
      * 版本号
      */
