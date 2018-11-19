@@ -27,8 +27,8 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping(value = "/exceptions", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@Api(value = "Web - DmcExceptionMainController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class DmcExceptionMainController extends BaseController {
+@Api(value = "Web - DmcExceptionController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+public class DmcExceptionController extends BaseController {
     @Resource
     private DmcExceptionLogService dmcExceptionLogService;
 
