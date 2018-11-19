@@ -2,7 +2,7 @@ package com.tiger.tgcloud.dmc.service;
 
 import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.dmc.api.model.dto.GlobalExceptionLogDto;
-import com.tiger.tgcloud.dmc.model.dto.DmcExceptionQueryConditionDto;
+import com.tiger.tgcloud.dmc.model.query.DmcExceptionParam;
 
 /**
  * @description:
@@ -25,5 +25,5 @@ public interface DmcExceptionLogService {
      * @param mdcExceptionQueryDto the mdc exception query dto
      * @return the page info
      */
-    PageInfo queryExceptionListWithPage(DmcExceptionQueryConditionDto mdcExceptionQueryDto);
+    PageInfo queryExceptionListWithPage(DmcExceptionParam mdcExceptionQueryDto);
 }

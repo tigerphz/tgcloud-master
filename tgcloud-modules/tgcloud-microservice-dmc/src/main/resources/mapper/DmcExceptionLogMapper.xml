@@ -28,8 +28,14 @@
         ,
         <include refid="Blob_Column_List"/>
         FROM
-        exception_log log
+        dmc_exception_log log
         WHERE 1 = 1
+        <if test="applicationName != null and applicationName != ''">
+            AND application_name LIKE concat(#{applicationName}, '%')
+        </if>
+        <if test="exceptionSimpleName != null and exceptionSimpleName != ''">
+            AND exception_simple_name LIKE concat(#{exceptionSimpleName}, '%')
+        </if>
         <if test="exceptionCause != null and exceptionCause != ''">
             AND exception_cause LIKE concat(#{exceptionCause}, '%')
         </if>

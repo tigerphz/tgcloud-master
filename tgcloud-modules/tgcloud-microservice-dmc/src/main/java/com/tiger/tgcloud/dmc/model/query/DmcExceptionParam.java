@@ -1,4 +1,4 @@
-package com.tiger.tgcloud.dmc.model.dto;
+package com.tiger.tgcloud.dmc.model.query;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tiger.tgcloud.base.dto.BaseQueryCondition;
@@ -20,7 +20,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel
-public class DmcExceptionQueryConditionDto extends BaseQueryCondition {
+public class DmcExceptionParam extends BaseQueryCondition {
 
     private static final long serialVersionUID = 3967075132487249652L;
     /**
@@ -28,6 +28,19 @@ public class DmcExceptionQueryConditionDto extends BaseQueryCondition {
      */
     @ApiModelProperty(value = "操作用户名称")
     private String creator;
+
+    /**
+     * 系统应用名
+     */
+    @ApiModelProperty(value = "系统应用名")
+    private String applicationName;
+
+    /**
+     * 异常类型
+     */
+    @ApiModelProperty(value = "异常类型")
+    private String exceptionSimpleName;
+
     /**
      * 异常原因
      */

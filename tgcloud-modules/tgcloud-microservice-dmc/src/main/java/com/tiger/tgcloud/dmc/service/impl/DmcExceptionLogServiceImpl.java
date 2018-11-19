@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.core.support.BaseService;
 import com.tiger.tgcloud.dmc.api.model.dto.GlobalExceptionLogDto;
 import com.tiger.tgcloud.dmc.model.domain.DmcExceptionLog;
-import com.tiger.tgcloud.dmc.model.dto.DmcExceptionQueryConditionDto;
+import com.tiger.tgcloud.dmc.model.query.DmcExceptionParam;
 import com.tiger.tgcloud.dmc.repository.DmcExceptionLogRepository;
 import com.tiger.tgcloud.dmc.service.DmcExceptionLogService;
 import org.modelmapper.ModelMapper;
@@ -37,7 +37,7 @@ public class DmcExceptionLogServiceImpl extends BaseService implements DmcExcept
     }
 
     @Override
-    public PageInfo queryExceptionListWithPage(final DmcExceptionQueryConditionDto dmcExceptionQueryDto) {
+    public PageInfo queryExceptionListWithPage(final DmcExceptionParam dmcExceptionQueryDto) {
         PageHelper.startPage(dmcExceptionQueryDto.getPageNum(), dmcExceptionQueryDto.getPageSize());
         List<DmcExceptionLog> actionList = dmcExceptionLogRepository.queryExceptionListWithPage(dmcExceptionQueryDto);
         return new PageInfo<>(actionList);

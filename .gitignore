@@ -23,3 +23,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+/LOG_PATH_IS_UNDEFINEDLOG_FILE_IS_UNDEFINED

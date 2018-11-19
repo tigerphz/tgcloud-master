@@ -1,18 +1,19 @@
 package com.tiger.tgcloud.dmc.web.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.tiger.tgcloud.dmc.model.dto.DmcExceptionQueryConditionDto;
-import com.tiger.tgcloud.dmc.service.DmcExceptionLogService;
 import com.tiger.tgcloud.core.support.BaseController;
+import com.tiger.tgcloud.dmc.model.query.DmcExceptionParam;
+import com.tiger.tgcloud.dmc.service.DmcExceptionLogService;
 import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -25,7 +26,7 @@ import javax.annotation.Resource;
  * @modified by:
  */
 @RestController
-@RequestMapping(value = "/exception", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/exceptions", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(value = "Web - DmcExceptionMainController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class DmcExceptionMainController extends BaseController {
     @Resource
@@ -34,14 +35,16 @@ public class DmcExceptionMainController extends BaseController {
     /**
      * 异常日志列表.
      *
-     * @param dmcExceptionQueryDto the mdc exception query dto
+     * @param dmcExceptionParam the mdc exception query param
      * @return the wrapper
      */
-    @PostMapping(value = "/queryListWithPage")
-    @ApiOperation(httpMethod = "POST", value = "查询日志列表")
-    public Wrapper queryLogListWithPage(@ApiParam(name = "mdcExceptionQueryDto", value = "异常查询条件") @RequestBody DmcExceptionQueryConditionDto dmcExceptionQueryDto) {
-        logger.info("查询日志处理列表 mdcExceptionQueryDto={}", dmcExceptionQueryDto);
-        PageInfo pageInfo = dmcExceptionLogService.queryExceptionListWithPage(dmcExceptionQueryDto);
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @ApiOperation(value = "查询日志列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "param", dataType = "DmcExceptionParam", value = "查询日志列表信息")
+    })
+    public Wrapper queryLogListWithPage(DmcExceptionParam dmcExceptionParam) {
+        PageInfo pageInfo = dmcExceptionLogService.queryExceptionListWithPage(dmcExceptionParam);
         return WrapMapper.ok(pageInfo);
     }
 }
