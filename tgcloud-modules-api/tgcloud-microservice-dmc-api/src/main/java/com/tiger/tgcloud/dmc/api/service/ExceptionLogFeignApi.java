@@ -1,7 +1,7 @@
 package com.tiger.tgcloud.dmc.api.service;
 
 import com.tiger.tgcloud.dmc.api.model.dto.GlobalExceptionLogDto;
-import com.tiger.tgcloud.dmc.api.service.hystrix.DmcExceptionLogFeignHystrix;
+import com.tiger.tgcloud.dmc.api.service.hystrix.ExceptionLogFeignHystrix;
 import com.tiger.tgcloud.security.feign.OAuth2FeignAutoConfiguration;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @version: V1.0
  * @modified by:
  */
-@FeignClient(value = "tgcloud-microservice-dmc", configuration = OAuth2FeignAutoConfiguration.class, fallback = DmcExceptionLogFeignHystrix.class)
-public interface DmcExceptionLogFeignApi {
+@FeignClient(value = "tgcloud-microservice-dmc", configuration = OAuth2FeignAutoConfiguration.class, fallback = ExceptionLogFeignHystrix.class)
+public interface ExceptionLogFeignApi {
 
     /**
      * 添加异常日志

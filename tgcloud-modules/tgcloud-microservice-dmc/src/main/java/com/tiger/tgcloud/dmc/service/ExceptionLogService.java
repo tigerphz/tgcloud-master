@@ -2,7 +2,7 @@ package com.tiger.tgcloud.dmc.service;
 
 import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.dmc.api.model.dto.GlobalExceptionLogDto;
-import com.tiger.tgcloud.dmc.model.query.DmcExceptionParam;
+import com.tiger.tgcloud.dmc.model.query.ExceptionLogParam;
 
 /**
  * @description:
@@ -11,7 +11,7 @@ import com.tiger.tgcloud.dmc.model.query.DmcExceptionParam;
  * @version: V1.0
  * @modified by:
  */
-public interface DmcExceptionLogService {
+public interface ExceptionLogService {
     /**
      * 保存日志并发送钉钉消息.
      *
@@ -25,5 +25,5 @@ public interface DmcExceptionLogService {
      * @param mdcExceptionQueryDto the mdc exception query dto
      * @return the page info
      */
-    PageInfo queryExceptionListWithPage(DmcExceptionParam mdcExceptionQueryDto);
+    PageInfo queryExceptionListWithPage(ExceptionLogParam mdcExceptionQueryDto);
 }

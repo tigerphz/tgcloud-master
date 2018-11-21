@@ -16,11 +16,11 @@ import java.util.Date;
  * @version: V1.0
  * @modified by:
  */
-@Alias("dmcExceptionLog")
+@Alias("ExceptionLog")
 @Table(name = "dmc_exception_log")
 @Data
 @NoArgsConstructor
-public class DmcExceptionLog {
+public class ExceptionLogInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -20,7 +20,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel
-public class DmcExceptionParam extends BaseQueryCondition {
+public class ExceptionLogParam extends BaseQueryCondition {
 
     private static final long serialVersionUID = 3967075132487249652L;
     /**

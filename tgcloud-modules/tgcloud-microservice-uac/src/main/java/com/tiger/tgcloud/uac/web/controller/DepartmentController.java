@@ -82,7 +82,7 @@ public class DepartmentController extends BaseController {
     @RequestMapping(value = "", method = RequestMethod.PUT)
     @ApiOperation("更新部门信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "body", name = "roleVO", dataType = "RoleVO", value = "部门信息")
+            @ApiImplicitParam(paramType = "body", name = "departmentVO", dataType = "DepartmentVO", value = "部门信息")
     })
     public Wrapper<Boolean> update(@Valid @RequestBody() DepartmentVO departmentVO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

@@ -1,8 +1,8 @@
 package com.tiger.tgcloud.dmc.web.rpc;
 
 import com.tiger.tgcloud.dmc.api.model.dto.GlobalExceptionLogDto;
-import com.tiger.tgcloud.dmc.api.service.DmcExceptionLogFeignApi;
-import com.tiger.tgcloud.dmc.service.DmcExceptionLogService;
+import com.tiger.tgcloud.dmc.api.service.ExceptionLogFeignApi;
+import com.tiger.tgcloud.dmc.service.ExceptionLogService;
 import com.tiger.tgcloud.core.support.BaseController;
 import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
@@ -27,15 +27,15 @@ import javax.annotation.Resource;
 @RefreshScope
 @RestController
 @Api(value = "API - DmcExceptionLogFeignClient", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class DmcExceptionLogFeignClient extends BaseController implements DmcExceptionLogFeignApi {
+public class ExceptionLogFeignClient extends BaseController implements ExceptionLogFeignApi {
     @Resource
-    private DmcExceptionLogService dmcExceptionLogService;
+    private ExceptionLogService exceptionLogService;
 
     @Override
     @ApiOperation(httpMethod = "POST", value = "保存日志")
     public Wrapper saveAndSendExceptionLog(@RequestBody GlobalExceptionLogDto exceptionLogDto) {
         try {
-            dmcExceptionLogService.saveAndSendExceptionLog(exceptionLogDto);
+            exceptionLogService.saveAndSendExceptionLog(exceptionLogDto);
         } catch (Exception e) {
             log.error("saveAndSendExceptionLog={}", e.getMessage(), e);
         }

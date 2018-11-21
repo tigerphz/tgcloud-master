@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiger.tgcloud.dmc.repository.mapper.MicroServiceMapper">
+    <resultMap id="BaseResultMap" type="com.tiger.tgcloud.dmc.model.domain.MicroServiceInfo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="service_name" jdbcType="VARCHAR" property="serviceName"/>
+        <result column="route_name" jdbcType="VARCHAR" property="routeName"/>
+        <result column="route_prefix" jdbcType="VARCHAR" property="routePrefix"/>
+        <result column="client_id" jdbcType="VARCHAR" property="clientId"/>
+        <result column="client_secret" jdbcType="VARCHAR" property="clientSecret"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="base_url" jdbcType="VARCHAR" property="baseUrl"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="is_auth" jdbcType="INTEGER" property="isAuth"/>
+        <result column="is_route" jdbcType="INTEGER" property="isRoute"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="picture" jdbcType="VARCHAR" property="picture"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="contacter" jdbcType="VARCHAR" property="contacter"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="creator_id" jdbcType="BIGINT" property="creatorId"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="update_operator" jdbcType="VARCHAR" property="updateOperator"/>
+        <result column="update_operator_id" jdbcType="BIGINT" property="updateOperatorId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, service_name, route_name, route_prefix, client_id, client_secret, type, base_url,
+    status, is_auth, is_route, remark, icon, picture, sort, contacter, mobile, creator, creator_id, created_time,
+    update_operator, update_operator_id, update_time
+  </sql>
+    <sql id="Base_Colunm_Where">
+        <if test="serviceName != null">
+            and ${alias}.service_name = #{serviceName,jdbcType=VARCHAR},
+        </if>
+        <if test="routename != null">
+            and ${alias}.routeName = #{routename,jdbcType=VARCHAR},
+        </if>
+        <if test="routePrefix != null">
+            and ${alias}.route_prefix = #{routePrefix,jdbcType=VARCHAR},
+        </if>
+        <if test="clientId != null">
+            and ${alias}.client_id = #{clientId,jdbcType=VARCHAR},
+        </if>
+        <if test="clientSecret != null">
+            and ${alias}.client_secret = #{clientSecret,jdbcType=VARCHAR},
+        </if>
+        <if test="type != null">
+            and ${alias}.type = #{type,jdbcType=INTEGER},
+        </if>
+        <if test="baseUrl != null">
+            and ${alias}.base_url = #{baseUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="status != null">
+            and ${alias}.status = #{status,jdbcType=INTEGER},
+        </if>
+        <if test="remark != null">
+            and ${alias}.remark = #{remark,jdbcType=VARCHAR},
+        </if>
+        <if test="icon != null">
+            and ${alias}.icon = #{icon,jdbcType=VARCHAR},
+        </if>
+        <if test="picture != null">
+            and ${alias}.picture = #{picture,jdbcType=VARCHAR},
+        </if>
+        <if test="sort != null">
+            and ${alias}.sort = #{sort,jdbcType=INTEGER},
+        </if>
+        <if test="contacter != null">
+            and ${alias}.contacter = #{contacter,jdbcType=VARCHAR},
+        </if>
+        <if test="mobile != null">
+            and ${alias}.mobile = #{mobile,jdbcType=VARCHAR},
+        </if>
+        <if test="creator != null">
+            and ${alias}.creator = #{creator,jdbcType=VARCHAR},
+        </if>
+        <if test="creatorId != null">
+            and ${alias}.creator_id = #{creatorId,jdbcType=BIGINT},
+        </if>
+        <if test="createdTime != null">
+            and ${alias}.created_time = #{createdTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateOperator != null">
+            and ${alias}.update_operator = #{updateOperator,jdbcType=VARCHAR},
+        </if>
+        <if test="updateOperatorId != null">
+            and ${alias}.update_operator_id = #{updateOperatorId,jdbcType=BIGINT},
+        </if>
+        <if test="updateTime != null">
+            and ${alias}.update_time = #{updateTime,jdbcType=TIMESTAMP},
+        </if>
+    </sql>
+    <select id="selectByCondition" parameterType="com.tiger.tgcloud.dmc.model.query.MicroServiceParam"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        dmc_micro_service
+        WHERE 1 = 1
+        <if test="serviceName != null">
+            and service_name = #{serviceName,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null">
+            and status = #{status,jdbcType=INTEGER}
+        </if>
+        ORDER BY sort asc
+    </select>
+</mapper>

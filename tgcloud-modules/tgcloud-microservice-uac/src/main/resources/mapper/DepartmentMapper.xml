@@ -17,9 +17,9 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, deptname, status, description, parentid, sort, version, creator, creator_id, created_time,
-    update_operator, update_operator_id, update_time
-  </sql>
+        id, deptname, status, description, parentid, sort, version, creator, creator_id, created_time,
+        update_operator, update_operator_id, update_time
+    </sql>
     <sql id="Base_Colunm_Where">
         <if test="deptname != null">
             and ${alias}.deptname = #{deptname,jdbcType=VARCHAR}
