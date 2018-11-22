@@ -5,6 +5,9 @@ spring:
     active: @profileActive@
   application:
     name: @pom.artifactId@
+  datasource:
+    username: tiger
+    password: 123456
   boot:
     admin:
       client:

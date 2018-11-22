@@ -30,6 +30,12 @@ public class MicroServiceInfo extends BaseEntity {
     public String serviceName;
 
     /**
+     * 服务应用名
+     */
+    @Column(name = "service_code")
+    public String serviceCode;
+
+    /**
      * 路由别名
      */
     @Column(name = "route_name")
@@ -42,7 +48,7 @@ public class MicroServiceInfo extends BaseEntity {
     public String routePrefix;
 
     /**
-     * 服务标示
+     * 服务ID
      */
     @Column(name = "client_id")
     public String clientId;
