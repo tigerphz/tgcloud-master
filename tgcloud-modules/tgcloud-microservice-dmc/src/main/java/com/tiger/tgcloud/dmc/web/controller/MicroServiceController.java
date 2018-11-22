@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,9 @@ import javax.validation.Valid;
 public class MicroServiceController extends BaseController {
     @Autowired
     private MicroServiceService microServiceService;
+
+    @Autowired
+    private AmqpTemplate rabbitmqTemplate;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ApiOperation("获取微服务信息")
@@ -84,5 +88,15 @@ public class MicroServiceController extends BaseController {
     })
     public Wrapper<Boolean> delete(@PathVariable(value = "id") Long id) {
         return WrapMapper.ok(microServiceService.deleteMicroService(id));
+    }
+
+    @RequestMapping(value = "/reflesh/routes", method = RequestMethod.PUT)
+    @ApiOperation("更新zuul动态路由信息")
+    @ApiImplicitParams({
+    })
+    public Wrapper<Boolean> refleshRoutes() {
+        this.rabbitmqTemplate.convertAndSend("exchage", "topic_loadroutes", "refleshRoutes");
+
+        return WrapMapper.ok();
     }
 }

@@ -106,7 +106,7 @@ public class CustomDiscoveryClientRouteLocator extends DiscoveryClientRouteLocat
 
     private List<ZuulRouteBO> getZuulRouteFromDB() {
         List<ZuulRouteBO> results = jdbcTemplate.query("SELECT \n" +
-                        "\tservice_code id,\n" +
+                        "\troute_name id,\n" +
                         "    base_url path,\n" +
                         "    service_code serviceId\n" +
                         "FROM\n" +
