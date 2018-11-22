@@ -52,7 +52,7 @@ public class CustomDiscoveryClientRouteLocator extends DiscoveryClientRouteLocat
 
         if (CollectionUtils.isEmpty(routesdb)) {
             //从db中加载路由信息
-            routesdb = loadLocateRoutesFromDB();
+            loadLocateRoutesFromDB();
         }
 
         routesMap.putAll(routesdb);
@@ -60,7 +60,7 @@ public class CustomDiscoveryClientRouteLocator extends DiscoveryClientRouteLocat
         return routesMap;
     }
 
-    private Map<String, ZuulProperties.ZuulRoute> loadLocateRoutesFromDB() {
+    public void loadLocateRoutesFromDB() {
         log.info("load zuul route info from db");
 
         Map<String, ZuulProperties.ZuulRoute> routes = new LinkedHashMap<>();
@@ -100,7 +100,8 @@ public class CustomDiscoveryClientRouteLocator extends DiscoveryClientRouteLocat
             }
             values.put(path, entry.getValue());
         }
-        return values;
+
+        routesdb = values;
     }
 
     private List<ZuulRouteBO> getZuulRouteFromDB() {
