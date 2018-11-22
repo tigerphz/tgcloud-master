@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMqConfig {
     @Bean
     public Queue queueMessage() {
-        return new Queue("topic_loadroutes");
+        return new Queue("topic_refreshroutes");
     }
 
 
@@ -30,6 +30,6 @@ public class RabbitMqConfig {
 
     @Bean
     Binding bindingExchangeMessages(Queue queueMessages, TopicExchange exchange) {
-        return BindingBuilder.bind(queueMessages).to(exchange).with("topic_loadroutes");
+        return BindingBuilder.bind(queueMessages).to(exchange).with("topic_refreshroutes");
     }
 }

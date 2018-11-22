@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @modified by:
  */
 @Component
-@RabbitListener(queues = "topic_loadroutes")
+@RabbitListener(queues = "topic_refreshroutes")
 @Slf4j
 public class LoadRoutesMq {
     @Autowired
@@ -24,7 +24,7 @@ public class LoadRoutesMq {
 
     @RabbitHandler
     public void process(String msg) {
-        log.info("Receiver topic_loadroutes mq :" + msg);
+        log.info("Receiver topic_refreshroutes mq :" + msg);
 
         if (discoveryClientRouteLocator instanceof CustomDiscoveryClientRouteLocator) {
             CustomDiscoveryClientRouteLocator customDiscoveryClientRouteLocator =
