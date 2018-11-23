@@ -14,7 +14,7 @@ import com.tiger.tgcloud.dmc.model.query.MicroServiceParam;
 public interface MicroServiceService {
 
     /**
-     * 分页查询部门列表
+     * 分页查询微服务列表
      *
      * @param param
      * @return
@@ -22,7 +22,7 @@ public interface MicroServiceService {
     PageInfo<MicroServiceInfo> selectByConditionWithPage(MicroServiceParam param);
 
     /**
-     * 添加部门信息
+     * 添加微服务信息
      *
      * @param microServiceInfo
      * @return
@@ -30,7 +30,7 @@ public interface MicroServiceService {
     Boolean addMicroService(MicroServiceInfo microServiceInfo);
 
     /**
-     * 更新部门信息
+     * 更新微服务信息
      *
      * @param microServiceInfo
      * @return
@@ -38,10 +38,17 @@ public interface MicroServiceService {
     Boolean updateMicroService(MicroServiceInfo microServiceInfo);
 
     /**
-     * 删除部门信息
+     * 删除微服务信息
      *
      * @param id
      * @return
      */
     Boolean deleteMicroService(Long id);
+
+    /**
+     * 更新微服务状态
+     *
+     * @return
+     */
+    Boolean updateRoleStatusById(MicroServiceInfo microServiceInfo);
 }

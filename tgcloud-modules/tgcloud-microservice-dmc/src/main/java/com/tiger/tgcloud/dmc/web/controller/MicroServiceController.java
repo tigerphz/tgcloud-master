@@ -90,6 +90,23 @@ public class MicroServiceController extends BaseController {
         return WrapMapper.ok(microServiceService.deleteMicroService(id));
     }
 
+    @RequestMapping(value = "/{id}/status/{status}", method = RequestMethod.PUT)
+    @ApiOperation(value = "更新微服务状态")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", name = "id", dataType = "Long", value = "Id", required = true),
+            @ApiImplicitParam(paramType = "path", name = "status", dataType = "Long", value = "状态", required = true)
+    })
+    public Wrapper<Boolean> updateStatus(@PathVariable(value = "id") Long id, @PathVariable(value = "status") Integer status) {
+        MicroServiceInfo microServiceInfo = new MicroServiceInfo();
+        microServiceInfo.setId(id);
+        microServiceInfo.setStatus(status);
+
+        LoginAuthDto loginAuthDto = getLoginAuthDto();
+        microServiceInfo.setUpdateInfo(loginAuthDto);
+
+        return WrapMapper.ok(microServiceService.updateRoleStatusById(microServiceInfo));
+    }
+
     @RequestMapping(value = "/reflesh/routes", method = RequestMethod.PUT)
     @ApiOperation("更新zuul动态路由信息")
     @ApiImplicitParams({

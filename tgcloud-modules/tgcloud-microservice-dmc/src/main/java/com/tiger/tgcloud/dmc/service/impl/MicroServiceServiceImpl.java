@@ -40,8 +40,8 @@ public class MicroServiceServiceImpl extends BaseService implements MicroService
             PageHelper.startPage(param.getPageNum(), param.getPageSize());
         }
 
-        List<MicroServiceInfo> departmentInfos = microServiceRepository.selectByCondition(param);
-        return new PageInfo<>(departmentInfos);
+        List<MicroServiceInfo> microServiceInfos = microServiceRepository.selectByCondition(param);
+        return new PageInfo<>(microServiceInfos);
     }
 
     /**
@@ -83,16 +83,28 @@ public class MicroServiceServiceImpl extends BaseService implements MicroService
      */
     @Override
     public Boolean deleteMicroService(Long id) {
-        MicroServiceInfo departmentInfo = new MicroServiceInfo();
-        departmentInfo.setId(id);
-        CheckUpdateDepartment(departmentInfo);
-
+        MicroServiceInfo microServiceInfo = new MicroServiceInfo();
+        microServiceInfo.setId(id);
+        CheckUpdateDepartment(microServiceInfo);
 
         return microServiceRepository.deleteByKey(id);
     }
 
-    private void CheckUpdateDepartment(MicroServiceInfo departmentInfo) {
-        long deptId = departmentInfo.getId();
+    /**
+     * 更新微服务状态
+     *
+     * @param microServiceInfo
+     * @return
+     */
+    @Override
+    public Boolean updateRoleStatusById(MicroServiceInfo microServiceInfo) {
+        CheckUpdateDepartment(microServiceInfo);
+
+        return microServiceRepository.update(microServiceInfo);
+    }
+
+    private void CheckUpdateDepartment(MicroServiceInfo microServiceInfo) {
+        long deptId = microServiceInfo.getId();
         MicroServiceInfo param = new MicroServiceInfo();
         param.setId(deptId);
         int count = microServiceRepository.selectCount(param);
