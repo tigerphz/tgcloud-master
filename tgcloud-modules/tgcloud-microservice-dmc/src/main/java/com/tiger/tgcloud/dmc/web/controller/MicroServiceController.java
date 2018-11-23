@@ -3,7 +3,7 @@ package com.tiger.tgcloud.dmc.web.controller;
 import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.base.dto.LoginAuthDto;
 import com.tiger.tgcloud.core.support.BaseController;
-import com.tiger.tgcloud.dmc.model.domain.MicroServiceInfo;
+import com.tiger.tgcloud.dmc.api.model.domain.MicroServiceInfo;
 import com.tiger.tgcloud.dmc.model.query.MicroServiceParam;
 import com.tiger.tgcloud.dmc.service.MicroServiceService;
 import com.tiger.tgcloud.utils.wrapper.WrapMapper;

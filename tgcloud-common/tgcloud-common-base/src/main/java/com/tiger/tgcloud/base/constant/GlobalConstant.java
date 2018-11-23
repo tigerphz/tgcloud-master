@@ -28,7 +28,7 @@ public class GlobalConstant {
 
     public static final String DEV_PROFILE = "dev";
     public static final String TEST_PROFILE = "test";
-    public static final String PRO_PROFILE = "pro";
+    public static final String PROD_PROFILE = "prod";
     public static final int TWO_INT = 2;
     public static final int M_SIZE = 1024;
     public static final String ROOT_PREFIX = "tgcloud";
@@ -179,58 +179,4 @@ public class GlobalConstant {
      * The constant N.
      */
     public static final Integer N = 0;
-
-    /**
-     * The enum Payment type enum.
-     *
-     * @author
-     */
-    public enum PaymentTypeEnum {
-        /**
-         * Online pay payment type enum.
-         */
-        ONLINE_PAY(1, "在线支付");
-
-        PaymentTypeEnum(int code, String value) {
-            this.code = code;
-            this.value = value;
-        }
-
-        private String value;
-        private int code;
-
-        /**
-         * Gets value.
-         *
-         * @return the value
-         */
-        public String getValue() {
-            return value;
-        }
-
-        /**
-         * Gets code.
-         *
-         * @return the code
-         */
-        public int getCode() {
-            return code;
-        }
-
-        /**
-         * Code of payment type enum.
-         *
-         * @param code the code
-         * @return the payment type enum
-         */
-        public static PaymentTypeEnum codeOf(int code) {
-            for (PaymentTypeEnum paymentTypeEnum : values()) {
-                if (paymentTypeEnum.getCode() == code) {
-                    return paymentTypeEnum;
-                }
-            }
-            return null;
-        }
-
-    }
 }

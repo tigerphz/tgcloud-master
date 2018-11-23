@@ -1,4 +1,4 @@
-package com.tiger.tgcloud.uac.model.domain;
+package com.tiger.tgcloud.uac.api.model.domain;
 
 import com.tiger.tgcloud.core.mybatis.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;

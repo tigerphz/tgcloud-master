@@ -1,7 +1,7 @@
 package com.tiger.tgcloud.dmc.repository.mapper;
 
 import com.tiger.tgcloud.core.mybatis.MyMapper;
-import com.tiger.tgcloud.dmc.model.domain.MicroServiceInfo;
+import com.tiger.tgcloud.dmc.api.model.domain.MicroServiceInfo;
 import com.tiger.tgcloud.dmc.model.query.MicroServiceParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;

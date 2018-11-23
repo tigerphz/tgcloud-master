@@ -1,5 +1,7 @@
 package com.tiger.tgcloud.gateway.route;
 
+import com.tiger.tgcloud.dmc.api.model.domain.MicroServiceInfo;
+import com.tiger.tgcloud.gateway.mapper.MicroServiceMapper;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -8,15 +10,15 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientRouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.discovery.ServiceRouteMapper;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import tk.mybatis.mapper.entity.Example;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @description: 动态加载zuul路由配置
@@ -27,15 +29,14 @@ import java.util.Map;
  */
 @Slf4j
 public class CustomDiscoveryClientRouteLocator extends DiscoveryClientRouteLocator {
-
-    private JdbcTemplate jdbcTemplate;
+    private MicroServiceMapper microServiceMapper;
 
     private ZuulProperties properties;
 
     private Map<String, ZuulProperties.ZuulRoute> routesdb;
 
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public void setMicroServiceMapper(MicroServiceMapper microServiceMapper) {
+        this.microServiceMapper = microServiceMapper;
     }
 
     public CustomDiscoveryClientRouteLocator(String servletPath, DiscoveryClient discovery, ZuulProperties properties,
@@ -105,15 +106,18 @@ public class CustomDiscoveryClientRouteLocator extends DiscoveryClientRouteLocat
     }
 
     private List<ZuulRouteBO> getZuulRouteFromDB() {
-        List<ZuulRouteBO> results = jdbcTemplate.query("SELECT \n" +
-                        "\troute_name id,\n" +
-                        "    base_url path,\n" +
-                        "    service_code serviceId\n" +
-                        "FROM\n" +
-                        "    tgcloud.dmc_micro_service\n" +
-                        "WHERE\n" +
-                        "    status = 0 AND is_route = 1",
-                new BeanPropertyRowMapper<>(ZuulRouteBO.class));
+        Example example = new Example(MicroServiceInfo.class);
+        example.createCriteria().andEqualTo("status", 0)
+                .andEqualTo("isRoute", true);
+        List<MicroServiceInfo> microServiceInfos = microServiceMapper.selectByExample(example);
+
+        List<ZuulRouteBO> results = microServiceInfos.stream().map(x -> {
+            ZuulRouteBO zuulRouteBO = new ZuulRouteBO();
+            zuulRouteBO.setId(x.routeName);
+            zuulRouteBO.setPath(x.getBaseUrl());
+            zuulRouteBO.setServiceId(x.serviceCode);
+            return zuulRouteBO;
+        }).collect(Collectors.toList());
 
         return results;
     }

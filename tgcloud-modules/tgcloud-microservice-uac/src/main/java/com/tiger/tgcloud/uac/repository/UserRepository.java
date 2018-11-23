@@ -1,7 +1,7 @@
 package com.tiger.tgcloud.uac.repository;
 
 import com.tiger.tgcloud.core.support.BaseRepository;
-import com.tiger.tgcloud.uac.model.domain.UserInfo;
+import com.tiger.tgcloud.uac.api.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.model.query.UserParam;
 import com.tiger.tgcloud.uac.repository.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;

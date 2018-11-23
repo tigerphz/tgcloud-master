@@ -1,7 +1,7 @@
 package com.tiger.tgcloud.uac.repository.mapper;
 
 import com.tiger.tgcloud.core.mybatis.MyMapper;
-import com.tiger.tgcloud.uac.model.domain.UserInfo;
+import com.tiger.tgcloud.uac.api.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.model.query.UserParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

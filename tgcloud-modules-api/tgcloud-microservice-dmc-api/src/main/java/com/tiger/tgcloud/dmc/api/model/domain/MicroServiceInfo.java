@@ -1,4 +1,4 @@
-package com.tiger.tgcloud.dmc.model.domain;
+package com.tiger.tgcloud.dmc.api.model.domain;
 
 import com.tiger.tgcloud.core.mybatis.BaseEntity;
 import lombok.Data;

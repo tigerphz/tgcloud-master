@@ -1,8 +1,8 @@
 package com.tiger.tgcloud.security;
 
-import com.tiger.tgcloud.model.UserInfo;
+import com.tiger.tgcloud.mapper.UserMapper;
 import com.tiger.tgcloud.security.core.SecurityUser;
-import com.tiger.tgcloud.service.UserService;
+import com.tiger.tgcloud.uac.api.model.domain.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private UserMapper userMapper;
 
     /**
      * Load user by username user details.
@@ -34,13 +34,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         log.info("loadUserByUsername username={}", username);
 
-        UserInfo user = userService.findByLoginName(username);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUsername(username);
+
+        UserInfo user = userMapper.selectOne(userInfo);
         if (user == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
 
-        return new SecurityUser(user.getId(), user.getUserName(), user.getPassword(),
-                user.getNickname(), user.getDeptid(), user.getDeptName(), user.getStatus(), null);
+        return new SecurityUser(user.getId(), user.getUsername(), user.getPasswordhash(),
+                user.getNickname(), user.getDeptid(), user.getDeptname(), user.getStatus(), null);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.tiger.tgcloud.dmc.repository;
 
 import com.tiger.tgcloud.core.support.BaseRepository;
-import com.tiger.tgcloud.dmc.model.domain.MicroServiceInfo;
+import com.tiger.tgcloud.dmc.api.model.domain.MicroServiceInfo;
 import com.tiger.tgcloud.dmc.model.query.MicroServiceParam;
 import com.tiger.tgcloud.dmc.repository.mapper.MicroServiceMapper;
 import org.springframework.beans.factory.annotation.Autowired;

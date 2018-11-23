@@ -304,9 +304,9 @@
             </activation>
         </profile>
         <profile>
-            <id>pro</id>
+            <id>prod</id>
             <properties>
-                <profileActive>pro</profileActive>
+                <profileActive>prod</profileActive>
             </properties>
         </profile>
     </profiles>

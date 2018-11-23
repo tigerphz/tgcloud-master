@@ -5,7 +5,7 @@ import com.tiger.tgcloud.base.dto.LoginAuthDto;
 import com.tiger.tgcloud.core.support.BaseController;
 import com.tiger.tgcloud.uac.mapping.UserMapping;
 import com.tiger.tgcloud.uac.model.domain.RoleInfo;
-import com.tiger.tgcloud.uac.model.domain.UserInfo;
+import com.tiger.tgcloud.uac.api.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.model.enums.UserTypeEnum;
 import com.tiger.tgcloud.uac.model.query.UserParam;
 import com.tiger.tgcloud.uac.model.vo.UserRolesVO;

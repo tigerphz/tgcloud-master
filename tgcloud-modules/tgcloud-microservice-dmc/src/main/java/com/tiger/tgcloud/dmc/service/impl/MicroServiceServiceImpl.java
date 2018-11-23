@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.tiger.tgcloud.base.enums.ErrorCodeEnum;
 import com.tiger.tgcloud.core.support.BaseService;
 import com.tiger.tgcloud.dmc.api.exceptions.DmcBizException;
-import com.tiger.tgcloud.dmc.model.domain.MicroServiceInfo;
+import com.tiger.tgcloud.dmc.api.model.domain.MicroServiceInfo;
 import com.tiger.tgcloud.dmc.model.query.MicroServiceParam;
 import com.tiger.tgcloud.dmc.repository.MicroServiceRepository;
 import com.tiger.tgcloud.dmc.service.MicroServiceService;

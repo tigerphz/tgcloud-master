@@ -5,7 +5,7 @@ import com.tiger.tgcloud.uac.model.bo.LoginedUserBO;
 import com.tiger.tgcloud.uac.model.bo.RouterTreeBO;
 import com.tiger.tgcloud.uac.model.domain.PermissionInfo;
 import com.tiger.tgcloud.uac.model.domain.RoleInfo;
-import com.tiger.tgcloud.uac.model.domain.UserInfo;
+import com.tiger.tgcloud.uac.api.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.repository.PermissionRepository;
 import com.tiger.tgcloud.uac.repository.RoleRepository;
 import com.tiger.tgcloud.uac.repository.UserRepository;

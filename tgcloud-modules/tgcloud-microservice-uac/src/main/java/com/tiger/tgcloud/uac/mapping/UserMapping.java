@@ -1,7 +1,7 @@
 package com.tiger.tgcloud.uac.mapping;
 
 import com.tiger.tgcloud.core.support.BasicObjectMapping;
-import com.tiger.tgcloud.uac.model.domain.UserInfo;
+import com.tiger.tgcloud.uac.api.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.model.vo.UserVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

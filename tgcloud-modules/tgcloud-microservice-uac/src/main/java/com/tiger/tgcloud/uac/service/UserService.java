@@ -1,8 +1,7 @@
 package com.tiger.tgcloud.uac.service;
 
 import com.github.pagehelper.PageInfo;
-import com.tiger.tgcloud.uac.model.bo.LoginedUserBO;
-import com.tiger.tgcloud.uac.model.domain.UserInfo;
+import com.tiger.tgcloud.uac.api.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.model.query.UserParam;
 
 import java.util.List;

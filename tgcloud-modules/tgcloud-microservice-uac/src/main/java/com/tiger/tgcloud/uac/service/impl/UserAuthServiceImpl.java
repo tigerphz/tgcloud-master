@@ -10,7 +10,7 @@ import com.tiger.tgcloud.dmc.api.model.domain.MqMessageData;
 import com.tiger.tgcloud.dmc.api.service.MqMessageFeignApi;
 import com.tiger.tgcloud.uac.api.exceptions.UacBizException;
 import com.tiger.tgcloud.uac.api.model.dto.UserRegisterDto;
-import com.tiger.tgcloud.uac.model.domain.UserInfo;
+import com.tiger.tgcloud.uac.api.model.domain.UserInfo;
 import com.tiger.tgcloud.uac.model.enums.EmailTemplateEnum;
 import com.tiger.tgcloud.uac.model.enums.UserSourceEnum;
 import com.tiger.tgcloud.uac.model.enums.UserStatusEnum;

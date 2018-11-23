@@ -1,5 +1,6 @@
 package com.tiger.tgcloud.gateway.config;
 
+import com.tiger.tgcloud.gateway.mapper.MicroServiceMapper;
 import com.tiger.tgcloud.gateway.route.CustomDiscoveryClientRouteLocator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -10,7 +11,6 @@ import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientR
 import org.springframework.cloud.netflix.zuul.filters.discovery.ServiceRouteMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  * @description: 动态加载zuul路由配置
@@ -37,13 +37,13 @@ public class CustomZuulConfig {
     ServerProperties server;
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    MicroServiceMapper microServiceMapper;
 
     @Bean
     public DiscoveryClientRouteLocator discoveryRouteLocator() {
         CustomDiscoveryClientRouteLocator routeLocator = new CustomDiscoveryClientRouteLocator(this.server.getServlet().getServletPrefix(), this.discovery, this.zuulProperties,
                 this.serviceRouteMapper, this.registration);
-        routeLocator.setJdbcTemplate(jdbcTemplate);
+        routeLocator.setMicroServiceMapper(microServiceMapper);
 
         return routeLocator;
     }
