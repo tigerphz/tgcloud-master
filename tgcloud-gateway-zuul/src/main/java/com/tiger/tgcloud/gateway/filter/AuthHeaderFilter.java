@@ -8,7 +8,8 @@ import com.tiger.tgcloud.core.interceptor.CoreHeaderInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
+import org.springframework.cloud.netflix.zuul.filters.Route;
+import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
@@ -20,7 +21,7 @@ import org.springframework.util.PatternMatchUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import java.util.List;
 
 /**
  * @description:
@@ -33,7 +34,7 @@ import java.util.Map;
 @Component
 public class AuthHeaderFilter extends ZuulFilter {
     @Autowired
-    private ZuulProperties properties;
+    private RouteLocator routeLocator;
 
     @Resource
     private JwtTokenStore jwtTokenStore;
@@ -99,8 +100,8 @@ public class AuthHeaderFilter extends ZuulFilter {
             return;
         }
 
-        Map<String, ZuulProperties.ZuulRoute> routeMaps = properties.getRoutes();
-        if (!routeMaps.values().stream().anyMatch(x ->
+        List<Route> routeMaps = routeLocator.getRoutes();
+        if (!routeMaps.stream().anyMatch(x ->
                 PatternMatchUtils.simpleMatch(x.getPath(), requestURI)
         )) {
             return;
