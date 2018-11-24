@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @modified by:
  */
 @Component
-@RabbitListener(queues = "topic_refreshroutes")
+@RabbitListener(queues = "refreshRoutes")
 @Slf4j
 public class LoadRoutesMq {
     @Autowired

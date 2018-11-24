@@ -112,7 +112,7 @@ public class MicroServiceController extends BaseController {
     @ApiImplicitParams({
     })
     public Wrapper<Boolean> refleshRoutes() {
-        this.rabbitmqTemplate.convertAndSend("exchage", "topic_refreshroutes", "refleshRoutes");
+        this.rabbitmqTemplate.convertAndSend("amq.topic", "Gateway_RefreshRoutes", "refleshRoutes");
 
         return WrapMapper.ok();
     }

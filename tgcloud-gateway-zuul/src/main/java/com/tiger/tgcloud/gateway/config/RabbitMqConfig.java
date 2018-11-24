@@ -18,18 +18,18 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMqConfig {
     @Bean
     public Queue queueMessage() {
-        return new Queue("topic_refreshroutes");
+        return new Queue("refreshRoutes");
     }
 
 
     @Bean
     TopicExchange exchange() {
-        return new TopicExchange("exchage");
+        return new TopicExchange("amq.topic");
     }
 
 
     @Bean
     Binding bindingExchangeMessages(Queue queueMessages, TopicExchange exchange) {
-        return BindingBuilder.bind(queueMessages).to(exchange).with("topic_refreshroutes");
+        return BindingBuilder.bind(queueMessages).to(exchange).with("Gateway_RefreshRoutes");
     }
 }
