@@ -3,6 +3,7 @@ package com.tiger.tgcloud.dmc.api.service.hystrix;
 import com.tiger.tgcloud.dmc.api.model.domain.MqMessageData;
 import com.tiger.tgcloud.dmc.api.service.MqMessageFeignApi;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
  * @modified by:
  */
 @Component
+@Slf4j
 public class MqMessageFeignHystrix implements MqMessageFeignApi {
     /**
      * @param mqMessageData
@@ -20,6 +22,7 @@ public class MqMessageFeignHystrix implements MqMessageFeignApi {
      */
     @Override
     public Wrapper saveAndSendMqMessage(MqMessageData mqMessageData) {
+        log.error("feign client MqMessageFeignApi.saveAndSendMqMessage() fail");
         return null;
     }
 }

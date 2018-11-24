@@ -3,6 +3,7 @@ package com.tiger.tgcloud.dmc.api.service.hystrix;
 import com.tiger.tgcloud.dmc.api.model.dto.GlobalExceptionLogDto;
 import com.tiger.tgcloud.dmc.api.service.ExceptionLogFeignApi;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,10 +14,12 @@ import org.springframework.stereotype.Component;
  * @modified by:
  */
 @Component
+@Slf4j
 public class ExceptionLogFeignHystrix implements ExceptionLogFeignApi {
 
     @Override
     public Wrapper saveAndSendExceptionLog(final GlobalExceptionLogDto exceptionLogDto) {
+        log.error("feign client ExceptionLogFeignApi.saveAndSendExceptionLog() fail");
         return null;
     }
 }
