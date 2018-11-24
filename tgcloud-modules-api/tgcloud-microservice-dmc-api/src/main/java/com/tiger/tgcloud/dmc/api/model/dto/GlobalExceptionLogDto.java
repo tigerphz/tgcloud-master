@@ -79,18 +79,6 @@ public class GlobalExceptionLogDto {
      * @return the global exception log dto
      */
     public GlobalExceptionLogDto getGlobalExceptionLogDto(Exception ex, String profile, String applicationName) {
-        String message = ex.getMessage();
-        if (StringUtils.isNotBlank(message) && message.length() > GlobalConstant.EXCEPTION_MESSAGE_MAX_LENGTH) {
-            this.exceptionMessage = StringUtils.substring(message, 0, GlobalConstant.EXCEPTION_MESSAGE_MAX_LENGTH) + "...";
-        }
-        this.exceptionSimpleName = ex.getClass().getSimpleName();
-        String cause = ex.getCause() == null ? null : ex.getCause().toString();
-        if (StringUtils.isNotBlank(cause) && cause.length() > GlobalConstant.EXCEPTION_CAUSE_MAX_LENGTH) {
-            this.exceptionCause = StringUtils.substring(cause, 0, GlobalConstant.EXCEPTION_CAUSE_MAX_LENGTH) + "...";
-        }
-        this.exceptionStack = Arrays.toString(ex.getStackTrace());
-
-        this.profile = profile;
         LoginAuthDto loginAuthDto = null;
 
         try {
@@ -102,8 +90,43 @@ public class GlobalExceptionLogDto {
         if (loginAuthDto == null) {
             loginAuthDto = new LoginAuthDto(-1L, "SYSTEM_TASK", "系统任务");
         }
+
+        return getGlobalExceptionLogDto(ex, profile, applicationName, loginAuthDto);
+    }
+
+    /**
+     * Gets global exception log dto.
+     *
+     * @param ex the ex
+     * @return the global exception log dto
+     */
+    public GlobalExceptionLogDto getGlobalExceptionLogDto(Exception ex, String profile, String applicationName, LoginAuthDto loginAuthDto) {
+        String message = ex.getMessage();
+        this.exceptionMessage = message;
+
+        if (StringUtils.isNotBlank(message) && message.length() > GlobalConstant.EXCEPTION_MESSAGE_MAX_LENGTH) {
+            this.exceptionMessage = StringUtils.substring(message, 0, GlobalConstant.EXCEPTION_MESSAGE_MAX_LENGTH) + "...";
+        }
+
+        this.exceptionSimpleName = ex.getClass().getSimpleName();
+        String cause = ex.getCause() == null ? null : ex.getCause().toString();
+        this.exceptionCause = cause;
+
+        if (StringUtils.isNotBlank(cause) && cause.length() > GlobalConstant.EXCEPTION_CAUSE_MAX_LENGTH) {
+            this.exceptionCause = StringUtils.substring(cause, 0, GlobalConstant.EXCEPTION_CAUSE_MAX_LENGTH) + "...";
+        }
+
+        this.exceptionStack = Arrays.toString(ex.getStackTrace());
+
+        this.profile = profile;
+
+        if (loginAuthDto == null) {
+            loginAuthDto = new LoginAuthDto(-1L, "SYSTEM_TASK", "系统任务");
+        }
+
         this.creatorId = loginAuthDto.getUserId();
         this.creator = loginAuthDto.getUserName();
+        this.createdTime = new Date();
         this.applicationName = applicationName;
         return this;
     }

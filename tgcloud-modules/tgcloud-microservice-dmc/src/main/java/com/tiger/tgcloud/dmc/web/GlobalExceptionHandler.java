@@ -1,9 +1,12 @@
 package com.tiger.tgcloud.dmc.web;
 
-import com.tiger.tgcloud.dmc.api.model.dto.GlobalExceptionLogDto;
-import com.tiger.tgcloud.dmc.api.service.ExceptionLogFeignApi;
+import com.tiger.tgcloud.base.constant.GlobalConstant;
+import com.tiger.tgcloud.base.dto.LoginAuthDto;
 import com.tiger.tgcloud.base.enums.ErrorCodeEnum;
 import com.tiger.tgcloud.base.exception.BusinessException;
+import com.tiger.tgcloud.dmc.api.model.dto.GlobalExceptionLogDto;
+import com.tiger.tgcloud.dmc.api.service.ExceptionLogFeignApi;
+import com.tiger.tgcloud.utils.ThreadLocalMap;
 import com.tiger.tgcloud.utils.wrapper.WrapMapper;
 import com.tiger.tgcloud.utils.wrapper.Wrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -76,8 +79,10 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Wrapper exception(Exception e) {
         log.info("保存全局异常信息 ex={}", e.getMessage());
+        LoginAuthDto loginAuthDto = (LoginAuthDto) ThreadLocalMap.get(GlobalConstant.Sys.TOKEN_AUTH_DTO);
+
         taskExecutor.execute(() -> {
-            GlobalExceptionLogDto globalExceptionLogDto = new GlobalExceptionLogDto().getGlobalExceptionLogDto(e, profile, applicationName);
+            GlobalExceptionLogDto globalExceptionLogDto = new GlobalExceptionLogDto().getGlobalExceptionLogDto(e, profile, applicationName, loginAuthDto);
             exceptionLogFeignApi.saveAndSendExceptionLog(globalExceptionLogDto);
         });
         return WrapMapper.error();
