@@ -79,28 +79,6 @@ public class GlobalExceptionLogDto {
      * @return the global exception log dto
      */
     public GlobalExceptionLogDto getGlobalExceptionLogDto(Exception ex, String profile, String applicationName) {
-        LoginAuthDto loginAuthDto = null;
-
-        try {
-            loginAuthDto = (LoginAuthDto) ThreadLocalMap.get(GlobalConstant.Sys.TOKEN_AUTH_DTO);
-        } catch (Exception e) {
-            log.error("获取登陆人信息, 出现异常={}", e.getMessage(), e);
-        }
-
-        if (loginAuthDto == null) {
-            loginAuthDto = new LoginAuthDto(-1L, "SYSTEM_TASK", "系统任务");
-        }
-
-        return getGlobalExceptionLogDto(ex, profile, applicationName, loginAuthDto);
-    }
-
-    /**
-     * Gets global exception log dto.
-     *
-     * @param ex the ex
-     * @return the global exception log dto
-     */
-    public GlobalExceptionLogDto getGlobalExceptionLogDto(Exception ex, String profile, String applicationName, LoginAuthDto loginAuthDto) {
         String message = ex.getMessage();
         this.exceptionMessage = message;
 
@@ -119,6 +97,14 @@ public class GlobalExceptionLogDto {
         this.exceptionStack = Arrays.toString(ex.getStackTrace());
 
         this.profile = profile;
+
+        LoginAuthDto loginAuthDto = null;
+
+        try {
+            loginAuthDto = (LoginAuthDto) ThreadLocalMap.get(GlobalConstant.Sys.TOKEN_AUTH_DTO);
+        } catch (Exception e) {
+            log.error("获取登陆人信息, 出现异常={}", e.getMessage(), e);
+        }
 
         if (loginAuthDto == null) {
             loginAuthDto = new LoginAuthDto(-1L, "SYSTEM_TASK", "系统任务");
