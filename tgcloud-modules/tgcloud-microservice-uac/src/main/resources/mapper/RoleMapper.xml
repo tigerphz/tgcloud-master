@@ -6,7 +6,6 @@
         <result column="rolename" jdbcType="VARCHAR" property="rolename"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
-        <result column="deptid" jdbcType="BIGINT" property="deptid"/>
         <result column="version" jdbcType="INTEGER" property="version"/>
         <result column="creator" jdbcType="VARCHAR" property="creator"/>
         <result column="creator_id" jdbcType="BIGINT" property="creatorId"/>
@@ -16,7 +15,7 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, rolename, status, description, deptid, version, creator, creator_id, created_time, 
+    id, rolename, status, description, version, creator, creator_id, created_time,
     update_operator, update_operator_id, update_time
   </sql>
     <sql id="Base_Colunm_Where">
@@ -28,9 +27,6 @@
         </if>
         <if test="description != null">
             and ${alias}.description = #{description,jdbcType=VARCHAR}
-        </if>
-        <if test="deptid != null">
-            and ${alias}.deptid = #{deptid,jdbcType=BIGINT}
         </if>
         <if test="version != null">
             and ${alias}.version = #{version,jdbcType=INTEGER}
@@ -69,9 +65,6 @@
             </if>
             <if test="description != null">
                 and u.description = #{description,jdbcType=VARCHAR}
-            </if>
-            <if test="deptid != null">
-                and u.deptid = #{deptid,jdbcType=BIGINT}
             </if>
         </where>
         order by u.update_time desc

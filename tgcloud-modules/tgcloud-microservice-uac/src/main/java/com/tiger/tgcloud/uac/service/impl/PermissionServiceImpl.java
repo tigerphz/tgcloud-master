@@ -207,7 +207,7 @@ public class PermissionServiceImpl extends BaseService implements PermissionServ
 
         menuBOList.forEach(x -> {
             RouterTreeBO routerTreeBO = new RouterTreeBO();
-            routerTreeBO.setName(x.getPermname());
+            routerTreeBO.setName(x.getName());
             routerTreeBO.setComponent(x.getComponent());
             routerTreeBO.setPath(x.getPath());
             routerTreeBO.setMeta(new RouterMetaBO(x.getIcon(), x.getTitle(), x.getCode()));

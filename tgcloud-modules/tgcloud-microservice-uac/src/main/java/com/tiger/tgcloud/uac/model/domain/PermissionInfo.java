@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
 
-import javax.persistence.Column;
 import javax.persistence.Table;
 
 /**
@@ -40,15 +39,38 @@ public class PermissionInfo extends BaseEntity {
 
     private String action;
 
+    /**
+     * 权限标识
+     */
     private String code;
 
+    /**
+     * 导航组件
+     */
     private String component;
 
+    /**
+     * 导航标题
+     */
     private String title;
 
+    /**
+     * 导航路径
+     */
     private String path;
 
+    /**
+     * 导航名称
+     */
+    private String name;
+
+    /**
+     * 是否导航
+     */
     private Boolean isnavigate;
 
+    /**
+     * 是否插件
+     */
     private Boolean isplugin;
 }

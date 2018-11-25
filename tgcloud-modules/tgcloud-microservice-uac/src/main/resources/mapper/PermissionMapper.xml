@@ -25,11 +25,12 @@
         <result column="path" jdbcType="VARCHAR" property="path"/>
         <result column="isnavigate" jdbcType="INTEGER" property="isnavigate"/>
         <result column="isplugin" jdbcType="INTEGER" property="isplugin"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
     </resultMap>
     <sql id="Base_Column_List">
     id, permname, status, description, type, icon, sort, parentid, url, action, code, version,
     creator, creator_id, created_time, update_operator, update_operator_id, update_time,
-    component, title, path, isnavigate, isplugin
+    component, title, path, isnavigate, isplugin, name
   </sql>
     <sql id="Base_Colunm_Where">
         <if test="permname != null">
@@ -97,6 +98,9 @@
         </if>
         <if test="isplugin != null">
             and ${alias}.isplugin = #{isplugin,jdbcType=INTEGER},
+        </if>
+        <if test="name != null">
+            and ${alias}.name = #{name,jdbcType=VARCHAR},
         </if>
     </sql>
 

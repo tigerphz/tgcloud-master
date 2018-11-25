@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.Alias;
 
 import javax.persistence.Table;
-import java.util.Date;
 
 /**
  * @description:
@@ -27,14 +26,4 @@ public class RoleInfo extends BaseEntity {
     private Integer status;
 
     private String description;
-
-    private Long deptid;
-
-    private Date createdate;
-
-    private String createusername;
-
-    private Date modifydate;
-
-    private String modifyusername;
 }

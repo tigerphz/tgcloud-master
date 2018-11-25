@@ -46,6 +46,11 @@ public class PermissionVO {
 
     private String path;
 
+    /**
+     * 导航名称
+     */
+    private String name;
+
     private Boolean isnavigate;
 
     private Boolean isplugin;
