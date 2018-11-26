@@ -93,6 +93,12 @@
 ```
 - 192.168.164.130 是我虚拟机地址,docker在我虚拟机中
 
+## mysql安装
+- 百度
+
+## redis安装
+- [http://www.xixi624.com/2018/05/17/docker-redis-install/](http://www.xixi624.com/2018/05/17/docker-redis-install/)
+
 ## docker 
 #### 资料说明
 - [docker](http://www.xixi624.com/categories/docker/)
@@ -161,9 +167,44 @@ mysql> GRANT ALL PRIVILEGES ON saga.* to 'saga'@'localhost' identified by '12345
 mysql> flush priveleges;
 mysql> exit
 ```
+## 项目预览
+##### 登陆入口
+![](http://lc-gjllsjil.cn-n1.lcfile.com/7fe7daa96745b407a21d.png)
+##### 用户管理
+![](http://lc-gjllsjil.cn-n1.lcfile.com/eb8fee3c87c2318d5ecb.png)
+##### 角色管理
+![](http://lc-gjllsjil.cn-n1.lcfile.com/5af7b1c3326912422262.png)
+##### 权限菜单管理
+![](http://lc-gjllsjil.cn-n1.lcfile.com/8b81559ca67aefc76da6.png)
+##### 部门管理
+![](http://lc-gjllsjil.cn-n1.lcfile.com/eb4101edaa8691c13399.png)
+##### 调度管理
+![](http://lc-gjllsjil.cn-n1.lcfile.com/c55f66332bde914d2409.png)
+##### icons图标
+![](http://lc-gjllsjil.cn-n1.lcfile.com/33b8aa67f450c32471fa.png)
+##### 微服务管理
+![](http://lc-gjllsjil.cn-n1.lcfile.com/3b6dd63abebea01db5b9.png)
+##### 异常日志
+![](http://lc-gjllsjil.cn-n1.lcfile.com/c629158fd1094c019aec.png)
+##### 服务健康
+![](http://lc-gjllsjil.cn-n1.lcfile.com/498d5a4bd4fa1a9a9750.png)
+##### 服务注册
+![](http://lc-gjllsjil.cn-n1.lcfile.com/7d56092d6f3920e74cc1.png)
+##### 断路器监控
+![](http://lc-gjllsjil.cn-n1.lcfile.com/7d98e22470dc93ad5b92.png)
+##### 服务链路
+![](http://lc-gjllsjil.cn-n1.lcfile.com/26e4fe7a04ad05d7cbf1.png)
+##### RabbitMQ监控
+![](http://lc-gjllsjil.cn-n1.lcfile.com/90ee01878b9cc8321cde.png)
+##### API文档
+![](http://lc-gjllsjil.cn-n1.lcfile.com/1f2ac1533bb008a8d815.png)
+
 
 ## 个人博客
 - [http://www.xixi624.com/](http://www.xixi624.com/)
+
+## 交流群
+![spring cloud交流群二维码](http://lc-gjllsjil.cn-n1.lcfile.com/7f311d14bd83fb7e4dcc.png)
 
 ## 感谢
 - [spring cloud 全家桶](http://spring.io/projects/spring-cloud)
