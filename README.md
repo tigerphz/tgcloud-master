@@ -7,6 +7,12 @@
 - 后端权限还在考虑是集中到网关还是放到各个微服务自行管理(待完成)
 - 完全开源，持续更新
 
+## 相关项目
+- [tgcloud-master 后台项目](https://github.com/tigerphz/tgcloud-master)
+- [tgcloud-master-web 后台管理项目](https://github.com/tigerphz/tgcloud-master-web)
+- [tgcloud-login-web 登陆入口项目](https://github.com/tigerphz/tgcloud-login-web)
+- [tgcloud-config-repo config配置](https://github.com/tigerphz/tgcloud-config-repo)
+
 ## 功能
 - 系统登陆 目前完成账号密码模式，可选短信验证码，社交模式后期会添加
 - 独立登陆入口 
