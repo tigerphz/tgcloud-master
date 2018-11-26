@@ -127,7 +127,7 @@ docker run -e PARAMS="--spring.datasource.url=jdbc:mysql://192.168.164.130:3306/
 ```shell
 apt-get install rabbitmq-server  #安装成功自动启动
 ```
-#### 查看 RabbitMq状
+#### 查看 RabbitMQ状态
 ```shell
 systemctl status rabbitmq-server   #Active: active (running) 说明处于运行状态
 ```
