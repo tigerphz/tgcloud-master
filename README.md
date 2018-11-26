@@ -153,7 +153,7 @@ mysql> exit
 ```
 
 ## 个人博客
--[http://www.xixi624.com/](http://www.xixi624.com/)
+- [http://www.xixi624.com/](http://www.xixi624.com/)
 
 ## 感谢
 - [spring cloud 全家桶](http://spring.io/projects/spring-cloud)
