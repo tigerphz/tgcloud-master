@@ -80,7 +80,7 @@ public class UserAuthServiceImpl extends BaseService implements UserAuthService 
         userInfo.setUsername(registerDto.getUserName());
         userInfo.setPasswordhash(Md5Util.encrypt(registerDto.getPassword()));
         userInfo.setMobile(mobileNo);
-        userInfo.setStatus(UserStatusEnum.UNENABLE.getKey());
+        userInfo.setStatus(UserStatusEnum.ENABLE.getKey());
         userInfo.setSource(UserSourceEnum.REGISTER.getKey());
         userInfo.setEmail(email);
         userInfo.setId(id);

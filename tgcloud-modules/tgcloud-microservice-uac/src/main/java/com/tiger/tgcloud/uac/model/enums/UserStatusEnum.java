@@ -13,9 +13,9 @@ import java.util.List;
 public enum UserStatusEnum {
 
     /*
-     * 未启用
+     * 删除
      */
-    UNENABLE(-1, "未启用"),
+    Delete(-1, "未启用"),
     /*
      * 启用
      */
