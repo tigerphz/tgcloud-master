@@ -65,8 +65,9 @@
 - 登陆密码都是123456
 - 监控账号密码 admin admin
 
-## 插件安装
-- 
+## 依赖插件
+- 安装lombok插件
+- 安装MapStruct support插件 
 
 ## tgcloud数据库初始化
 - 执行命令 tgcloud-solution\tgcloud-master\docs\sql\create-scripts\tgcloud.sql
