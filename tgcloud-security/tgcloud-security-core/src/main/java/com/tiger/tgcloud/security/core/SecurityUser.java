@@ -18,7 +18,7 @@ import java.util.Collection;
 public class SecurityUser implements UserDetails {
     private static final long serialVersionUID = 4872628781561412463L;
 
-    private static final String ENABLE = "1";
+    private static final String ENABLE = "0";
 
     private Collection<GrantedAuthority> authorities;
 

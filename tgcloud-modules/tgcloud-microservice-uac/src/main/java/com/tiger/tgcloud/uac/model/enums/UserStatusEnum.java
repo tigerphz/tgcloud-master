@@ -1,11 +1,7 @@
 package com.tiger.tgcloud.uac.model.enums;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @description:
@@ -19,15 +15,15 @@ public enum UserStatusEnum {
     /*
      * 未启用
      */
-    UNENABLE(0, "未启用"),
+    UNENABLE(-1, "未启用"),
     /*
      * 启用
      */
-    ENABLE(1, "启用"),
+    ENABLE(0, "启用"),
     /**
      * 禁用
      */
-    DISABLE(2, "禁用");
+    DISABLE(1, "禁用");
 
     /**
      * The Key.
