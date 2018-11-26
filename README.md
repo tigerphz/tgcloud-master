@@ -1,21 +1,119 @@
+## tgcloud
+- 前后端完全分离，基于Spring Boot Finchley.RELEASE
+- 前端使用[vue-element-admin框架](https://github.com/PanJiaChen/vue-element-admin)
+- 独立登陆入口
+- Spring Security OAuth 权限定制
+- 前端权限控制到按钮级别
+- 后端权限还在考虑是集中到网关还是放到各个微服务自行管理(待完成)
+- 完全开源，持续更新
+
+## 功能
+- 系统登陆 目前完成账号密码模式，可选短信验证码，社交模式后期会添加
+- 独立登陆入口 
+- 用户管理
+- 部门管理
+- 菜单权限管理
+- 角色管理
+- 微服务管理
+- 动态路由 通过维护微服务管理数据进行zuul动态加载刷新路由
+- 动态管理认证中心Client信息
+- 错误日志 记录系统未捕获异常日志
+- 服务限流：多种维度的流量控制（服务、IP、用户等）
+- 集成xxl-job进行调度管理
+- 聚合文档 基于zuul实现 swagger各个模块的实现
+- 服务监控 Spring Boot Admin
+- 断路器监控 集成RabbitMQ
+- 消息中心
+- zipkin链路追踪： 目前使用mysql保存数据
+
+- 还有很多功能后期会慢慢添加,后期会通过个人博客介绍
+
+## 架构介绍
+```shell
+./
+├── docs  
+├── logs                            
+├── tgcloud-common
+│   ├── tgcloud-common-base
+│   ├── tgcloud-common-core
+│   └── tgcloud-common-utils
+├── tgcloud-config
+├── tgcloud-control
+├── tgcloud-eureka
+├── tgcloud-gateway
+├── tgcloud-gateway-zuul
+├── tgcloud-modules
+│   ├── tgcloud-microservice-dmc
+│   └── tgcloud-microservice-uac
+├── tgcloud-modules-api
+│   ├── tgcloud-microservice-dmc-api
+│   └── tgcloud-microservice-uac-api
+└── tgcloud-security
+    ├── tgcloud-security-app
+    ├── tgcloud-security-authserver
+    ├── tgcloud-security-core
+    └── tgcloud-security-feign
+```
+
+## 账号
+- 登陆密码都是123456
+- 监控账号密码 admin admin
+
+## tgcloud数据库初始化
+- 执行命令 tgcloud-solution\tgcloud-master\docs\sql\create-scripts\tgcloud.sql
+
+## hosts配置
+```shell
+127.0.0.1 www.tgcloud.net
+127.0.0.1 passport.tgcloud.net
+127.0.0.1 admin.tgcloud.net
+127.0.0.1 api.tgcloud.net
+127.0.0.1 auth.tgcloud.net
+
+127.0.0.1 discovery.tgcloud.net
+127.0.0.1 eureka.tgcloud.net
+127.0.0.1 gateway.tgcloud.net
+127.0.0.1 monitor.tgcloud.net
+192.168.164.130 zipkin.tgcloud.net
+127.0.0.1 hystrix.tgcloud.net
+192.168.164.130 jobadmin.tgcloud.net
+192.168.164.130 mq.tgcloud.net
+127.0.0.1 redis.tgcloud.net
+127.0.0.1 mysql.tgcloud.net
+```
+- 192.168.164.130 是我虚拟机地址,docker在我虚拟机中
+
+## docker 
+#### 资料说明
+- [docker](http://www.xixi624.com/categories/docker/)
 
 ## zipkin 安装
 #### 资料说明
 - [https://blog.csdn.net/xichenguan/article/details/80041119](https://blog.csdn.net/xichenguan/article/details/80041119)
 - [https://github.com/openzipkin/zipkin/blob/master/zipkin-server/README.md#rabbitmq-collector](https://github.com/openzipkin/zipkin/blob/master/zipkin-server/README.md#rabbitmq-collector)
 - [https://hub.docker.com/r/openzipkin/zipkin/](https://hub.docker.com/r/openzipkin/zipkin/)
+#### 创建数据库
+- 执行脚本 tgcloud-solution\tgcloud-master\docs\zipkin.sql
 #### docker命令
 ```shell
 sudo docker run -it -p 9411:9411 -e STORAGE_TYPE=mysql -e MYSQL_DB=tgcloud_zipkin -e MYSQL_HOST=192.168.164.130 -e MYSQL_USER=root -e MYSQL_PASS=123456 -e RABBIT_ADDRESSES=192.168.164.130:5672 -e RABBIT_USER=admin -e RABBIT_PASSWORD=admin openzipkin/zipkin
 ```
+- 请自行修改数据库地址，账号密码等
 
 ## xxl-job 安装
+#### 资料说明
+- [http://www.xuxueli.com/xxl-job/#/](http://www.xuxueli.com/xxl-job/#/)
+#### 初始化数据库
+- 执行脚本 tgcloud-solution\tgcloud-master\docs\tables_xxl_job.sql
 #### docker命令
 ```shell
 docker run -e PARAMS="--spring.datasource.url=jdbc:mysql://192.168.164.130:3306/xxl-job?Unicode=true&characterEncoding=UTF-8 --server.port=8011 --spring.datasource.username=root --spring.datasource.password=123456" -p 8011:8011 -v /home/hadoop/xxl-job-admin/applogs:/data/applogs --name xxl-job-admin -d xuxueli/xxl-job-admin:2.0.0
 ```
+- 请自行修改数据库地址，账号密码等
 
 ## RabbitMQ 安装
+#### 资料说明
+- [RabbitMQ入门](http://www.xixi624.com/categories/RabbitMQ%E5%85%A5%E9%97%A8/)
 ```shell
 apt-get install rabbitmq-server  #安装成功自动启动
 ```
@@ -33,7 +131,7 @@ rabbitmq-server restart  # 重启
 rabbitmq-plugins enable rabbitmq_management   # 启用插件
 rabbitmq-server restart    # 重启
 ```
-## servicecomb-saga 使用
+## servicecomb-saga 使用(暂时未接入，后期分布式事务会接入)
 #### 资料说明
 [https://jeremy-xu.oschina.io/2018/07/servicecomb-saga%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98/](https://jeremy-xu.oschina.io/2018/07/servicecomb-saga%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98/)
 #### 获取源码：
@@ -53,3 +151,13 @@ mysql> GRANT ALL PRIVILEGES ON saga.* to 'saga'@'localhost' identified by '12345
 mysql> flush priveleges;
 mysql> exit
 ```
+
+## 个人博客
+-[http://www.xixi624.com/](http://www.xixi624.com/)
+
+## 感谢
+- [spring cloud 全家桶](http://spring.io/projects/spring-cloud)
+- [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
+- [paascloud-master](https://gitee.com/paascloud/paascloud-master)
+- [spring-cloud-zuul-ratelimit](https://github.com/marcosbarbero/spring-cloud-zuul-ratelimit)
+- [Spring Security开发安全的REST服务](https://coding.imooc.com/class/chapter/134.html#Anchor)
