@@ -1,6 +1,6 @@
 ## tgcloud
 - 前后端完全分离，基于Spring Boot Finchley.RELEASE
-- 前端使用[vue-element-admin框架](https://github.com/PanJiaChen/vue-element-admin)
+- 前端使用vue + element ui
 - 独立登陆入口
 - Spring Security OAuth 权限定制
 - 前端权限控制到按钮级别
@@ -8,9 +8,9 @@
 - 完全开源，持续更新
 
 ## 相关项目
-- [tgcloud-master 后台项目](https://github.com/tigerphz/tgcloud-master)
-- [tgcloud-master-web 后台管理项目](https://github.com/tigerphz/tgcloud-master-web)
-- [tgcloud-login-web 登陆入口项目](https://github.com/tigerphz/tgcloud-login-web)
+- [tgcloud-master 后端服务项目](https://github.com/tigerphz/tgcloud-master)
+- [tgcloud-master-web 后台管理web项目](https://github.com/tigerphz/tgcloud-master-web)
+- [tgcloud-login-web 登陆入口web项目](https://github.com/tigerphz/tgcloud-login-web)
 - [tgcloud-config-repo config配置](https://github.com/tigerphz/tgcloud-config-repo)
 
 ## 功能
@@ -115,6 +115,7 @@
 sudo docker run -it -p 9411:9411 -e STORAGE_TYPE=mysql -e MYSQL_DB=tgcloud_zipkin -e MYSQL_HOST=192.168.164.130 -e MYSQL_USER=root -e MYSQL_PASS=123456 -e RABBIT_ADDRESSES=192.168.164.130:5672 -e RABBIT_USER=admin -e RABBIT_PASSWORD=admin openzipkin/zipkin
 ```
 - 请自行修改数据库地址，账号密码等
+- 可以自行替换使用[elasticsearch](http://www.xixi624.com/2018/01/04/docker-elk-create/)
 
 ## xxl-job 安装
 #### 资料说明
@@ -173,7 +174,7 @@ mysql> exit
 ##### 用户管理
 ![](http://lc-gjllsjil.cn-n1.lcfile.com/eb8fee3c87c2318d5ecb.png)
 ##### 角色管理
-![](http://lc-gjllsjil.cn-n1.lcfile.com/5af7b1c3326912422262.png)
+![](http://lc-gjllsjil.cn-n1.lcfile.com/147378ed4b8459e3ea21.png)
 ##### 权限菜单管理
 ![](http://lc-gjllsjil.cn-n1.lcfile.com/8b81559ca67aefc76da6.png)
 ##### 部门管理
@@ -197,7 +198,7 @@ mysql> exit
 ##### RabbitMQ监控
 ![](http://lc-gjllsjil.cn-n1.lcfile.com/90ee01878b9cc8321cde.png)
 ##### API文档
-![](http://lc-gjllsjil.cn-n1.lcfile.com/1f2ac1533bb008a8d815.png)
+![](http://lc-gjllsjil.cn-n1.lcfile.com/8856c8df10844c6e8f4e.png)
 
 
 ## 个人博客
