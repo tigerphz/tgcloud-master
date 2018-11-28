@@ -71,7 +71,7 @@
 6. tgcloud-monitor
 
 ## 账号
-- 登陆密码都是123456
+- 登陆账号密码 admin 123456
 - 监控账号密码 admin admin
 
 ## 依赖插件
