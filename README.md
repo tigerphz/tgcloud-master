@@ -66,9 +66,10 @@
 1. tgcloud-eureka
 2. tgcloud-config
 3. tgcloud-security-authserver
-4. tgcloud-microservice-uac
-5. tgcloud-microservice-dmc
-6. tgcloud-monitor
+4. tgcloud-gateway-zuul
+5. tgcloud-microservice-uac
+6. tgcloud-microservice-dmc
+7. tgcloud-monitor
 
 ## 账号
 - 登陆账号密码 admin 123456
