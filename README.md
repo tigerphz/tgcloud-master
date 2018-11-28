@@ -45,6 +45,7 @@
 │   └── tgcloud-common-utils
 ├── tgcloud-config
 ├── tgcloud-control
+│   └── tgcloud-monitor
 ├── tgcloud-eureka
 ├── tgcloud-gateway
 ├── tgcloud-gateway-zuul
@@ -60,6 +61,14 @@
     ├── tgcloud-security-core
     └── tgcloud-security-feign
 ```
+
+## 启动顺序
+1. tgcloud-eureka
+2. tgcloud-config
+3. tgcloud-security-authserver
+4. tgcloud-microservice-uac
+5. tgcloud-microservice-dmc
+6. tgcloud-monitor
 
 ## 账号
 - 登陆密码都是123456
@@ -210,6 +219,7 @@ mysql> exit
 ## 感谢
 - [spring cloud 全家桶](http://spring.io/projects/spring-cloud)
 - [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
+- [element-ui](http://element-cn.eleme.io/2.0/#/zh-CN/component/installation)
 - [paascloud-master](https://gitee.com/paascloud/paascloud-master)
 - [spring-cloud-zuul-ratelimit](https://github.com/marcosbarbero/spring-cloud-zuul-ratelimit)
 - [Spring Security开发安全的REST服务](https://coding.imooc.com/class/chapter/134.html#Anchor)
