@@ -51,6 +51,6 @@ snowflakeid:
   workerId: 0
   datacenterId: 0
 
-alpha:
-  cluster:
-    address: localhost:8092
+#alpha:
+#  cluster:
+#    address: localhost:8092
