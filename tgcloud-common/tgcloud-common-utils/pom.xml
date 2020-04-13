@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tgcloud.common.utils</artifactId>
+    <artifactId>tgcloud-common-utils</artifactId>
 
-    <name>tgcloud.common.utils</name>
+    <name>tgcloud-common-utils</name>
 
     <dependencies>
         <dependency>

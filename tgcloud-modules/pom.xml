@@ -28,7 +28,7 @@
     <dependencies>
         <dependency>
             <groupId>com.tiger.tgcloud.common</groupId>
-            <artifactId>tgcloud.common.utils</artifactId>
+            <artifactId>tgcloud-common-utils</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
