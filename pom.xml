@@ -60,7 +60,7 @@
         <lombok-version>1.16.20</lombok-version>
         <java-jwt-version>3.3.0</java-jwt-version>
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
-        <fastjson.version>1.2.44</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <spring-aspects-version>5.0.4.RELEASE</spring-aspects-version>
         <context-support-version>5.0.3.RELEASE</context-support-version>
         <jjwt.version>0.9.1</jjwt.version>
